@@ -1,0 +1,25 @@
+:root {
+    /* Colors - Cyberpunk / Terminal Theme */
+    --bg-color: #0a0a0a;          /* Deep Black */
+    --bg-secondary: #111111;      /* Slightly Lighter Black */
+    --text-primary: #00ff41;      /* Matrix Green */
+    --text-secondary: #e0e0e0;    /* Off White */
+    --text-dim: #008f11;          /* Dim Green */
+    --accent: #003b00;            /* Dark Green Backgrounds */
+    --alert: #ff0055;             /* Cyberpunk Red/Pink for alerts */
+    --link: #00ffff;              /* Cyan for links */
+
+    /* Typography */
+    --font-mono: 'Courier New', Courier, monospace;
+    --font-heading: 'Fira Code', 'Courier New', monospace; /* Fallback to mono if Fira not loaded */
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+
+    /* Effects */
+    --glow: 0 0 10px rgba(0, 255, 65, 0.5);
+    --border-radius: 4px;
+}

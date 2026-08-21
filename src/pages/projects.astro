@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Projects | Mario Barajas" description="Cybersecurity projects including Splunk log analysis, vulnerability assessment, web penetration testing, and ransomware lab.">
+
+  <section id="projects">
+    <h2>> ./run_projects.sh</h2>
+    <div class="grid" style="gap: var(--spacing-md); margin-top: var(--spacing-sm);">
+
+      <div class="terminal-window">
+        <div class="terminal-header">root@kali: ~/projects/splunk-analysis</div>
+        <div style="padding: var(--spacing-sm);">
+          <h3 style="color: var(--alert);">[PROJECT] Linux Log Analysis with Splunk</h3>
+          <p style="margin: 10px 0; color: var(--text-secondary); font-weight: bold;">Configured centralized log collection and analysis using Splunk on Linux systems to detect suspicious activity.</p>
+          <ul style="margin-top: 10px; padding-left: 20px; color: var(--text-primary); list-style: '> ';">
+            <li>Installed Splunk Universal Forwarder on Ubuntu/Kali machines</li>
+            <li>Forwarded logs from auth, syslog, and Apache access logs</li>
+            <li>Created SPL queries to identify failed logins, root actions, and port scans</li>
+            <li>Set alerts for brute-force attempts</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">root@kali: ~/projects/vuln-assessment</div>
+        <div style="padding: var(--spacing-sm);">
+          <h3 style="color: var(--alert);">[PROJECT] Vulnerability Assessment</h3>
+          <p style="margin: 10px 0; color: var(--text-secondary); font-weight: bold;">Conducted vulnerability scans and analysis using industry tools to identify risks and recommend remediations.</p>
+          <ul style="margin-top: 10px; padding-left: 20px; color: var(--text-primary); list-style: '> ';">
+            <li>Scanned target systems using Nmap, Nessus Essentials, and OpenVAS</li>
+            <li>Detected outdated software, weak encryption, and misconfigurations</li>
+            <li>Assessed severity using CVSS scores and prioritized risks</li>
+            <li>Proposed remediation steps based on urgency and best practices</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">root@kali: ~/projects/web-pentest</div>
+        <div style="padding: var(--spacing-sm);">
+          <h3 style="color: var(--alert);">[PROJECT] Web Application Penetration Testing</h3>
+          <p style="margin: 10px 0; color: var(--text-secondary); font-weight: bold;">Performed offensive security testing on vulnerable web applications through established security frameworks.</p>
+          <ul style="margin-top: 10px; padding-left: 20px; color: var(--text-primary); list-style: '> ';">
+            <li>Conducted reconnaissance and scanning using OSINT and active tools</li>
+            <li>Exploited vulnerabilities such as SQLi, XSS, and broken authentication</li>
+            <li>Delivered a professional report with risk ratings and remediation steps</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">root@kali: ~/projects/ransomware-lab</div>
+        <div style="padding: var(--spacing-sm);">
+          <h3 style="color: var(--alert);">[PROJECT] Ransomware Development Lab (Python)</h3>
+          <p style="margin: 10px 0; color: var(--text-secondary); font-weight: bold;">Built and analyzed a proof of concept ransomware in an isolated VM to understand encryption behavior and defensive detection.</p>
+          <ul style="margin-top: 10px; padding-left: 20px; color: var(--text-primary); list-style: '> ';">
+            <li>Implemented file level encryption using Fernet and generated a separate key file</li>
+            <li>Created a custom decryptor requiring a passphrase to restore data</li>
+            <li>Tested file encryption/decryption behavior on controlled sample files</li>
+            <li>Documented attacker workflow, key handling, and defensive insights</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

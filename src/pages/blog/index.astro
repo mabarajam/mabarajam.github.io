@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Layout title="Blog | Mario Barajas" description="Cybersecurity blog by Mario Barajas — threat analysis, tools, and industry insights.">
+
+  <section id="blog">
+    <h2>> ls -la ./blog/</h2>
+    <p class="text-dim" style="margin-top: var(--spacing-sm);">// Cybersecurity insights, writeups, and research</p>
+
+    {sortedPosts.length === 0 ? (
+      <div class="terminal-window" style="margin-top: var(--spacing-md); text-align: center; padding: var(--spacing-lg);">
+        <p style="color: var(--text-dim);">> No posts found. Initializing blog module...</p>
+        <p style="color: var(--alert); margin-top: 1rem;">[STATUS]: First post coming soon.</p>
+      </div>
+    ) : (
+      <div style="margin-top: var(--spacing-md); display: grid; gap: var(--spacing-sm);">
+        {sortedPosts.map(post => (
+          <a href={`/blog/${post.id}`} style="text-decoration: none;">
+            <div class="terminal-window" style="cursor: pointer; transition: all 0.3s;">
+              <div class="terminal-header">root@kali: ~/blog/{post.id}</div>
+              <div style="padding: var(--spacing-sm);">
+                <h3 style="color: var(--alert);">[POST] {post.data.title}</h3>
+                <span class="text-dim" style="font-size: 0.85rem;">
+                  {post.data.date}
+                  {post.data.tags && post.data.tags.length > 0 && ` | ${post.data.tags.join(' · ')}`}
+                </span>
+                <p style="margin-top: 8px; color: var(--text-secondary);">{post.data.description}</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+
+</Layout>

@@ -1,0 +1,292 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Mario Barajas | Cybersecurity Analyst">
+
+  <!-- Hero Section -->
+  <section id="about" class="terminal-window">
+    <div class="terminal-header">
+      <span>user@mario-portfolio: ~</span>
+      <span>bash</span>
+    </div>
+    <div class="terminal-body" style="padding-top: var(--spacing-sm);">
+      <p>> cat profile.txt</p>
+      <br />
+      <h1 style="color: var(--text-secondary); margin-bottom: var(--spacing-sm);">MARIO BARAJAS</h1>
+      <p class="text-dim">
+        Vancouver, BC |
+        <span class="secure-email" data-email="mabarajam@gmail.com"
+          style="cursor: pointer; color: var(--alert); border-bottom: 1px dashed var(--alert);">[CLICK_TO_DECRYPT_EMAIL]</span>
+        | +1 (236) 591 2470
+      </p>
+      <br />
+      <p style="padding-left: 1.2em; text-indent: -1.2em; margin-bottom: 0.5em;">> Cybersecurity Analyst with experience in threat detection, risk mitigation, and IT security compliance, supported by a background in operations and customer facing roles.</p>
+      <p style="padding-left: 1.2em; text-indent: -1.2em; margin-bottom: 0.5em;">> Sales professional with a track record in financial services and client advisory, now applying that experience to communicate and position cybersecurity solutions effectively.</p>
+      <p style="padding-left: 1.2em; text-indent: -1.2em; margin-bottom: 0.5em;">> Bilingual in English and Spanish, detail oriented, and solution driven with a strong analytical mindset.</p>
+      <p style="padding-left: 1.2em; text-indent: -1.2em; margin-bottom: 0.5em;">> Actively building expertise in blockchain security, with a focus on smart contract vulnerabilities and DeFi risk analysis.</p>
+
+      <!-- Social Media -->
+      <div class="social-grid" style="margin-top: var(--spacing-sm); display: flex; gap: 15px; flex-wrap: wrap;">
+        <a href="https://www.linkedin.com/in/marioabarajas/" target="_blank" class="social-link"
+          style="color: var(--text-dim); text-decoration: none; font-size: 1rem; transition: all 0.3s;">
+          [ <i class="fab fa-linkedin"></i> LINKEDIN ]
+        </a>
+        <a href="https://medium.com/@mabarajam" target="_blank" class="social-link"
+          style="color: var(--text-dim); text-decoration: none; font-size: 1rem; transition: all 0.3s;">
+          [ <i class="fab fa-medium"></i> MEDIUM ]
+        </a>
+        <a href="https://github.com/mabarajam" target="_blank" class="social-link"
+          style="color: var(--text-dim); text-decoration: none; font-size: 1rem; transition: all 0.3s;">
+          [ <i class="fab fa-github"></i> GITHUB ]
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <h2>> ls -la ./skills/</h2>
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--spacing-sm); margin-top: var(--spacing-sm);">
+      <div class="terminal-window">
+        <h3 style="color: var(--text-secondary);">Network_&_Systems</h3>
+        <ul style="list-style: square; padding-left: 20px; color: var(--text-primary);">
+          <li>Network Configuration & Troubleshooting</li>
+          <li>Physical Security Systems (CCTV/DVR/NVR)</li>
+          <li>Linux (Administration, scripting, and offensive security tools)</li>
+        </ul>
+      </div>
+      <div class="terminal-window">
+        <h3 style="color: var(--text-secondary);">Security_&_Analysis</h3>
+        <ul style="list-style: square; padding-left: 20px; color: var(--text-primary);">
+          <li>IT Documentation & Compliance</li>
+          <li>SIEM / Monitoring Tools (Wazuh, Splunk)</li>
+          <li>Malware Analysis (Python)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificates Section -->
+  <section id="certificates">
+    <h2>> ./view_certificates.sh</h2>
+    <div class="cert-carousel-container">
+      <button class="carousel-btn prev" id="cert-prev">&lt;</button>
+      <div class="cert-grid" id="cert-grid">
+        <div class="cert-card" data-caption="Cybersecurity Specialist (Cornerstone)">
+          <img src="/assets/cornerstone cybersecurity.png" alt="Cybersecurity Specialist" class="cert-thumb" />
+          <div class="cert-title">Cybersecurity Specialist</div>
+        </div>
+        <div class="cert-card" data-caption="Networking Basics (CISCO)">
+          <img src="/assets/Networking_Basics.png" alt="Networking Basics" class="cert-thumb" />
+          <div class="cert-title">Networking Basics (CISCO)</div>
+        </div>
+        <div class="cert-card" data-caption="Network-Focused Security">
+          <img src="/assets/Network-Focused Security Medium1.png" alt="Network Security" class="cert-thumb" />
+          <div class="cert-title">Network-Focused Security</div>
+        </div>
+        <div class="cert-card" data-caption="Cybersecurity Fundamentals">
+          <img src="/assets/cybersecurity fundamentals1.png" alt="Cybersecurity Fundamentals" class="cert-thumb" />
+          <div class="cert-title">Cybersecurity Fundamentals</div>
+        </div>
+        <div class="cert-card" data-caption="Cloud Security Fundamentals">
+          <img src="/assets/Cloud Security Fundamentals Medium1.png" alt="Cloud Security" class="cert-thumb" />
+          <div class="cert-title">Cloud Security Fundamentals</div>
+        </div>
+        <div class="cert-card" data-caption="AI Development">
+          <img src="/assets/Dev_AI.png" alt="AI Development" class="cert-thumb" />
+          <div class="cert-title">AI Development</div>
+        </div>
+      </div>
+      <button class="carousel-btn next" id="cert-next">&gt;</button>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section id="locations">
+    <h2>> ./trace_route.sh</h2>
+    <div class="terminal-window">
+      <div class="terminal-header">NETWORK_NODES: [VANCOUVER] &lt;-&gt; [AGUASCALIENTES]</div>
+      <div id="map-container">
+        <div id="map"></div>
+      </div>
+      <p style="margin-top: 10px; color: var(--text-dim); font-size: 0.9em;">> Locations identified. Establishing secure connection...</p>
+    </div>
+  </section>
+
+</Layout>
+
+<!-- Certificate Lightbox Modal -->
+<div id="cert-modal">
+  <span id="modal-close">&times;</span>
+  <img id="modal-img" src="" alt="Certificate View" />
+  <div id="modal-caption"></div>
+</div>
+
+<script>
+  import maplibregl from 'maplibre-gl';
+  import * as turf from '@turf/turf';
+
+  // Email decrypt effect
+  document.querySelectorAll('.secure-email').forEach(element => {
+    element.addEventListener('click', function () {
+      const originalText = "[CLICK_TO_DECRYPT_EMAIL]";
+      const email = this.getAttribute('data-email');
+      const isCurrentlyRevealed = this.innerText === email;
+      const targetText = isCurrentlyRevealed ? originalText : email;
+      let iterations = 0;
+      const interval = setInterval(() => {
+        this.innerText = this.innerText.split('').map((letter, index) => {
+          if (index < iterations) return targetText[index];
+          return String.fromCharCode(65 + Math.floor(Math.random() * 26));
+        }).join('');
+        if (iterations >= targetText.length) {
+          clearInterval(interval);
+          this.innerText = targetText;
+          if (isCurrentlyRevealed) {
+            this.style.color = "var(--alert)";
+            this.style.borderBottom = "1px dashed var(--alert)";
+          } else {
+            this.style.color = "var(--text-primary)";
+            this.style.borderBottom = "none";
+          }
+        }
+        iterations += 1 / 3;
+      }, 30);
+    });
+  });
+
+  // Carousel
+  const certGrid = document.getElementById('cert-grid');
+  const prevBtn = document.getElementById('cert-prev');
+  const nextBtn = document.getElementById('cert-next');
+  if (certGrid && prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => certGrid.scrollBy({ left: -300, behavior: 'smooth' }));
+    nextBtn.addEventListener('click', () => certGrid.scrollBy({ left: 300, behavior: 'smooth' }));
+  }
+
+  // Lightbox
+  const modal = document.getElementById('cert-modal');
+  const modalImg = document.getElementById('modal-img');
+  const captionText = document.getElementById('modal-caption');
+  const closeBtn = document.getElementById('modal-close');
+  const certCards = Array.from(document.querySelectorAll('.cert-card'));
+  let currentCertIndex = 0;
+
+  const openCert = (index) => {
+    const card = certCards[index];
+    if (!card) return;
+    currentCertIndex = index;
+    modalImg.style.opacity = '0';
+    setTimeout(() => {
+      modalImg.src = card.querySelector('img').src;
+      captionText.innerText = card.getAttribute('data-caption');
+      modalImg.style.opacity = '1';
+    }, 150);
+  };
+
+  certCards.forEach((card, index) => {
+    card.addEventListener('click', () => {
+      modal.style.display = "flex";
+      setTimeout(() => modal.classList.add('active'), 10);
+      openCert(index);
+    });
+  });
+
+  const modalNavPrev = document.createElement('button');
+  modalNavPrev.id = 'modal-prev';
+  modalNavPrev.innerHTML = '&#10094;';
+  modalNavPrev.setAttribute('aria-label', 'Previous certificate');
+  const modalNavNext = document.createElement('button');
+  modalNavNext.id = 'modal-next';
+  modalNavNext.innerHTML = '&#10095;';
+  modalNavNext.setAttribute('aria-label', 'Next certificate');
+  modal.appendChild(modalNavPrev);
+  modal.appendChild(modalNavNext);
+
+  const showPrevCert = () => openCert((currentCertIndex - 1 + certCards.length) % certCards.length);
+  const showNextCert = () => openCert((currentCertIndex + 1) % certCards.length);
+  modalNavPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrevCert(); });
+  modalNavNext.addEventListener('click', (e) => { e.stopPropagation(); showNextCert(); });
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+    setTimeout(() => { modal.style.display = "none"; modalImg.src = ""; }, 300);
+  };
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (modal.style.display !== "flex") return;
+    if (e.key === "Escape") closeModal();
+    if (e.key === "ArrowLeft") showPrevCert();
+    if (e.key === "ArrowRight") showNextCert();
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  modal.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  modal.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 50) diff > 0 ? showNextCert() : showPrevCert();
+  }, { passive: true });
+
+  // Map
+  if (document.getElementById('map')) {
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: {
+        version: 8,
+        sources: {
+          'dark-matter': {
+            type: 'raster',
+            tiles: [
+              'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+              'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+            ],
+            tileSize: 256
+          }
+        },
+        layers: [{ id: 'dark-matter-layer', type: 'raster', source: 'dark-matter', minzoom: 0, maxzoom: 22 }]
+      },
+      center: [-108, 38],
+      zoom: 2.5,
+    });
+
+    const locations = [
+      { name: "Vancouver, BC", coords: [-123.1207, 49.2827], desc: "Current Base | Cybersecurity Operations" },
+      { name: "Aguascalientes, MX", coords: [-102.2916, 21.8853], desc: "Origin | Education & Early Career" }
+    ];
+
+    locations.forEach(loc => {
+      const el = document.createElement('div');
+      el.className = 'marker';
+      new maplibregl.Marker({ element: el })
+        .setLngLat(loc.coords)
+        .setPopup(new maplibregl.Popup({ offset: 25 }).setHTML(`<h3>${loc.name}</h3><p>${loc.desc}</p>`))
+        .addTo(map);
+    });
+
+    map.on('load', () => {
+      const origin = [-102.2916, 21.8853];
+      const destination = [-123.1207, 49.2827];
+      const route = turf.greatCircle(turf.point(origin), turf.point(destination));
+      map.addSource('route', { type: 'geojson', data: route });
+      map.addLayer({ id: 'route-line', type: 'line', source: 'route', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#ff0055', 'line-width': 2, 'line-opacity': 0.15 } });
+      map.addSource('comet', { type: 'geojson', data: turf.point(origin) });
+      map.addLayer({ id: 'comet-layer', type: 'circle', source: 'comet', paint: { 'circle-radius': 4, 'circle-color': '#ff0055', 'circle-blur': 0.2, 'circle-stroke-width': 3, 'circle-stroke-color': 'rgba(255, 0, 85, 0.4)' } });
+      const arcLength = turf.length(route, { units: 'kilometers' });
+      const steps = 300;
+      let counter = 0;
+      function animateComet() {
+        counter += 1;
+        if (counter >= steps) counter = 0;
+        const distance = (counter / steps) * arcLength;
+        const currentPoint = turf.along(route, distance, { units: 'kilometers' });
+        map.getSource('comet').setData(currentPoint);
+        requestAnimationFrame(animateComet);
+      }
+      animateComet();
+    });
+    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+  }
+</script>

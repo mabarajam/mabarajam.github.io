@@ -1,0 +1,109 @@
+---
+import '../styles/main.css';
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Mario Barajas | Cybersecurity Analyst',
+  description = 'Cybersecurity Analyst portfolio — threat detection, penetration testing, SIEM, and more.'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.0.0/dist/maplibre-gl.css" />
+</head>
+
+<body>
+  <div class="scanline"></div>
+
+  <!-- Visitor IP Tracker Widget -->
+  <div id="ip-tracker" style="position: fixed; bottom: 20px; right: 20px; font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.85rem; border: 1px solid var(--text-dim); border-left: 3px solid var(--text-primary); padding: 10px 15px; background: rgba(5, 5, 5, 0.9); box-shadow: 0 0 15px rgba(0, 255, 65, 0.15); z-index: 1000; display: none; backdrop-filter: blur(4px);">
+    <div style="color: var(--text-primary); margin-bottom: 5px; font-weight: bold; font-size: 0.75rem;">[ SYS.CONNECTION_ESTABLISHED ]</div>
+    <span style="color: var(--alert);">VISITOR_IP:</span> <span id="visitor-ip" style="color: var(--text-primary);">TRACING...</span>
+  </div>
+
+  <header>
+    <div class="container flex" style="justify-content: space-between; align-items: center;">
+      <div class="logo">> Mario_Barajas<span class="cursor">_</span></div>
+      <nav>
+        <ul class="flex" style="gap: var(--spacing-sm);">
+          <li><a href="/">./About</a></li>
+          <li><a href="/projects">./Projects</a></li>
+          <li><a href="/experience">./Experience</a></li>
+          <li><a href="/blog">./Blog</a></li>
+          <li><a href="/contact">./Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <slot />
+  </main>
+
+  <footer>
+    <div class="text-center text-dim">
+      <p>&copy; 2026 Mario Barajas. System Secure.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Visitor IP Tracker
+    function initIPTracker() {
+      const tracker = document.getElementById('ip-tracker');
+      const ipSpan = document.getElementById('visitor-ip');
+      if (!tracker || !ipSpan) return;
+      tracker.style.display = 'block';
+      let dotCount = 0;
+      const tracingInterval = setInterval(() => {
+        dotCount = (dotCount + 1) % 4;
+        ipSpan.innerText = 'TRACING' + '.'.repeat(dotCount);
+      }, 400);
+      const stopTracing = (text, color = 'var(--text-primary)') => {
+        clearInterval(tracingInterval);
+        let iterations = 0;
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.:';
+        ipSpan.style.color = color;
+        const revealInterval = setInterval(() => {
+          ipSpan.innerText = text.split('').map((char, index) => {
+            if (index < Math.floor(iterations)) return text[index];
+            return chars[Math.floor(Math.random() * chars.length)];
+          }).join('');
+          iterations += 0.4;
+          if (iterations >= text.length) {
+            clearInterval(revealInterval);
+            ipSpan.innerText = text;
+          }
+        }, 30);
+      };
+      const apiEndpoints = [
+        () => fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => d.ip),
+        () => fetch('https://api64.ipify.org?format=json').then(r => r.json()).then(d => d.ip),
+        () => fetch('https://ipapi.co/json/').then(r => r.json()).then(d => d.ip),
+      ];
+      const tryNext = (index) => {
+        if (index >= apiEndpoints.length) { stopTracing('ENCRYPTED / VPN', 'var(--alert)'); return; }
+        apiEndpoints[index]().then(ip => {
+          if (ip && ip.length > 0) stopTracing(ip);
+          else tryNext(index + 1);
+        }).catch(() => tryNext(index + 1));
+      };
+      setTimeout(() => tryNext(0), 600);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initIPTracker);
+    } else {
+      initIPTracker();
+    }
+  </script>
+</body>
+</html>

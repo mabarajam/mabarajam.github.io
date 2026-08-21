@@ -1,0 +1,58 @@
+/* Terminal Visuals */
+.terminal-window {
+    background-color: rgba(10, 10, 10, 0.95);
+    border: 1px solid var(--text-dim);
+    box-shadow: var(--glow);
+    padding: var(--spacing-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.terminal-header {
+    background-color: var(--accent);
+    color: var(--text-primary);
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Cursor Blink Effect */
+.cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1.2em;
+    background-color: var(--text-primary);
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Scanline Effect */
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 9999;
+}
