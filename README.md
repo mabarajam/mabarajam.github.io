@@ -1,42 +1,13 @@
-# Portfolio de Ciberseguridad - Mario Barajas
+# Mario Barajas — Cybersecurity Analyst Portfolio
 
-Este es el código fuente del portafolio personal, diseñado con una estética "Cyberpunk/Terminal".
+**Live site:** [mabarajam.github.io](https://mabarajam.github.io)
 
-## Estructura del Proyecto
+---
 
-El proyecto está diseñado para ser modular y fácil de mantener.
+Cybersecurity Analyst based in Vancouver, BC with experience in threat detection, SIEM monitoring, vulnerability assessment, and penetration testing.
 
-```text
-/
-├── index.html              # Archivo principal HTML
-├── src/
-│   ├── main.js             # Lógica principal
-│   └── styles/             # Estilos CSS
-│       ├── main.css        # Importador principal
-│       ├── variables.css   # Colores y fuentes
-│       ├── terminal.css    # Efectos visuales de terminal
-│       └── ...
-└── package.json            # Configuración de dependencias
-```
+**Skills:** Linux · Splunk · Wazuh · Nmap · Nessus · Python · CCTV/DVR Systems · Network Configuration
 
-## Instrucciones de Uso
+**Certifications:** CompTIA Security+ (SY0-701)
 
-1.  **Instalar dependencias**:
-    ```bash
-    npm install
-    ```
-
-2.  **Iniciar servidor de desarrollo** (para ver cambios en tiempo real):
-    ```bash
-    npm run dev
-    ```
-
-3.  **Construir para producción** (para subir a vercel/netlify):
-    ```bash
-    npm run build
-    ```
-
-## Tecnologías
-- **Vite**: Entorno de desarrollo ultrarrapido.
-- **Vanilla CSS**: Estilos puros sin frameworks pesados.
-- **Vanilla JS**: Lógica simple y directa.
+**Connect:** [LinkedIn](https://www.linkedin.com/in/marioabarajas/) · [Medium](https://medium.com/@mabarajam)
