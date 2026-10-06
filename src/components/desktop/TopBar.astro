@@ -4,9 +4,9 @@
 
 <header class="topbar" id="kali-topbar">
   <div class="topbar-left">
-    <button class="topbar-btn app-menu-btn" id="activities-btn" title="Kali Applications Menu">
+    <button class="topbar-btn app-menu-btn" id="activities-btn" title="Kali Applications Menu" aria-expanded="false" aria-haspopup="true">
       <img src="/brand/kali-dragon-icon.svg" alt="Kali" class="topbar-logo" />
-      <span style="font-weight: 600; font-size: 0.8rem;">Applications</span>
+      <span class="app-menu-text">Applications</span>
     </button>
 
     <!-- Authentic XFCE Window Buttons / Open Taskbar Tabs -->
@@ -43,4 +43,176 @@
 
     <span class="topbar-user">mario@kali</span>
   </div>
+
+  <!-- Kali Applications Dropdown Menu -->
+  <div class="kali-app-menu-dropdown" id="kali-app-menu" style="display: none;">
+    <div class="app-menu-header">
+      <img src="/brand/kali-dragon-icon.svg" alt="" width="22" height="22" />
+      <div class="app-menu-header-text">
+        <span class="app-menu-title">Kali Linux</span>
+        <span class="app-menu-subtitle">mario@kali-workstation</span>
+      </div>
+    </div>
+
+    <div class="app-menu-list">
+      <button class="app-menu-item" data-app="about">
+        <img src="/icons/app-info.svg" alt="" width="22" height="22" />
+        <div class="app-item-info">
+          <span class="app-item-name">01 - System Profiler</span>
+          <span class="app-item-desc">About Mario • Skills & Tools</span>
+        </div>
+      </button>
+
+      <button class="app-menu-item" data-app="projects">
+        <img src="/icons/app-folder.svg" alt="" width="22" height="22" />
+        <div class="app-item-info">
+          <span class="app-item-name">02 - Thunar File Manager</span>
+          <span class="app-item-desc">Cybersecurity Projects & Labs</span>
+        </div>
+      </button>
+
+      <button class="app-menu-item" data-app="experience">
+        <img src="/icons/app-experience.svg" alt="" width="22" height="22" />
+        <div class="app-item-info">
+          <span class="app-item-name">03 - Career History</span>
+          <span class="app-item-desc">Experience, Education & Certs</span>
+        </div>
+      </button>
+
+      <button class="app-menu-item" data-app="certs">
+        <img src="/icons/app-certs.svg" alt="" width="22" height="22" />
+        <div class="app-item-info">
+          <span class="app-item-name">04 - Credentials & Certs</span>
+          <span class="app-item-desc">CompTIA Security+ SY0-701</span>
+        </div>
+      </button>
+
+      <button class="app-menu-item" data-app="terminal">
+        <img src="/icons/app-terminal.svg" alt="" width="22" height="22" />
+        <div class="app-item-info">
+          <span class="app-item-name">05 - Terminal (qterminal)</span>
+          <span class="app-item-desc">Interactive Zsh Shell</span>
+        </div>
+      </button>
+
+      <button class="app-menu-item" data-app="map">
+        <img src="/icons/app-map.svg" alt="" width="22" height="22" />
+        <div class="app-item-info">
+          <span class="app-item-name">06 - Traceroute Map</span>
+          <span class="app-item-desc">Network Path Diagnostic</span>
+        </div>
+      </button>
+
+      <button class="app-menu-item" data-app="blog">
+        <img src="/icons/app-blog.svg" alt="" width="22" height="22" />
+        <div class="app-item-info">
+          <span class="app-item-name">07 - Security Writeups</span>
+          <span class="app-item-desc">Splunk & Threat Analysis</span>
+        </div>
+      </button>
+
+      <button class="app-menu-item" data-app="resume">
+        <img src="/icons/app-pdf.svg" alt="" width="22" height="22" />
+        <div class="app-item-info">
+          <span class="app-item-name">08 - Document Viewer</span>
+          <span class="app-item-desc">Mario Barajas Resume (PDF)</span>
+        </div>
+      </button>
+
+      <button class="app-menu-item" data-app="contact">
+        <img src="/icons/app-mail.svg" alt="" width="22" height="22" />
+        <div class="app-item-info">
+          <span class="app-item-name">09 - Mail & Connect</span>
+          <span class="app-item-desc">Encrypted ProtonMail Contact</span>
+        </div>
+      </button>
+
+      <a class="app-menu-item" href="https://mabarajam.github.io/CompTIASecurity-Practice/" target="_blank" rel="noopener">
+        <img src="/icons/app-lab.svg" alt="" width="22" height="22" />
+        <div class="app-item-info">
+          <span class="app-item-name">10 - Security+ Practice Lab</span>
+          <span class="app-item-desc">Interactive Practice Exam</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="app-menu-footer">
+      <a href="/simple" class="app-menu-switch-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+        <span>Switch to Simple View (Mobile / Recruiter)</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Mobile Suggestion Toast (Only shown on small screens) -->
+  <div class="kali-mobile-toast" id="kali-mobile-toast" style="display: none;">
+    <div class="toast-body">
+      <span class="toast-icon">📱</span>
+      <div class="toast-text">
+        <strong>Modo Celular:</strong> Para una lectura fluida en pantalla pequeña, usa la <em>Vista Simple</em>.
+      </div>
+    </div>
+    <div class="toast-actions">
+      <a href="/simple" class="toast-btn primary">Ver Vista Simple</a>
+      <button class="toast-btn dismiss" id="toast-dismiss-btn">Seguir en Kali</button>
+    </div>
+  </div>
 </header>
+
+<script>
+  function setupAppMenu() {
+    const btn = document.getElementById('activities-btn');
+    const menu = document.getElementById('kali-app-menu');
+    if (!btn || !menu || btn.dataset.ready === 'true') return;
+    btn.dataset.ready = 'true';
+
+    const toggle = (show?: boolean) => {
+      const willShow = show !== undefined ? show : menu.style.display === 'none';
+      menu.style.display = willShow ? 'flex' : 'none';
+      btn.setAttribute('aria-expanded', String(willShow));
+    };
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggle();
+    });
+
+    menu.querySelectorAll<HTMLElement>('.app-menu-item[data-app]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const app = item.dataset.app;
+        if (app) {
+          window.dispatchEvent(new CustomEvent('kali:open-app', { detail: { app } }));
+          toggle(false);
+        }
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target as Node) && !btn.contains(e.target as Node)) {
+        toggle(false);
+      }
+    });
+
+    // Mobile Toast check
+    const toast = document.getElementById('kali-mobile-toast');
+    const dismissBtn = document.getElementById('toast-dismiss-btn');
+    if (toast && window.innerWidth <= 768 && !sessionStorage.getItem('kali_mobile_toast_seen')) {
+      setTimeout(() => {
+        toast.style.display = 'flex';
+      }, 800);
+
+      dismissBtn?.addEventListener('click', () => {
+        toast.style.display = 'none';
+        sessionStorage.setItem('kali_mobile_toast_seen', 'true');
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupAppMenu);
+  } else {
+    setupAppMenu();
+  }
+  document.addEventListener('astro:after-swap', setupAppMenu);
+</script>
