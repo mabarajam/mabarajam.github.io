@@ -389,12 +389,25 @@ const { initialApp = 'about' } = Astro.props;
       const container = document.getElementById("topbar-window-tabs");
       if (!container) return;
 
+      const APP_SHORT_NAMES: Record<string, string> = {
+        about: "System Profiler",
+        projects: "projects",
+        experience: "Career History",
+        certs: "credentials",
+        terminal: "Terminal",
+        map: "traceroute",
+        blog: "Writeups",
+        contact: "Contact",
+        resume: "Resume (PDF)",
+      };
+
       const openWins = Array.from(document.querySelectorAll(".window.is-open")) as HTMLElement[];
       container.innerHTML = "";
 
       openWins.forEach(win => {
         const app = win.getAttribute("data-app") || "";
         const titleText = win.querySelector(".window-title-text")?.textContent || app;
+        const shortLabel = APP_SHORT_NAMES[app] || titleText;
         const isFocused = win.classList.contains("is-focused");
         const isMinimized = win.classList.contains("is-minimized");
 
@@ -404,7 +417,7 @@ const { initialApp = 'about' } = Astro.props;
         btn.setAttribute("title", `Switch to ${titleText}`);
         btn.innerHTML = `
           <span class="active-tab-dot"></span>
-          <span class="tab-title">${titleText}</span>
+          <span class="tab-title">${shortLabel}</span>
         `;
 
         btn.addEventListener("click", (e) => {
