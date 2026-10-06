@@ -223,20 +223,36 @@ const { initialApp = 'about' } = Astro.props;
     }
 
     private initEvents() {
-      // Dock item clicks
+      // Dock item clicks / touches
       document.querySelectorAll('.dock-item[data-app]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const app = btn.getAttribute('data-app');
-          if (app) this.toggleApp(app);
-        });
+        const app = btn.getAttribute('data-app');
+        if (!app) return;
+        let lastDockTouch = 0;
+        const trigger = (e: Event) => {
+          const now = Date.now();
+          if (now - lastDockTouch < 350) return;
+          lastDockTouch = now;
+          e.preventDefault();
+          this.toggleApp(app);
+        };
+        btn.addEventListener('click', trigger);
+        btn.addEventListener('touchend', trigger, { passive: false });
       });
 
-      // Desktop icons click / dblclick
+      // Desktop icons click / touch
       document.querySelectorAll('.desktop-icon[data-app]').forEach(item => {
-        item.addEventListener('click', () => {
-          const app = item.getAttribute('data-app');
-          if (app) this.openApp(app);
-        });
+        const app = item.getAttribute('data-app');
+        if (!app) return;
+        let lastIconTouch = 0;
+        const trigger = (e: Event) => {
+          const now = Date.now();
+          if (now - lastIconTouch < 350) return;
+          lastIconTouch = now;
+          e.preventDefault();
+          this.openApp(app);
+        };
+        item.addEventListener('click', trigger);
+        item.addEventListener('touchend', trigger, { passive: false });
       });
 
       // Window control buttons & header dragging
@@ -244,9 +260,13 @@ const { initialApp = 'about' } = Astro.props;
         const win = winEl as HTMLElement;
         const app = win.getAttribute('data-app') || '';
 
-        // Focus on click
-        win.addEventListener('pointerdown', () => this.focusWindow(win), { capture: true });
-        win.addEventListener('mousedown', () => this.focusWindow(win), { capture: true });
+        // Focus on click/touch (ignore if touching window controls directly)
+        const focusHandler = (e: Event) => {
+          if ((e.target as HTMLElement).closest('.window-controls')) return;
+          this.focusWindow(win);
+        };
+        win.addEventListener('pointerdown', focusHandler, { capture: true });
+        win.addEventListener('mousedown', focusHandler, { capture: true });
 
         // Ensure outer window frame never scrolls internally
         win.addEventListener('scroll', () => {
@@ -254,23 +274,41 @@ const { initialApp = 'about' } = Astro.props;
           if (win.scrollLeft !== 0) win.scrollLeft = 0;
         });
 
+        // Window controls container: isolate touch and pointer events
+        const controls = win.querySelector('.window-controls') as HTMLElement;
+        if (controls) {
+          controls.addEventListener('pointerdown', (e) => e.stopPropagation());
+          controls.addEventListener('touchstart', (e) => e.stopPropagation());
+          controls.addEventListener('mousedown', (e) => e.stopPropagation());
+        }
+
+        // Helper for reliable button actions on desktop and touchscreens
+        const bindButtonAction = (btn: HTMLElement | null, action: () => void) => {
+          if (!btn) return;
+          let lastAction = 0;
+          const trigger = (e: Event) => {
+            const now = Date.now();
+            if (now - lastAction < 350) return;
+            lastAction = now;
+            e.preventDefault();
+            e.stopPropagation();
+            action();
+          };
+          btn.addEventListener('touchend', trigger, { passive: false });
+          btn.addEventListener('click', trigger);
+        };
+
         // Close button
-        win.querySelector('.btn-close')?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          this.closeApp(app);
-        });
+        const closeBtn = win.querySelector('.btn-close') as HTMLElement;
+        bindButtonAction(closeBtn, () => this.closeApp(app));
 
         // Minimize button
-        win.querySelector('.btn-minimize')?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          this.minimizeApp(app);
-        });
+        const minBtn = win.querySelector('.btn-minimize') as HTMLElement;
+        bindButtonAction(minBtn, () => this.minimizeApp(app));
 
         // Maximize button
-        win.querySelector('.btn-maximize')?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          this.toggleMaximize(win);
-        });
+        const maxBtn = win.querySelector('.btn-maximize') as HTMLElement;
+        bindButtonAction(maxBtn, () => this.toggleMaximize(win));
 
         // Header double click to toggle maximize
         const header = win.querySelector('.window-header') as HTMLElement;
@@ -426,10 +464,17 @@ const { initialApp = 'about' } = Astro.props;
           <span class="tab-title">${shortLabel}</span>
         `;
 
-        btn.addEventListener("click", (e) => {
+        let lastTabTouch = 0;
+        const triggerTab = (e: Event) => {
+          const now = Date.now();
+          if (now - lastTabTouch < 350) return;
+          lastTabTouch = now;
+          e.preventDefault();
           e.stopPropagation();
           this.toggleApp(app);
-        });
+        };
+        btn.addEventListener("click", triggerTab);
+        btn.addEventListener("touchend", triggerTab, { passive: false });
 
         container.appendChild(btn);
       });
@@ -449,6 +494,7 @@ const { initialApp = 'about' } = Astro.props;
       let initialTop = 0;
 
       handle.addEventListener('pointerdown', (e: PointerEvent) => {
+        if (window.innerWidth <= 768) return; // Never drag on mobile
         if (win.classList.contains('is-maximized')) return;
         if ((e.target as HTMLElement).closest('.window-controls')) return;
 

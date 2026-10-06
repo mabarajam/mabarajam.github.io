@@ -149,12 +149,12 @@
     <div class="toast-body">
       <span class="toast-icon">📱</span>
       <div class="toast-text">
-        <strong>Modo Celular:</strong> Para una lectura fluida en pantalla pequeña, usa la <em>Vista Simple</em>.
+        <strong>Mobile Mode:</strong> For a streamlined mobile reading experience, try <em>Simple View</em>.
       </div>
     </div>
     <div class="toast-actions">
-      <a href="/simple" class="toast-btn primary">Ver Vista Simple</a>
-      <button class="toast-btn dismiss" id="toast-dismiss-btn">Seguir en Kali</button>
+      <a href="/simple" class="toast-btn primary">Open Simple View</a>
+      <button class="toast-btn dismiss" id="toast-dismiss-btn" type="button">Stay in Kali</button>
     </div>
   </div>
 </header>
@@ -199,13 +199,20 @@
     const dismissBtn = document.getElementById('toast-dismiss-btn');
     if (toast && window.innerWidth <= 768 && !sessionStorage.getItem('kali_mobile_toast_seen')) {
       setTimeout(() => {
-        toast.style.display = 'flex';
-      }, 800);
+        if (toast && !sessionStorage.getItem('kali_mobile_toast_seen')) {
+          toast.style.display = 'flex';
+        }
+      }, 1000);
 
-      dismissBtn?.addEventListener('click', () => {
-        toast.style.display = 'none';
+      const dismissToast = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
         sessionStorage.setItem('kali_mobile_toast_seen', 'true');
-      });
+        toast.remove();
+      };
+
+      dismissBtn?.addEventListener('click', dismissToast);
+      dismissBtn?.addEventListener('touchend', dismissToast);
     }
   }
 

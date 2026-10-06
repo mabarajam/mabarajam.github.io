@@ -405,7 +405,15 @@
   transform: scale(1);
 }
 
+.window:not(.is-open) {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 .window.is-minimized {
+  display: none !important;
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
@@ -496,6 +504,9 @@
   display: flex;
   align-items: center;
   gap: 2px;
+  position: relative;
+  z-index: 100;
+  pointer-events: auto;
 }
 
 .window-control-btn {
@@ -508,6 +519,17 @@
   color: #abb2bf;
   background: transparent;
   transition: background 0.12s, color 0.12s;
+  pointer-events: auto;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.window-control-btn svg,
+.window-control-btn svg path,
+.window-control-btn svg rect {
+  pointer-events: none;
 }
 
 .window-control-btn:hover {
@@ -2163,9 +2185,9 @@
 /* Mobile Suggestion Toast */
 .kali-mobile-toast {
   position: fixed;
-  top: 44px;
-  right: 8px;
-  left: 8px;
+  bottom: 65px;
+  right: 12px;
+  left: 12px;
   max-width: 380px;
   margin: 0 auto;
   background: #181d26;
@@ -2173,16 +2195,16 @@
   border-left: 3px solid #23bac2;
   border-radius: 4px;
   padding: 10px 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85);
   z-index: 999999;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  animation: slideDown 0.2s ease-out;
+  animation: slideUp 0.2s ease-out;
 }
 
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -2386,23 +2408,39 @@
     padding: 0 4px 0 10px !important;
   }
 
+  .window:not(.is-open),
+  .window.is-minimized {
+    display: none !important;
+    pointer-events: none !important;
+  }
+
   .window-controls {
-    gap: 4px !important;
+    gap: 6px !important;
+    position: relative !important;
+    z-index: 200 !important;
+    pointer-events: auto !important;
   }
 
   .window-control-btn {
-    width: 34px !important;
+    width: 36px !important;
     height: 34px !important;
     border-radius: 4px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    touch-action: manipulation;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    cursor: pointer !important;
   }
 
   .window-control-btn.btn-close {
-    background: rgba(224, 108, 117, 0.25);
-    color: #e06c75;
+    background: rgba(224, 108, 117, 0.28);
+    color: #ff6b6b;
+  }
+
+  .window-control-btn.btn-minimize {
+    background: rgba(229, 192, 123, 0.22);
+    color: #e5c07b;
   }
 
   .window-control-btn svg {
