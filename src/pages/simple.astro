@@ -326,7 +326,7 @@ import { mediumPosts } from '../data/mediumPosts';
             </div>
             <div style="padding: 10px 14px; background: #14171d; border-top: 1px solid #232834; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.76rem; flex-wrap: wrap; gap: 8px;">
               <span style="color: #abb2bf;"><strong>Active Route:</strong> Aguascalientes, MX [Origin] &rarr; Vancouver, BC [Current Base]</span>
-              <span style="color: #4ade80;">[ CARTO DARK MATTER • ICMP VERIFIED • NO API KEY REQUIRED ]</span>
+              <span style="color: #4ade80;">[ SECURE LINK ACTIVE • ICMP TRACE OK ]</span>
             </div>
           </div>
         </div>
@@ -455,10 +455,7 @@ import { mediumPosts } from '../data/mediumPosts';
     if (!mapEl) return;
 
     const tiles = [
-      "https://a.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png",
-      "https://b.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png",
-      "https://c.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png",
-      "https://d.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
     ];
 
     try {
@@ -471,7 +468,7 @@ import { mediumPosts } from '../data/mediumPosts';
               type: "raster",
               tiles: tiles,
               tileSize: 256,
-              attribution: "© OpenStreetMap contributors © CARTO",
+              attribution: "Esri, DeLorme, NAVTEQ",
             },
           },
           layers: [

@@ -11,7 +11,7 @@ import { locations } from '../../data/profile';
       <span>TARGET: Vancouver, BC (49.2827° N, 123.1207° W)</span>
     </div>
     <div class="diag-stats">
-      <span class="diag-tag">CARTO Dark Matter (No API Key Required)</span>
+      <span class="diag-tag">ESRI Dark Gray Canvas</span>
       <span class="diag-tag green">PING: 48ms</span>
       <span class="diag-tag green">LOSS: 0.0%</span>
     </div>
@@ -47,7 +47,6 @@ import { locations } from '../../data/profile';
     const mapEl = document.getElementById('map');
     if (!mapEl) return;
 
-    // If map already exists, just trigger resize
     if (mapInstance) {
       try {
         mapInstance.resize();
@@ -58,12 +57,9 @@ import { locations } from '../../data/profile';
     if (isMapInitializing) return;
     isMapInitializing = true;
 
-    // Dark Matter tile servers (100% free, open source, no API key needed)
-    const tiles = [
-      'https://a.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png',
-      'https://b.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png',
-      'https://c.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png',
-      'https://d.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png',
+    // High-resolution ESRI Dark Gray Canvas (Clean, zero watermark, 100% free)
+    const esriTiles = [
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
     ];
 
     try {
@@ -72,20 +68,20 @@ import { locations } from '../../data/profile';
         style: {
           version: 8,
           sources: {
-            'dark-matter': {
+            'esri-dark': {
               type: 'raster',
-              tiles: tiles,
+              tiles: esriTiles,
               tileSize: 256,
-              attribution: '© OpenStreetMap contributors © CARTO',
+              attribution: 'Esri, DeLorme, NAVTEQ',
             },
           },
           layers: [
             {
-              id: 'dark-matter-layer',
+              id: 'esri-dark-layer',
               type: 'raster',
-              source: 'dark-matter',
+              source: 'esri-dark',
               minzoom: 0,
-              maxzoom: 20,
+              maxzoom: 16,
             },
           ],
         },
@@ -165,7 +161,6 @@ import { locations } from '../../data/profile';
 
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 
-      // Use ResizeObserver to ensure map canvas automatically adapts to window size
       const ro = new ResizeObserver(() => {
         if (mapInstance) {
           mapInstance.resize();
@@ -173,7 +168,6 @@ import { locations } from '../../data/profile';
       });
       ro.observe(mapEl);
 
-      // Multiple fallback resize timers
       setTimeout(() => map.resize(), 100);
       setTimeout(() => map.resize(), 300);
       setTimeout(() => map.resize(), 800);
@@ -184,7 +178,6 @@ import { locations } from '../../data/profile';
     }
   }
 
-  // Event handlers
   window.addEventListener('kali:map-ready', () => {
     setTimeout(initMapApp, 150);
   });
@@ -197,7 +190,6 @@ import { locations } from '../../data/profile';
     if (mapInstance) mapInstance.resize();
   });
 
-  // Check if map window is open on page load
   const checkInitial = () => {
     const win = document.getElementById('win-map');
     if (win && win.classList.contains('is-open')) {
