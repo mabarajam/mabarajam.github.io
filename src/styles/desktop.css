@@ -932,23 +932,41 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 8px;
+  padding: 6px 10px;
   border-radius: 3px;
   font-size: 0.78rem;
   color: #abb2bf;
   cursor: pointer;
   transition: all 0.12s;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  font: inherit;
 }
 
 .sidebar-item:hover {
   background: #1e2430;
-  color: #fff;
+  color: #ffffff;
 }
 
-.sidebar-item.active {
-  background: #23bac2;
-  color: #0b0e14;
-  font-weight: 700;
+.sidebar-item.active,
+.thunar-sidebar .sidebar-item.active {
+  background: #1e2634 !important;
+  color: #38bdf8 !important;
+  font-weight: 600;
+  border-left: 2px solid #23bac2;
+}
+
+.sidebar-item.active svg,
+.thunar-sidebar .sidebar-item.active svg {
+  color: #38bdf8 !important;
+  stroke: #38bdf8 !important;
+}
+
+.sidebar-item.active span,
+.thunar-sidebar .sidebar-item.active span {
+  color: #38bdf8 !important;
 }
 
 .thunar-main-area {
@@ -2027,13 +2045,7 @@
 /* ==========================================================================
    THUNAR: NAVIGABLE PLACES / VIEWS
    ========================================================================== */
-.thunar-sidebar .sidebar-item {
-  width: 100%;
-  text-align: left;
-  background: transparent;
-  border: none;
-  font: inherit;
-}
+
 
 .thunar-main-area {
   display: flex !important;
