@@ -4,19 +4,34 @@ import { locations } from '../../data/profile';
 ---
 
 <div class="map-app">
+  <!-- Map Diagnostic Sub-bar -->
+  <div class="map-diagnostic-bar">
+    <div class="diag-target">
+      <span class="diag-dot"></span>
+      <span>TARGET: Vancouver, BC (49.2827° N, 123.1207° W)</span>
+    </div>
+    <div class="diag-stats">
+      <span class="diag-tag">CARTO Dark Matter (No API Key Required)</span>
+      <span class="diag-tag green">PING: 48ms</span>
+      <span class="diag-tag green">LOSS: 0.0%</span>
+    </div>
+  </div>
+
+  <!-- Map Canvas Viewport -->
   <div class="map-viewport" id="kali-map-viewport">
     <div id="map-container">
       <div id="map"></div>
     </div>
   </div>
 
+  <!-- Live Hop Table / Status Footer -->
   <div class="map-footer-bar">
-    <div>
-      <span style="color: var(--kali-cyan); font-weight: 600;">ROUTE:</span>
+    <div class="map-footer-left">
+      <span style="color: var(--kali-cyan); font-weight: 700;">ROUTE:</span>
       <span>Aguascalientes, MX [Origin] &rarr; Vancouver, BC [Current Base]</span>
     </div>
-    <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-green);">
-      [ SECURE LINK ACTIVE ]
+    <div class="map-footer-right">
+      <span style="color: #4ade80;">[ SECURE LINK ACTIVE • ICMP TRACE OK ]</span>
     </div>
   </div>
 </div>
@@ -26,121 +41,262 @@ import { locations } from '../../data/profile';
   import * as turf from '@turf/turf';
 
   let mapInstance: any = null;
+  let isMapInitializing = false;
 
   function initMapApp() {
     const mapEl = document.getElementById('map');
     if (!mapEl) return;
 
-    // Destroy existing instance if any
+    // If map already exists, just trigger resize
     if (mapInstance) {
-      try { mapInstance.remove(); } catch (e) {}
-      mapInstance = null;
+      try {
+        mapInstance.resize();
+      } catch (e) {}
+      return;
     }
 
-    const map = new maplibregl.Map({
-      container: 'map',
-      style: {
-        version: 8,
-        sources: {
-          'dark-matter': {
-            type: 'raster',
-            tiles: [
-              'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-              'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-            ],
-            tileSize: 256,
-          },
-        },
-        layers: [
-          {
-            id: 'dark-matter-layer',
-            type: 'raster',
-            source: 'dark-matter',
-            minzoom: 0,
-            maxzoom: 22,
-          },
-        ],
-      },
-      center: [-110, 36],
-      zoom: 2.8,
-    });
+    if (isMapInitializing) return;
+    isMapInitializing = true;
 
-    mapInstance = map;
-
-    const locations = [
-      { name: 'Vancouver, BC', coords: [-123.1207, 49.2827] as [number, number], desc: 'Current Base | Cybersecurity Operations' },
-      { name: 'Aguascalientes, MX', coords: [-102.2916, 21.8853] as [number, number], desc: 'Origin | Education & Early Career' },
+    // Dark Matter tile servers (100% free, open source, no API key needed)
+    const tiles = [
+      'https://a.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png',
+      'https://b.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png',
+      'https://c.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png',
+      'https://d.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png',
     ];
 
-    locations.forEach(loc => {
-      const el = document.createElement('div');
-      el.className = 'marker';
-      new maplibregl.Marker({ element: el })
-        .setLngLat(loc.coords)
-        .setPopup(new maplibregl.Popup({ offset: 20 }).setHTML(`<h3>${loc.name}</h3><p>${loc.desc}</p>`))
-        .addTo(map);
-    });
-
-    map.on('load', () => {
-      const origin: [number, number] = [-102.2916, 21.8853];
-      const destination: [number, number] = [-123.1207, 49.2827];
-      const route = turf.greatCircle(turf.point(origin), turf.point(destination));
-
-      map.addSource('route', { type: 'geojson', data: route });
-      map.addLayer({
-        id: 'route-line',
-        type: 'line',
-        source: 'route',
-        layout: { 'line-join': 'round', 'line-cap': 'round' },
-        paint: {
-          'line-color': '#23bac2',
-          'line-width': 2.5,
-          'line-opacity': 0.7,
+    try {
+      const map = new maplibregl.Map({
+        container: 'map',
+        style: {
+          version: 8,
+          sources: {
+            'dark-matter': {
+              type: 'raster',
+              tiles: tiles,
+              tileSize: 256,
+              attribution: '© OpenStreetMap contributors © CARTO',
+            },
+          },
+          layers: [
+            {
+              id: 'dark-matter-layer',
+              type: 'raster',
+              source: 'dark-matter',
+              minzoom: 0,
+              maxzoom: 20,
+            },
+          ],
         },
+        center: [-110, 36],
+        zoom: 2.8,
+        attributionControl: false,
       });
 
-      map.addSource('comet', { type: 'geojson', data: turf.point(origin) });
-      map.addLayer({
-        id: 'comet-layer',
-        type: 'circle',
-        source: 'comet',
-        paint: {
-          'circle-radius': 5,
-          'circle-color': '#f43f5e',
-          'circle-blur': 0.1,
-          'circle-stroke-width': 3,
-          'circle-stroke-color': 'rgba(244, 63, 94, 0.5)',
-        },
+      mapInstance = map;
+
+      const locations = [
+        { name: 'Vancouver, BC', coords: [-123.1207, 49.2827] as [number, number], desc: 'Current Base | Cybersecurity Operations' },
+        { name: 'Aguascalientes, MX', coords: [-102.2916, 21.8853] as [number, number], desc: 'Origin | Education & Early Career' },
+      ];
+
+      locations.forEach(loc => {
+        const el = document.createElement('div');
+        el.className = 'marker';
+        new maplibregl.Marker({ element: el })
+          .setLngLat(loc.coords)
+          .setPopup(new maplibregl.Popup({ offset: 20 }).setHTML(`<h3>${loc.name}</h3><p>${loc.desc}</p>`))
+          .addTo(map);
       });
 
-      const arcLength = turf.length(route, { units: 'kilometers' });
-      const steps = 300;
-      let counter = 0;
+      map.on('load', () => {
+        const origin: [number, number] = [-102.2916, 21.8853];
+        const destination: [number, number] = [-123.1207, 49.2827];
+        const route = turf.greatCircle(turf.point(origin), turf.point(destination));
 
-      function animateComet() {
-        if (!mapInstance) return;
-        counter += 1;
-        if (counter >= steps) counter = 0;
-        const distance = (counter / steps) * arcLength;
-        const currentPoint = turf.along(route, distance, { units: 'kilometers' });
-        const cometSrc: any = map.getSource('comet');
-        if (cometSrc) {
-          cometSrc.setData(currentPoint);
+        map.addSource('route', { type: 'geojson', data: route });
+        map.addLayer({
+          id: 'route-line',
+          type: 'line',
+          source: 'route',
+          layout: { 'line-join': 'round', 'line-cap': 'round' },
+          paint: {
+            'line-color': '#23bac2',
+            'line-width': 2.5,
+            'line-opacity': 0.8,
+          },
+        });
+
+        map.addSource('comet', { type: 'geojson', data: turf.point(origin) });
+        map.addLayer({
+          id: 'comet-layer',
+          type: 'circle',
+          source: 'comet',
+          paint: {
+            'circle-radius': 5,
+            'circle-color': '#f43f5e',
+            'circle-blur': 0.1,
+            'circle-stroke-width': 3,
+            'circle-stroke-color': 'rgba(244, 63, 94, 0.5)',
+          },
+        });
+
+        const arcLength = turf.length(route, { units: 'kilometers' });
+        const steps = 300;
+        let counter = 0;
+
+        function animateComet() {
+          if (!mapInstance) return;
+          counter += 1;
+          if (counter >= steps) counter = 0;
+          const distance = (counter / steps) * arcLength;
+          const currentPoint = turf.along(route, distance, { units: 'kilometers' });
+          const cometSrc: any = map.getSource('comet');
+          if (cometSrc) {
+            cometSrc.setData(currentPoint);
+          }
+          requestAnimationFrame(animateComet);
         }
-        requestAnimationFrame(animateComet);
-      }
 
-      animateComet();
-    });
+        animateComet();
+        map.resize();
+      });
 
-    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 
-    // Resize map whenever window opens or changes size
-    window.addEventListener('resize', () => map.resize());
-    window.addEventListener('kali:window-resize', () => map.resize());
+      // Use ResizeObserver to ensure map canvas automatically adapts to window size
+      const ro = new ResizeObserver(() => {
+        if (mapInstance) {
+          mapInstance.resize();
+        }
+      });
+      ro.observe(mapEl);
+
+      // Multiple fallback resize timers
+      setTimeout(() => map.resize(), 100);
+      setTimeout(() => map.resize(), 300);
+      setTimeout(() => map.resize(), 800);
+    } catch (err) {
+      console.error('Error initializing map:', err);
+    } finally {
+      isMapInitializing = false;
+    }
   }
 
-  // Trigger setup when map app becomes visible or opened
-  window.addEventListener('kali:map-ready', initMapApp);
-  setTimeout(initMapApp, 600);
+  // Event handlers
+  window.addEventListener('kali:map-ready', () => {
+    setTimeout(initMapApp, 150);
+  });
+
+  window.addEventListener('resize', () => {
+    if (mapInstance) mapInstance.resize();
+  });
+
+  window.addEventListener('kali:window-resize', () => {
+    if (mapInstance) mapInstance.resize();
+  });
+
+  // Check if map window is open on page load
+  const checkInitial = () => {
+    const win = document.getElementById('win-map');
+    if (win && win.classList.contains('is-open')) {
+      setTimeout(initMapApp, 200);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', checkInitial);
+  } else {
+    checkInitial();
+  }
 </script>
+
+<style>
+  .map-app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 440px;
+    background: #0b0e14;
+  }
+
+  .map-diagnostic-bar {
+    height: 28px;
+    background: #14171e;
+    border-bottom: 1px solid #232732;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+  }
+
+  .diag-target {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #d8dee9;
+  }
+
+  .diag-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 6px #4ade80;
+  }
+
+  .diag-stats {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .diag-tag {
+    color: #717d93;
+    font-size: 0.68rem;
+  }
+
+  .diag-tag.green {
+    color: #4ade80;
+  }
+
+  .map-viewport {
+    flex: 1;
+    width: 100%;
+    min-height: 380px;
+    position: relative;
+  }
+
+  #map-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0b0e14;
+  }
+
+  #map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0b0e14;
+  }
+
+  .map-footer-bar {
+    height: 30px;
+    background: #12141a;
+    border-top: 1px solid #222631;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    font-size: 0.76rem;
+    font-family: var(--font-mono);
+    color: #717d93;
+  }
+</style>

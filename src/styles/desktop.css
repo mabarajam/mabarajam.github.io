@@ -464,6 +464,13 @@
 /* Window Body */
 .window-body {
   flex: 1;
+}
+
+.window[data-app="map"] .window-body,
+.window[data-app="resume"] .window-body {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
