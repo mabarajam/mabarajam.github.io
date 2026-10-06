@@ -1,0 +1,86 @@
+---
+import { projects } from '../../data/projects';
+---
+
+<div class="projects-app">
+  <aside class="projects-sidebar">
+    <div class="projects-sidebar-title">Directories</div>
+    <div class="projects-nav-item active" data-filter="all">
+      <i class="fa-solid fa-folder"></i>
+      <span>~/projects</span>
+    </div>
+    <div class="projects-nav-item" data-filter="lab">
+      <i class="fa-solid fa-flask"></i>
+      <span>~/labs</span>
+    </div>
+    <div class="projects-nav-item" data-filter="siem">
+      <i class="fa-solid fa-chart-line"></i>
+      <span>~/siem-logs</span>
+    </div>
+    <div class="projects-nav-item" data-filter="offensive">
+      <i class="fa-solid fa-shield-virus"></i>
+      <span>~/offensive-sec</span>
+    </div>
+
+    <div style="margin-top: auto; padding: 10px 0; border-top: 1px solid var(--border-subtle);">
+      <div style="font-size: 0.72rem; color: var(--text-dim); text-align: center;">
+        Total: 5 Projects & Labs
+      </div>
+    </div>
+  </aside>
+
+  <div class="projects-content">
+    <div class="projects-pathbar">
+      <i class="fa-solid fa-folder-tree" style="color: var(--kali-cyan);"></i>
+      <span>/home/mario/projects</span>
+      <span style="margin-left: auto; color: var(--text-dim); font-size: 0.75rem;">5 items • Read/Write</span>
+    </div>
+
+    <div class="projects-grid" id="projects-grid-container">
+      {projects.map(proj => (
+        <article class="project-card" data-slug={proj.slug}>
+          <div class="project-card-header">
+            <div class="project-card-icon">
+              <i class={proj.icon}></i>
+            </div>
+            {proj.badge && <span class="project-badge">{proj.badge}</span>}
+          </div>
+
+          <h3 class="project-card-title">{proj.title}</h3>
+
+          {proj.summary && <p class="project-card-summary">{proj.summary}</p>}
+
+          <ul class="project-card-bullets">
+            {proj.bullets.map(bullet => (
+              <li class="project-bullet-item">{bullet}</li>
+            ))}
+          </ul>
+
+          <div class="project-tags">
+            {proj.tags.map(tag => (
+              <span class="project-tag">{tag}</span>
+            ))}
+          </div>
+
+          {proj.links && proj.links.length > 0 && (
+            <div class="project-links">
+              {proj.links.map(link => (
+                <a
+                  href={link.url}
+                  target={link.external ? '_blank' : '_self'}
+                  rel={link.external ? 'noopener' : ''}
+                  class={`btn-project ${link.label.includes('Medium') ? 'secondary' : ''}`}
+                >
+                  {link.label.includes('Exam') && <i class="fa-solid fa-play"></i>}
+                  {link.label.includes('Walkthrough') && <i class="fa-solid fa-book-open"></i>}
+                  {link.label.includes('Medium') && <i class="fa-brands fa-medium"></i>}
+                  <span>{link.label}</span>
+                </a>
+              ))}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</div>

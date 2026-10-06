@@ -1,0 +1,76 @@
+---
+import { profile } from '../../data/profile';
+---
+
+<div class="contact-app">
+  <div class="contact-hero-card">
+    <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(35, 186, 194, 0.15); border: 1px solid rgba(35, 186, 194, 0.4); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; color: var(--kali-cyan); font-size: 1.5rem;">
+      <i class="fa-solid fa-envelope-open-text"></i>
+    </div>
+
+    <h2 style="font-size: 1.25rem; font-weight: 700; color: #fff;">Let's Connect</h2>
+    <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+      Looking for a dedicated Cybersecurity / SOC Analyst in Vancouver or remote? Reach out directly.
+    </p>
+
+    <!-- Direct Email Box with 1-click copy -->
+    <div class="contact-email-box">
+      <span id="contact-email-display">{profile.email}</span>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn-copy-email" id="copy-email-btn" title="Copy email address to clipboard">
+          <i class="fa-regular fa-copy"></i>
+          <span id="copy-btn-text">Copy</span>
+        </button>
+        <a href={`mailto:${profile.email}`} class="btn-copy-email" style="background: var(--kali-gradient);" title="Open email client">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Send</span>
+        </a>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
+      <a href="/resume.pdf" download={profile.resumeFileName} class="btn-social" style="background: rgba(255, 255, 255, 0.08);">
+        <i class="fa-solid fa-file-arrow-down" style="color: var(--color-green);"></i>
+        <span>Download Resume</span>
+      </a>
+
+      {profile.socials.map(s => (
+        <a href={s.url} target="_blank" rel="noopener" class="btn-social">
+          <i class={s.icon}></i>
+          <span>{s.label}</span>
+        </a>
+      ))}
+    </div>
+
+    <div style="margin-top: 24px; padding: 12px; background: rgba(10, 14, 22, 0.6); border-radius: 6px; border: 1px dashed var(--border-subtle); font-size: 0.78rem; color: var(--text-dim); text-align: left;">
+      <i class="fa-solid fa-terminal" style="color: var(--kali-cyan); margin-right: 6px;"></i>
+      <strong>Terminal Tip:</strong> Open the <strong>Terminal</strong> app and run <code>decrypt email</code> for the interactive security handshake animation!
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupContactApp() {
+    const copyBtn = document.getElementById('copy-email-btn');
+    const copyText = document.getElementById('copy-btn-text');
+    const emailDisplay = document.getElementById('contact-email-display');
+    if (!copyBtn || !copyText || !emailDisplay) return;
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(emailDisplay.innerText.trim());
+        copyText.innerText = 'Copied!';
+        copyBtn.style.background = 'var(--color-green)';
+        setTimeout(() => {
+          copyText.innerText = 'Copy';
+          copyBtn.style.background = '';
+        }, 2000);
+      } catch (err) {
+        copyText.innerText = 'Error';
+      }
+    });
+  }
+
+  setupContactApp();
+  document.addEventListener('astro:after-swap', setupContactApp);
+</script>

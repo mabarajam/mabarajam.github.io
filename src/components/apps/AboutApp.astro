@@ -1,0 +1,106 @@
+---
+import { profile, skillGroups, tools, trademarkNotice } from '../../data/profile';
+---
+
+<div class="about-app">
+  <!-- Neofetch System Information Box -->
+  <div class="neofetch-card">
+    <div class="neofetch-logo-box">
+      <img src="/brand/kali-dragon-icon.svg" alt="Kali Linux" class="neofetch-logo" />
+    </div>
+
+    <div class="neofetch-info">
+      <div class="neofetch-user-host">mario@kali-security-workstation</div>
+      <div class="neofetch-separator">-------------------------------</div>
+      <div class="neofetch-row"><span class="neofetch-key">OS:</span><span class="neofetch-val">Kali GNU/Linux (Mario Portfolio Edition)</span></div>
+      <div class="neofetch-row"><span class="neofetch-key">Host:</span><span class="neofetch-val">{profile.location}</span></div>
+      <div class="neofetch-row"><span class="neofetch-key">Role:</span><span class="neofetch-val">{profile.role}</span></div>
+      <div class="neofetch-row"><span class="neofetch-key">Uptime:</span><span class="neofetch-val">6+ years in IT & Security</span></div>
+      <div class="neofetch-row"><span class="neofetch-key">Cert:</span><span class="neofetch-val">CompTIA Security+ (SY0-701)</span></div>
+      <div class="neofetch-row"><span class="neofetch-key">Shell:</span><span class="neofetch-val">zsh 5.9 (x86_64-debian-linux)</span></div>
+      <div class="neofetch-row"><span class="neofetch-key">Status:</span><span class="neofetch-val" style="color: var(--color-green);">Open to SOC & Security Roles</span></div>
+
+      <div class="neofetch-palette">
+        <span class="palette-block" style="background: #2777ff;"></span>
+        <span class="palette-block" style="background: #23bac2;"></span>
+        <span class="palette-block" style="background: #38d39f;"></span>
+        <span class="palette-block" style="background: #fbbf24;"></span>
+        <span class="palette-block" style="background: #f43f5e;"></span>
+        <span class="palette-block" style="background: #a855f7;"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Professional Bio Section -->
+  <div class="about-section">
+    <h2 class="about-section-title">
+      <i class="fa-solid fa-terminal" style="color: var(--kali-cyan);"></i>
+      <span>Professional Summary</span>
+    </h2>
+    {profile.bio.map(paragraph => (
+      <p class="about-bio-p">{paragraph}</p>
+    ))}
+  </div>
+
+  <!-- Technical Skills Section -->
+  <div class="about-section">
+    <h2 class="about-section-title">
+      <i class="fa-solid fa-microchip" style="color: var(--kali-cyan);"></i>
+      <span>Core Competencies</span>
+    </h2>
+    <div class="skills-grid">
+      {skillGroups.map(group => (
+        <div class="skill-card">
+          <h3 class="skill-card-title">{group.title}</h3>
+          <ul class="skill-list">
+            {group.items.map(item => (
+              <li class="skill-item">
+                <span class="skill-bullet">></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Approved Tools Row -->
+    <div style="margin-top: 14px;">
+      <h3 style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600;">
+        <i class="fa-solid fa-wrench" style="margin-right: 6px; color: var(--kali-cyan);"></i>
+        Hands-on Security Tools & Technologies:
+      </h3>
+      <div class="tools-wrap">
+        {tools.map(tool => (
+          <span class="tool-chip">{tool}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions & Links -->
+  <div class="about-section">
+    <h2 class="about-section-title">
+      <i class="fa-solid fa-share-nodes" style="color: var(--kali-cyan);"></i>
+      <span>Connect & Resources</span>
+    </h2>
+    <div class="about-socials-row">
+      <a href="/resume.pdf" download={profile.resumeFileName} class="btn-social" style="background: var(--kali-gradient); border-color: transparent;">
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <span>Download Resume (PDF)</span>
+      </a>
+
+      {profile.socials.map(social => (
+        <a href={social.url} target="_blank" rel="noopener" class="btn-social">
+          <i class={social.icon}></i>
+          <span>{social.label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- OffSec Kali Trademark Disclaimer -->
+  <footer class="trademark-notice">
+    <p>{trademarkNotice}</p>
+  </footer>
+</div>

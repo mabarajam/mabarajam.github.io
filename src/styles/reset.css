@@ -1,48 +1,70 @@
-/* Modern CSS Reset */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+/* Reset Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-* {
-    margin: 0;
-    padding: 0;
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    background-color: var(--bg-color);
-    color: var(--text-primary);
-    font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  background-color: var(--bg-desktop);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-img,
-picture,
-video,
-canvas,
-svg {
-    display: block;
-    max-width: 100%;
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
 }
 
-input,
-button,
-textarea,
-select {
-    font: inherit;
-    background: none;
-    border: none;
-    color: inherit;
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
 }
 
 a {
-    color: var(--link);
-    text-decoration: none;
+  color: var(--kali-cyan);
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-ul,
-ol {
-    list-style: none;
+a:hover {
+  color: #38e1ea;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* Custom Scrollbar for Windows and dialogs */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(35, 186, 194, 0.5);
 }

@@ -1,0 +1,146 @@
+---
+// MapApp.astro - Interactive traceroute map
+import { locations } from '../../data/profile';
+---
+
+<div class="map-app">
+  <div class="map-viewport" id="kali-map-viewport">
+    <div id="map-container">
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <div class="map-footer-bar">
+    <div>
+      <span style="color: var(--kali-cyan); font-weight: 600;">ROUTE:</span>
+      <span>Aguascalientes, MX [Origin] &rarr; Vancouver, BC [Current Base]</span>
+    </div>
+    <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-green);">
+      [ SECURE LINK ACTIVE ]
+    </div>
+  </div>
+</div>
+
+<script>
+  import maplibregl from 'maplibre-gl';
+  import * as turf from '@turf/turf';
+
+  let mapInstance: any = null;
+
+  function initMapApp() {
+    const mapEl = document.getElementById('map');
+    if (!mapEl) return;
+
+    // Destroy existing instance if any
+    if (mapInstance) {
+      try { mapInstance.remove(); } catch (e) {}
+      mapInstance = null;
+    }
+
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: {
+        version: 8,
+        sources: {
+          'dark-matter': {
+            type: 'raster',
+            tiles: [
+              'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+              'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+            ],
+            tileSize: 256,
+          },
+        },
+        layers: [
+          {
+            id: 'dark-matter-layer',
+            type: 'raster',
+            source: 'dark-matter',
+            minzoom: 0,
+            maxzoom: 22,
+          },
+        ],
+      },
+      center: [-110, 36],
+      zoom: 2.8,
+    });
+
+    mapInstance = map;
+
+    const locations = [
+      { name: 'Vancouver, BC', coords: [-123.1207, 49.2827] as [number, number], desc: 'Current Base | Cybersecurity Operations' },
+      { name: 'Aguascalientes, MX', coords: [-102.2916, 21.8853] as [number, number], desc: 'Origin | Education & Early Career' },
+    ];
+
+    locations.forEach(loc => {
+      const el = document.createElement('div');
+      el.className = 'marker';
+      new maplibregl.Marker({ element: el })
+        .setLngLat(loc.coords)
+        .setPopup(new maplibregl.Popup({ offset: 20 }).setHTML(`<h3>${loc.name}</h3><p>${loc.desc}</p>`))
+        .addTo(map);
+    });
+
+    map.on('load', () => {
+      const origin: [number, number] = [-102.2916, 21.8853];
+      const destination: [number, number] = [-123.1207, 49.2827];
+      const route = turf.greatCircle(turf.point(origin), turf.point(destination));
+
+      map.addSource('route', { type: 'geojson', data: route });
+      map.addLayer({
+        id: 'route-line',
+        type: 'line',
+        source: 'route',
+        layout: { 'line-join': 'round', 'line-cap': 'round' },
+        paint: {
+          'line-color': '#23bac2',
+          'line-width': 2.5,
+          'line-opacity': 0.7,
+        },
+      });
+
+      map.addSource('comet', { type: 'geojson', data: turf.point(origin) });
+      map.addLayer({
+        id: 'comet-layer',
+        type: 'circle',
+        source: 'comet',
+        paint: {
+          'circle-radius': 5,
+          'circle-color': '#f43f5e',
+          'circle-blur': 0.1,
+          'circle-stroke-width': 3,
+          'circle-stroke-color': 'rgba(244, 63, 94, 0.5)',
+        },
+      });
+
+      const arcLength = turf.length(route, { units: 'kilometers' });
+      const steps = 300;
+      let counter = 0;
+
+      function animateComet() {
+        if (!mapInstance) return;
+        counter += 1;
+        if (counter >= steps) counter = 0;
+        const distance = (counter / steps) * arcLength;
+        const currentPoint = turf.along(route, distance, { units: 'kilometers' });
+        const cometSrc: any = map.getSource('comet');
+        if (cometSrc) {
+          cometSrc.setData(currentPoint);
+        }
+        requestAnimationFrame(animateComet);
+      }
+
+      animateComet();
+    });
+
+    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+    // Resize map whenever window opens or changes size
+    window.addEventListener('resize', () => map.resize());
+    window.addEventListener('kali:window-resize', () => map.resize());
+  }
+
+  // Trigger setup when map app becomes visible or opened
+  window.addEventListener('kali:map-ready', initMapApp);
+  setTimeout(initMapApp, 600);
+</script>

@@ -1,0 +1,108 @@
+---
+import { certificates } from '../../data/certs';
+---
+
+<div class="certs-app">
+  <p class="certs-intro">
+    <i class="fa-solid fa-circle-info" style="color: var(--kali-cyan); margin-right: 6px;"></i>
+    Click any certificate to inspect full-resolution credential and validation details.
+  </p>
+
+  <div class="certs-grid" id="certs-grid-gallery">
+    {certificates.map((cert, index) => (
+      <div class="cert-card-item" data-index={index} data-src={cert.image} data-caption={cert.caption}>
+        <img src={cert.image} alt={cert.title} class="cert-thumb-img" loading="lazy" />
+        <span class="cert-card-label">{cert.title}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<!-- Certificate Lightbox Modal Overlay -->
+<div class="cert-lightbox-modal" id="kali-cert-modal" role="dialog" aria-label="Certificate Image Viewer">
+  <button class="cert-modal-close" id="cert-modal-close" aria-label="Close viewer">✕</button>
+
+  <button class="cert-modal-nav prev" id="cert-modal-prev" aria-label="Previous certificate">
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+  <button class="cert-modal-nav next" id="cert-modal-next" aria-label="Next certificate">
+    <i class="fa-solid fa-chevron-right"></i>
+  </button>
+
+  <div class="cert-modal-content">
+    <img id="cert-modal-img" class="cert-modal-img" src="" alt="Certificate View" />
+    <div id="cert-modal-caption" class="cert-modal-caption"></div>
+  </div>
+</div>
+
+<script>
+  function setupCertLightbox() {
+    const modal = document.getElementById('kali-cert-modal');
+    const modalImg = document.getElementById('cert-modal-img') as HTMLImageElement;
+    const captionText = document.getElementById('cert-modal-caption');
+    const closeBtn = document.getElementById('cert-modal-close');
+    const prevBtn = document.getElementById('cert-modal-prev');
+    const nextBtn = document.getElementById('cert-modal-next');
+    const cards = Array.from(document.querySelectorAll('.cert-card-item'));
+
+    if (!modal || !modalImg || !captionText || cards.length === 0) return;
+
+    let currentIndex = 0;
+
+    const displayCert = (index: number) => {
+      currentIndex = (index + cards.length) % cards.length;
+      const card = cards[currentIndex];
+      if (!card) return;
+
+      modalImg.style.opacity = '0';
+      setTimeout(() => {
+        modalImg.src = card.getAttribute('data-src') || '';
+        captionText.innerText = card.getAttribute('data-caption') || '';
+        modalImg.style.opacity = '1';
+      }, 100);
+    };
+
+    cards.forEach((card, idx) => {
+      card.addEventListener('click', () => {
+        modal.classList.add('active');
+        displayCert(idx);
+      });
+    });
+
+    const closeLightbox = () => {
+      modal.classList.remove('active');
+    };
+
+    closeBtn?.addEventListener('click', closeLightbox);
+    prevBtn?.addEventListener('click', (e) => { e.stopPropagation(); displayCert(currentIndex - 1); });
+    nextBtn?.addEventListener('click', (e) => { e.stopPropagation(); displayCert(currentIndex + 1); });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') displayCert(currentIndex - 1);
+      if (e.key === 'ArrowRight') displayCert(currentIndex + 1);
+    });
+
+    // Touch Swipe Support
+    let touchStartX = 0;
+    modal.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    modal.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) displayCert(currentIndex + 1);
+        else displayCert(currentIndex - 1);
+      }
+    }, { passive: true });
+  }
+
+  setupCertLightbox();
+  document.addEventListener('astro:after-swap', setupCertLightbox);
+</script>

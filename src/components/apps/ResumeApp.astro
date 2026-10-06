@@ -1,0 +1,33 @@
+---
+import { profile } from '../../data/profile';
+---
+
+<div class="resume-app">
+  <div class="resume-toolbar">
+    <div style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text-secondary);">
+      <i class="fa-solid fa-file-pdf" style="color: #ef4444; font-size: 1.1rem;"></i>
+      <span>{profile.resumeFileName}</span>
+      <span style="color: var(--text-dim);">(Official CV)</span>
+    </div>
+
+    <div style="display: flex; gap: 8px;">
+      <a href="/resume.pdf" target="_blank" rel="noopener" class="btn-project secondary" style="font-size: 0.78rem;">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        <span>Open in New Tab</span>
+      </a>
+      <a href="/resume.pdf" download={profile.resumeFileName} class="btn-project" style="font-size: 0.78rem;">
+        <i class="fa-solid fa-download"></i>
+        <span>Download PDF</span>
+      </a>
+    </div>
+  </div>
+
+  <iframe src="/resume.pdf#toolbar=1" class="resume-frame" title="Mario Barajas Resume PDF">
+    <div style="padding: 30px; text-align: center; color: var(--text-secondary);">
+      <p>Your browser does not support inline PDF preview.</p>
+      <a href="/resume.pdf" download={profile.resumeFileName} class="btn-project" style="margin-top: 15px; display: inline-flex;">
+        Download PDF Document
+      </a>
+    </div>
+  </iframe>
+</div>

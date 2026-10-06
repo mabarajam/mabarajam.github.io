@@ -1,0 +1,435 @@
+---
+import TopBar from './TopBar.astro';
+import Dock from './Dock.astro';
+import DesktopIcons from './DesktopIcons.astro';
+import Window from './Window.astro';
+import BootScreen from './BootScreen.astro';
+
+import AboutApp from '../apps/AboutApp.astro';
+import ProjectsApp from '../apps/ProjectsApp.astro';
+import ExperienceApp from '../apps/ExperienceApp.astro';
+import CertsApp from '../apps/CertsApp.astro';
+import TerminalApp from '../apps/TerminalApp.astro';
+import MapApp from '../apps/MapApp.astro';
+import BlogApp from '../apps/BlogApp.astro';
+import ContactApp from '../apps/ContactApp.astro';
+import ResumeApp from '../apps/ResumeApp.astro';
+
+export interface Props {
+  initialApp?: string;
+}
+
+const { initialApp = 'about' } = Astro.props;
+---
+
+<div class="desktop-container" id="kali-desktop" data-initial-app={initialApp}>
+  <div class="desktop-vignette"></div>
+
+  <!-- Boot splash sequence (only first visit in session) -->
+  <BootScreen />
+
+  <!-- Top GNOME/Kali Status Bar -->
+  <TopBar />
+
+  <!-- Desktop Icons Grid -->
+  <DesktopIcons />
+
+  <!-- Windows Container -->
+  <main class="windows-container" id="windows-container">
+    <!-- 1. About Mario Window -->
+    <Window
+      id="win-about"
+      app="about"
+      title="About Mario — Cybersecurity Analyst"
+      icon="fa-solid fa-user-shield"
+      defaultWidth="820px"
+      defaultHeight="580px"
+      defaultTop="44px"
+      defaultLeft="120px"
+    >
+      <AboutApp />
+    </Window>
+
+    <!-- 2. Projects (Files) Window -->
+    <Window
+      id="win-projects"
+      app="projects"
+      title="Files — ~/projects"
+      icon="fa-solid fa-folder-open"
+      defaultWidth="900px"
+      defaultHeight="600px"
+      defaultTop="55px"
+      defaultLeft="150px"
+    >
+      <ProjectsApp />
+    </Window>
+
+    <!-- 3. Experience & Education Window -->
+    <Window
+      id="win-experience"
+      app="experience"
+      title="Work Experience & Education"
+      icon="fa-solid fa-briefcase"
+      defaultWidth="800px"
+      defaultHeight="580px"
+      defaultTop="65px"
+      defaultLeft="170px"
+    >
+      <ExperienceApp />
+    </Window>
+
+    <!-- 4. Certifications Window -->
+    <Window
+      id="win-certs"
+      app="certs"
+      title="Credentials & Certifications"
+      icon="fa-solid fa-certificate"
+      defaultWidth="840px"
+      defaultHeight="560px"
+      defaultTop="60px"
+      defaultLeft="160px"
+    >
+      <CertsApp />
+    </Window>
+
+    <!-- 5. Interactive Kali Terminal Window -->
+    <Window
+      id="win-terminal"
+      app="terminal"
+      title="mario@kali: ~ (zsh)"
+      icon="fa-solid fa-terminal"
+      defaultWidth="760px"
+      defaultHeight="500px"
+      defaultTop="70px"
+      defaultLeft="200px"
+    >
+      <TerminalApp />
+    </Window>
+
+    <!-- 6. Traceroute Map Window -->
+    <Window
+      id="win-map"
+      app="map"
+      title="Network Route — [Aguascalientes] <-> [Vancouver]"
+      icon="fa-solid fa-map-location-dot"
+      defaultWidth="860px"
+      defaultHeight="540px"
+      defaultTop="50px"
+      defaultLeft="140px"
+    >
+      <MapApp />
+    </Window>
+
+    <!-- 7. Blog & Writeups Window -->
+    <Window
+      id="win-blog"
+      app="blog"
+      title="Security Writeups & Publications"
+      icon="fa-solid fa-newspaper"
+      defaultWidth="820px"
+      defaultHeight="560px"
+      defaultTop="60px"
+      defaultLeft="160px"
+    >
+      <BlogApp />
+    </Window>
+
+    <!-- 8. Contact & Mail Window -->
+    <Window
+      id="win-contact"
+      app="contact"
+      title="Mail — Connect with Mario"
+      icon="fa-solid fa-envelope"
+      defaultWidth="640px"
+      defaultHeight="480px"
+      defaultTop="80px"
+      defaultLeft="220px"
+    >
+      <ContactApp />
+    </Window>
+
+    <!-- 9. Resume Viewer Window -->
+    <Window
+      id="win-resume"
+      app="resume"
+      title="Document Viewer — Resume.pdf"
+      icon="fa-solid fa-file-pdf"
+      defaultWidth="860px"
+      defaultHeight="640px"
+      defaultTop="45px"
+      defaultLeft="130px"
+    >
+      <ResumeApp />
+    </Window>
+  </main>
+
+  <!-- Bottom Floating Dock -->
+  <Dock />
+</div>
+
+<script>
+  // Kali Window Manager Logic
+  class KaliWindowManager {
+    private topZ = 200;
+    private initialApp: string = 'about';
+
+    constructor() {
+      const desktop = document.getElementById('kali-desktop');
+      this.initialApp = desktop?.getAttribute('data-initial-app') || 'about';
+      this.initClock();
+      this.initEvents();
+      this.openApp(this.initialApp, false);
+    }
+
+    private initClock() {
+      const clockEl = document.getElementById('topbar-clock');
+      const update = () => {
+        if (!clockEl) return;
+        const now = new Date();
+        const opts: Intl.DateTimeFormatOptions = {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        };
+        clockEl.innerText = now.toLocaleString('en-US', opts);
+      };
+      update();
+      setInterval(update, 1000);
+    }
+
+    private initEvents() {
+      // Dock item clicks
+      document.querySelectorAll('.dock-item[data-app]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const app = btn.getAttribute('data-app');
+          if (app) this.toggleApp(app);
+        });
+      });
+
+      // Desktop icons click / dblclick
+      document.querySelectorAll('.desktop-icon[data-app]').forEach(item => {
+        item.addEventListener('click', () => {
+          const app = item.getAttribute('data-app');
+          if (app) this.openApp(app);
+        });
+      });
+
+      // Window control buttons & header dragging
+      document.querySelectorAll('.window').forEach(winEl => {
+        const win = winEl as HTMLElement;
+        const app = win.getAttribute('data-app') || '';
+
+        // Focus on click
+        win.addEventListener('pointerdown', () => this.focusWindow(win));
+
+        // Close button
+        win.querySelector('.btn-close')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.closeApp(app);
+        });
+
+        // Minimize button
+        win.querySelector('.btn-minimize')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.minimizeApp(app);
+        });
+
+        // Maximize button
+        win.querySelector('.btn-maximize')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggleMaximize(win);
+        });
+
+        // Header double click to toggle maximize
+        const header = win.querySelector('.window-header') as HTMLElement;
+        header?.addEventListener('dblclick', () => this.toggleMaximize(win));
+
+        // Dragging logic
+        this.makeDraggable(win, header);
+      });
+
+      // Listen for custom open-app events (from terminal or internal links)
+      window.addEventListener('kali:open-app', (e: any) => {
+        if (e.detail?.app) {
+          this.openApp(e.detail.app);
+        }
+      });
+
+      // Popstate navigation support
+      window.addEventListener('popstate', () => {
+        const path = window.location.pathname.replace(/^\/|\/$/g, '');
+        if (path === '' || path === 'index') {
+          this.openApp('about', false);
+        } else if (['projects', 'experience', 'certs', 'blog', 'contact'].includes(path)) {
+          this.openApp(path, false);
+        }
+      });
+    }
+
+    public openApp(app: string, updateUrl = true) {
+      const win = document.querySelector(`.window[data-app="${app}"]`) as HTMLElement;
+      if (!win) return;
+
+      win.classList.remove('is-minimized');
+      win.classList.add('is-open');
+      this.focusWindow(win);
+
+      // Update Dock dot
+      const dockBtn = document.querySelector(`.dock-item[data-app="${app}"]`);
+      dockBtn?.classList.add('is-open');
+
+      // Update Topbar active label
+      const activeLabel = document.getElementById('topbar-active-app');
+      const titleText = win.querySelector('.window-title-text')?.textContent || app;
+      if (activeLabel) activeLabel.innerText = titleText;
+
+      // Special notification for Map
+      if (app === 'map') {
+        window.dispatchEvent(new CustomEvent('kali:map-ready'));
+      }
+
+      // Sync URL if desired
+      if (updateUrl && window.history.pushState) {
+        const targetPath = app === 'about' ? '/' : `/${app}`;
+        if (window.location.pathname !== targetPath) {
+          window.history.pushState({ app }, '', targetPath);
+        }
+      }
+    }
+
+    public closeApp(app: string) {
+      const win = document.querySelector(`.window[data-app="${app}"]`) as HTMLElement;
+      if (!win) return;
+
+      win.classList.remove('is-open', 'is-focused');
+
+      // Update Dock dot
+      const dockBtn = document.querySelector(`.dock-item[data-app="${app}"]`);
+      dockBtn?.classList.remove('is-open');
+
+      // If this was focused, focus next available window
+      const openWins = Array.from(document.querySelectorAll('.window.is-open:not(.is-minimized)')) as HTMLElement[];
+      if (openWins.length > 0) {
+        this.focusWindow(openWins[openWins.length - 1]);
+      } else {
+        const activeLabel = document.getElementById('topbar-active-app');
+        if (activeLabel) activeLabel.innerText = 'Kali Desktop';
+        if (window.history.pushState && window.location.pathname !== '/') {
+          window.history.pushState({}, '', '/');
+        }
+      }
+    }
+
+    public minimizeApp(app: string) {
+      const win = document.querySelector(`.window[data-app="${app}"]`) as HTMLElement;
+      if (!win) return;
+      win.classList.add('is-minimized');
+      win.classList.remove('is-focused');
+    }
+
+    public toggleApp(app: string) {
+      const win = document.querySelector(`.window[data-app="${app}"]`) as HTMLElement;
+      if (!win) return;
+
+      if (!win.classList.contains('is-open')) {
+        this.openApp(app);
+      } else if (win.classList.contains('is-minimized')) {
+        win.classList.remove('is-minimized');
+        this.focusWindow(win);
+      } else if (win.classList.contains('is-focused')) {
+        this.minimizeApp(app);
+      } else {
+        this.focusWindow(win);
+      }
+    }
+
+    public focusWindow(win: HTMLElement) {
+      document.querySelectorAll('.window').forEach(w => w.classList.remove('is-focused'));
+      this.topZ += 1;
+      win.style.zIndex = `${this.topZ}`;
+      win.classList.add('is-focused');
+
+      const app = win.getAttribute('data-app');
+      const activeLabel = document.getElementById('topbar-active-app');
+      const titleText = win.querySelector('.window-title-text')?.textContent || app;
+      if (activeLabel && titleText) activeLabel.innerText = titleText;
+    }
+
+    public toggleMaximize(win: HTMLElement) {
+      win.classList.toggle('is-maximized');
+      window.dispatchEvent(new CustomEvent('kali:window-resize'));
+    }
+
+    private makeDraggable(win: HTMLElement, handle: HTMLElement) {
+      if (!handle) return;
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+      let initialLeft = 0;
+      let initialTop = 0;
+
+      handle.addEventListener('pointerdown', (e: PointerEvent) => {
+        if (win.classList.contains('is-maximized')) return;
+        if ((e.target as HTMLElement).closest('.window-controls')) return;
+
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+
+        const rect = win.getBoundingClientRect();
+        initialLeft = rect.left;
+        initialTop = rect.top;
+
+        handle.setPointerCapture(e.pointerId);
+      });
+
+      handle.addEventListener('pointermove', (e: PointerEvent) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        let nextLeft = initialLeft + dx;
+        let nextTop = initialTop + dy;
+
+        // Boundaries: keep on screen
+        nextTop = Math.max(38, nextTop); // Topbar height
+        nextTop = Math.min(window.innerHeight - 80, nextTop);
+        nextLeft = Math.max(-rectWidth(win) + 100, Math.min(window.innerWidth - 100, nextLeft));
+
+        win.style.left = `${nextLeft}px`;
+        win.style.top = `${nextTop}px`;
+      });
+
+      const stopDrag = (e: PointerEvent) => {
+        if (!isDragging) return;
+        isDragging = false;
+        try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+      };
+
+      handle.addEventListener('pointerup', stopDrag);
+      handle.addEventListener('pointercancel', stopDrag);
+
+      function rectWidth(el: HTMLElement) {
+        return el.offsetWidth || 300;
+      }
+    }
+  }
+
+  // Initialize
+  let wm: KaliWindowManager | null = null;
+  function startWM() {
+    if (!wm) {
+      wm = new KaliWindowManager();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startWM);
+  } else {
+    startWM();
+  }
+</script>

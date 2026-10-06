@@ -1,0 +1,109 @@
+---
+import { relevantExperience, pastCareers, educationList, certificationsList } from '../../data/experience';
+---
+
+<div class="experience-app">
+  <div class="exp-tabs">
+    <button class="exp-tab-btn active" data-tab="relevant">Relevant Experience</button>
+    <button class="exp-tab-btn" data-tab="past">Past Career</button>
+    <button class="exp-tab-btn" data-tab="education">Education & Certifications</button>
+  </div>
+
+  <!-- Tab 1: Relevant Experience -->
+  <div class="exp-tab-content" id="tab-relevant">
+    <div class="timeline">
+      {relevantExperience.map(exp => (
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3 class="timeline-role">{exp.role}</h3>
+            <div class="timeline-meta">{exp.company} ({exp.location}) | {exp.period}</div>
+            <ul class="timeline-bullets">
+              {exp.bullets.map(b => (
+                <li class="timeline-bullet">{b}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Tab 2: Past Career Experience -->
+  <div class="exp-tab-content" id="tab-past" style="display: none;">
+    <div class="timeline">
+      {pastCareers.map(exp => (
+        <div class="timeline-item">
+          <div class="timeline-dot" style="border-color: var(--color-purple);"></div>
+          <div class="timeline-content">
+            <h3 class="timeline-role">{exp.role}</h3>
+            <div class="timeline-meta">{exp.company} ({exp.location}) | {exp.period}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Tab 3: Education & Certifications -->
+  <div class="exp-tab-content" id="tab-education" style="display: none;">
+    <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--kali-cyan); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <span>Education</span>
+    </h3>
+    <div class="timeline" style="margin-bottom: 24px;">
+      {educationList.map(edu => (
+        <div class="timeline-item">
+          <div class="timeline-dot" style="border-color: var(--color-yellow);"></div>
+          <div class="timeline-content">
+            <h4 class="timeline-role" style="font-size: 0.95rem;">{edu.degree}</h4>
+            <div class="timeline-meta">{edu.school} ({edu.location}) | {edu.year}</div>
+            {edu.coursework && (
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
+                <strong style="color: var(--text-secondary);">Coursework covering:</strong> {edu.coursework}
+              </p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--color-green); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+      <i class="fa-solid fa-award"></i>
+      <span>Active Certifications</span>
+    </h3>
+    <div class="timeline">
+      {certificationsList.map(cert => (
+        <div class="timeline-item">
+          <div class="timeline-dot" style="border-color: var(--color-green);"></div>
+          <div class="timeline-content">
+            <h4 class="timeline-role" style="font-size: 0.95rem;">{cert.name}</h4>
+            <div class="timeline-meta">{cert.issuer} | {cert.year}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupExpTabs() {
+    const buttons = document.querySelectorAll('.exp-tab-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const targetTab = btn.getAttribute('data-tab');
+
+        document.querySelectorAll('.exp-tab-content').forEach(content => {
+          (content as HTMLElement).style.display = 'none';
+        });
+
+        const activeContent = document.getElementById(`tab-${targetTab}`);
+        if (activeContent) activeContent.style.display = 'block';
+      });
+    });
+  }
+
+  setupExpTabs();
+  document.addEventListener('astro:after-swap', setupExpTabs);
+</script>

@@ -1,0 +1,32 @@
+---
+// TopBar.astro - Kali GNOME-style top bar
+---
+
+<header class="topbar" id="kali-topbar">
+  <div class="topbar-left">
+    <button class="topbar-btn" id="activities-btn" title="Kali Applications">
+      <img src="/brand/kali-dragon-icon.svg" alt="Kali" class="topbar-logo" />
+      <span>Activities</span>
+    </button>
+    <span class="topbar-app-name" id="topbar-active-app">About Mario</span>
+  </div>
+
+  <div class="topbar-center">
+    <div class="topbar-clock" id="topbar-clock">Loading...</div>
+  </div>
+
+  <div class="topbar-right">
+    <a href="/simple" class="topbar-simple-btn" title="View recruiter-friendly single-page version">
+      <i class="fa-solid fa-file-lines"></i>
+      <span>Simple View</span>
+    </a>
+
+    <div class="topbar-status-icons">
+      <i class="fa-solid fa-wifi" title="Connected: Ethernet 1Gbps"></i>
+      <i class="fa-solid fa-volume-high" title="Audio: 100%"></i>
+      <i class="fa-solid fa-battery-full" title="Battery: 100% (Plugged in)"></i>
+    </div>
+
+    <span class="topbar-user">mario@kali</span>
+  </div>
+</header>

@@ -1,94 +1,78 @@
-/* Map Styles */
+/* Map Styles - Kali Cyber Dark */
 #map-container {
-    width: 100%;
-    height: 400px;
-    margin-top: var(--spacing-sm);
-    border: 1px solid var(--text-dim);
-    box-shadow: var(--glow);
-    position: relative;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  position: relative;
+  overflow: hidden;
+  background-color: #0b0e14;
 }
 
-/* Cyberpunk Scanner Overlays */
-#map-container::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; /* Let clicks pass through to map */
-    background: 
-        linear-gradient(rgba(0, 255, 65, 0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 65, 0.07) 1px, transparent 1px);
-    background-size: 30px 30px;
-    z-index: 5;
-}
-
-#map-container::before {
-    content: "";
-    position: absolute;
-    top: -10px; left: 0; width: 100%; height: 6px;
-    background: rgba(255, 0, 85, 0.5); /* Red laser scanline */
-    box-shadow: 0 0 10px rgba(255, 0, 85, 0.8), 0 0 20px rgba(255, 0, 85, 0.4);
-    pointer-events: none;
-    z-index: 6;
-    animation: mapScanline 6s linear infinite;
-}
-
-@keyframes mapScanline {
-    0% { top: -10px; opacity: 0; }
-    5% { opacity: 1; }
-    95% { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
-}
-
-
-
-/* Fallback so user sees SOMETHING if map fails */
-/* Fallback so user sees SOMETHING if map fails */
 #map {
-    background-color: #1a1a1a;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #0b0e14;
 }
 
 /* Custom Marker Styling */
 .marker {
-    background-color: var(--alert);
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    box-shadow: 0 0 10px var(--alert), 0 0 20px var(--alert);
-    cursor: pointer;
-    border: 2px solid #fff;
-    animation: markerPulse 2s infinite;
+  background-color: var(--color-red);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-red), 0 0 20px var(--color-red);
+  cursor: pointer;
+  border: 2px solid #fff;
+  animation: markerPulse 2s infinite;
 }
 
 @keyframes markerPulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 15px rgba(255, 0, 85, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(255, 0, 85, 0);
-    }
+  0% {
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(244, 63, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
+  }
 }
 
 .maplibregl-popup-content {
-    background-color: var(--bg-secondary) !important;
-    color: var(--text-primary) !important;
-    border: 1px solid var(--text-dim);
-    font-family: var(--font-mono);
-    padding: 10px;
+  background-color: rgba(18, 23, 34, 0.95) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-accent) !important;
+  border-radius: 8px !important;
+  font-family: var(--font-sans) !important;
+  padding: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+}
+
+.maplibregl-popup-content h3 {
+  color: var(--kali-cyan);
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.maplibregl-popup-content p {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: 0;
 }
 
 .maplibregl-popup-tip {
-    border-top-color: var(--text-dim) !important;
+  border-top-color: rgba(18, 23, 34, 0.95) !important;
 }
 
 .maplibregl-popup-close-button {
-    color: var(--text-primary);
+  color: var(--text-muted) !important;
+  font-size: 14px !important;
+  padding: 4px !important;
+}
+
+.maplibregl-popup-close-button:hover {
+  color: #fff !important;
 }
