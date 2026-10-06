@@ -427,6 +427,16 @@ const { initialApp = 'about' } = Astro.props;
       const activeLabel = document.getElementById('topbar-active-app');
       const titleText = win.querySelector('.window-title-text')?.textContent || app;
       if (activeLabel && titleText) activeLabel.innerText = titleText;
+
+      // Auto-focus terminal input whenever terminal window is focused or opened
+      if (app === 'terminal') {
+        const termInput = win.querySelector('#terminal-cli-input') as HTMLInputElement | null;
+        if (termInput) {
+          setTimeout(() => {
+            termInput.focus({ preventScroll: true });
+          }, 50);
+        }
+      }
     }
 
     public updateTopBarTabs() {

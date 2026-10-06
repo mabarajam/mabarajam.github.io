@@ -1265,6 +1265,11 @@
   color: #fff;
   font-family: var(--font-mono);
   font-size: 0.82rem;
+  caret-color: #23bac2;
+}
+
+.terminal-app {
+  cursor: text;
 }
 
 /* ==========================================================================

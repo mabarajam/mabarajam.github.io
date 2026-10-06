@@ -345,11 +345,32 @@ Contact channel established at: <a href="mailto:Defensium@protonmail.com" style=
       }
     });
 
-    window.addEventListener('kali:open-app', (e: any) => {
-      if (e.detail?.app === 'terminal') {
-        setTimeout(() => input.focus(), 80);
+    // Focus terminal input helper
+    const focusTerminal = () => {
+      input.focus({ preventScroll: true });
+    };
+
+    // Auto-focus when clicking or tapping anywhere in terminal body
+    container.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).tagName !== 'A') {
+        focusTerminal();
       }
     });
+
+    container.addEventListener('touchend', (e) => {
+      if ((e.target as HTMLElement).tagName !== 'A') {
+        focusTerminal();
+      }
+    });
+
+    window.addEventListener('kali:open-app', (e: any) => {
+      if (e.detail?.app === 'terminal') {
+        setTimeout(focusTerminal, 60);
+      }
+    });
+
+    // Auto-focus if terminal is active on load
+    setTimeout(focusTerminal, 80);
   }
 
   if (document.readyState === 'loading') {
