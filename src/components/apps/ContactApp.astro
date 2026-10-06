@@ -3,48 +3,70 @@ import { profile } from '../../data/profile';
 ---
 
 <div class="contact-app">
-  <div class="contact-hero-card">
-    <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(35, 186, 194, 0.15); border: 1px solid rgba(35, 186, 194, 0.4); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; color: var(--kali-cyan); font-size: 1.5rem;">
-      <i class="fa-solid fa-envelope-open-text"></i>
-    </div>
-
-    <h2 style="font-size: 1.25rem; font-weight: 700; color: #fff;">Let's Connect</h2>
-    <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
-      Looking for a dedicated Cybersecurity / SOC Analyst in Vancouver or remote? Reach out directly.
-    </p>
-
-    <!-- Direct Email Box with 1-click copy -->
-    <div class="contact-email-box">
-      <span id="contact-email-display">{profile.email}</span>
-      <div style="display: flex; gap: 8px;">
-        <button class="btn-copy-email" id="copy-email-btn" title="Copy email address to clipboard">
-          <i class="fa-regular fa-copy"></i>
-          <span id="copy-btn-text">Copy</span>
-        </button>
-        <a href={`mailto:${profile.email}`} class="btn-copy-email" style="background: var(--kali-gradient);" title="Open email client">
-          <i class="fa-solid fa-paper-plane"></i>
-          <span>Send</span>
-        </a>
+  <!-- Mail Header Form -->
+  <div class="mail-composer-card">
+    <div class="mail-field-row">
+      <span class="mail-field-label">To:</span>
+      <div class="mail-field-value">
+        <span class="recipient-name">Mario Barajas</span>
+        <span class="recipient-address">&lt;{profile.email}&gt;</span>
       </div>
     </div>
 
-    <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
-      <a href="/resume.pdf" download={profile.resumeFileName} class="btn-social" style="background: rgba(255, 255, 255, 0.08);">
-        <i class="fa-solid fa-file-arrow-down" style="color: var(--color-green);"></i>
-        <span>Download Resume</span>
-      </a>
-
-      {profile.socials.map(s => (
-        <a href={s.url} target="_blank" rel="noopener" class="btn-social">
-          <i class={s.icon}></i>
-          <span>{s.label}</span>
-        </a>
-      ))}
+    <div class="mail-field-row">
+      <span class="mail-field-label">Subject:</span>
+      <div class="mail-field-value subject">
+        <span>Cybersecurity Analyst Role / Security Inquiries</span>
+      </div>
     </div>
 
-    <div style="margin-top: 24px; padding: 12px; background: rgba(10, 14, 22, 0.6); border-radius: 6px; border: 1px dashed var(--border-subtle); font-size: 0.78rem; color: var(--text-dim); text-align: left;">
-      <i class="fa-solid fa-terminal" style="color: var(--kali-cyan); margin-right: 6px;"></i>
-      <strong>Terminal Tip:</strong> Open the <strong>Terminal</strong> app and run <code>decrypt email</code> for the interactive security handshake animation!
+    <div class="mail-field-row">
+      <span class="mail-field-label">Security:</span>
+      <div class="mail-field-value security">
+        <span class="pgp-badge">TLS / PROTONMAIL ENCRYPTION</span>
+        <span class="location-badge">Location: {profile.location} (Remote / Hybrid)</span>
+      </div>
+    </div>
+
+    <!-- Action Bar -->
+    <div class="mail-action-toolbar">
+      <a href={`mailto:${profile.email}`} class="gtk-btn primary" title="Launch default email client">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        <span>Send Email</span>
+      </a>
+
+      <button class="gtk-btn" id="copy-email-btn" title="Copy email address to clipboard">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span id="copy-btn-text">Copy Address</span>
+      </button>
+
+      <a href="/resume.pdf" download={profile.resumeFileName} class="gtk-btn" title="Download resume PDF">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Download Resume</span>
+      </a>
+    </div>
+
+    <!-- Message Body Console -->
+    <div class="mail-body-pane">
+      <div class="mail-body-text">
+        <p>Hello Mario,</p>
+        <p>I reviewed your cybersecurity portfolio and would like to connect regarding open SOC / Security Analyst opportunities in Vancouver, BC or remote teams.</p>
+        <p>Key competencies of interest: Threat Monitoring, Splunk/Wazuh SIEM log triage, Nessus vulnerability management, and hands-on lab projects.</p>
+        <p class="mail-signoff">Looking forward to speaking with you.</p>
+      </div>
+    </div>
+
+    <!-- Contact Channels & Socials -->
+    <div class="mail-channels-row">
+      <div class="channels-label">Direct Communication Channels:</div>
+      <div class="channels-buttons">
+        {profile.socials.map(s => (
+          <a href={s.url} target="_blank" rel="noopener" class="gtk-btn small">
+            <span>{s.label}</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+        ))}
+      </div>
     </div>
   </div>
 </div>
@@ -52,21 +74,18 @@ import { profile } from '../../data/profile';
 <script>
   function setupContactApp() {
     const copyBtn = document.getElementById('copy-email-btn');
-    const copyText = document.getElementById('copy-btn-text');
-    const emailDisplay = document.getElementById('contact-email-display');
-    if (!copyBtn || !copyText || !emailDisplay) return;
+    const copyTxt = document.getElementById('copy-btn-text');
+    if (!copyBtn || !copyTxt) return;
 
     copyBtn.addEventListener('click', async () => {
       try {
-        await navigator.clipboard.writeText(emailDisplay.innerText.trim());
-        copyText.innerText = 'Copied!';
-        copyBtn.style.background = 'var(--color-green)';
+        await navigator.clipboard.writeText('Defensium@protonmail.com');
+        copyTxt.innerText = 'Copied!';
         setTimeout(() => {
-          copyText.innerText = 'Copy';
-          copyBtn.style.background = '';
+          copyTxt.innerText = 'Copy Address';
         }, 2000);
       } catch (err) {
-        copyText.innerText = 'Error';
+        copyTxt.innerText = 'Defensium@protonmail.com';
       }
     });
   }

@@ -28,7 +28,7 @@ const { initialApp = 'about' } = Astro.props;
   <!-- Boot splash sequence (only first visit in session) -->
   <BootScreen />
 
-  <!-- Top GNOME/Kali Status Bar -->
+  <!-- Top XFCE / Kali Status Bar -->
   <TopBar />
 
   <!-- Desktop Icons Grid -->
@@ -40,68 +40,78 @@ const { initialApp = 'about' } = Astro.props;
     <Window
       id="win-about"
       app="about"
-      title="About Mario — Cybersecurity Analyst"
-      icon="fa-solid fa-user-shield"
-      defaultWidth="820px"
+      title="System Profiler — Mario Barajas"
+      iconSrc="/icons/app-info.svg"
+      menuItems={['File', 'View', 'Help']}
+      statusText="System status: Active • CompTIA Security+ Certified"
+      defaultWidth="840px"
       defaultHeight="580px"
-      defaultTop="44px"
-      defaultLeft="120px"
+      defaultTop="42px"
+      defaultLeft="140px"
     >
       <AboutApp />
     </Window>
 
-    <!-- 2. Projects (Files) Window -->
+    <!-- 2. Projects (Thunar Files) Window -->
     <Window
       id="win-projects"
       app="projects"
-      title="Files — ~/projects"
-      icon="fa-solid fa-folder-open"
-      defaultWidth="900px"
-      defaultHeight="600px"
-      defaultTop="55px"
-      defaultLeft="150px"
+      title="projects — Thunar File Manager"
+      iconSrc="/icons/app-folder.svg"
+      menuItems={['File', 'Edit', 'View', 'Go', 'Help']}
+      statusText="5 directories • 1 selected • Free space: 84.2 GB"
+      defaultWidth="890px"
+      defaultHeight="590px"
+      defaultTop="48px"
+      defaultLeft="170px"
     >
       <ProjectsApp />
     </Window>
 
-    <!-- 3. Experience & Education Window -->
+    <!-- 3. Experience & Career Window -->
     <Window
       id="win-experience"
       app="experience"
-      title="Work Experience & Education"
-      icon="fa-solid fa-briefcase"
-      defaultWidth="800px"
+      title="Career History & Education — Document Viewer"
+      iconSrc="/icons/app-experience.svg"
+      menuItems={['File', 'Edit', 'View', 'Help']}
+      statusText="Document: career_journal.log • 3 sections • UTF-8"
+      defaultWidth="850px"
       defaultHeight="580px"
-      defaultTop="65px"
-      defaultLeft="170px"
+      defaultTop="54px"
+      defaultLeft="190px"
     >
       <ExperienceApp />
     </Window>
 
-    <!-- 4. Certifications Window -->
+    <!-- 4. Certifications (Ristretto) Window -->
     <Window
       id="win-certs"
       app="certs"
-      title="Credentials & Certifications"
-      icon="fa-solid fa-certificate"
-      defaultWidth="840px"
-      defaultHeight="560px"
+      title="credentials — Ristretto Image Viewer"
+      iconSrc="/icons/app-certs.svg"
+      menuItems={['File', 'Edit', 'View', 'Go', 'Help']}
+      statusText="7 credentials loaded • 1920x1080 • PNG 24-bit"
+      defaultWidth="860px"
+      defaultHeight="600px"
       defaultTop="60px"
-      defaultLeft="160px"
+      defaultLeft="210px"
     >
       <CertsApp />
     </Window>
 
-    <!-- 5. Interactive Kali Terminal Window -->
+    <!-- 5. Terminal Window -->
     <Window
       id="win-terminal"
       app="terminal"
-      title="mario@kali: ~ (zsh)"
-      icon="fa-solid fa-terminal"
-      defaultWidth="760px"
+      title="mario@kali: ~ (qterminal)"
+      iconSrc="/icons/app-terminal.svg"
+      menuItems={['File', 'Edit', 'View', 'Session', 'Help']}
+      statusText="Normal mode • Shell: /bin/zsh • PID: 4210"
+      defaultWidth="800px"
       defaultHeight="500px"
       defaultTop="70px"
-      defaultLeft="200px"
+      defaultLeft="230px"
     >
       <TerminalApp />
     </Window>
@@ -110,81 +120,92 @@ const { initialApp = 'about' } = Astro.props;
     <Window
       id="win-map"
       app="map"
-      title="Network Route — [Aguascalientes] <-> [Vancouver]"
-      icon="fa-solid fa-map-location-dot"
-      defaultWidth="860px"
-      defaultHeight="540px"
-      defaultTop="50px"
-      defaultLeft="140px"
+      title="traceroute — Network Path Diagnostic"
+      iconSrc="/icons/app-map.svg"
+      menuItems={['Trace', 'View', 'Tools', 'Help']}
+      statusText="Route: Mexico -> Vancouver • Latency: 48ms • ICMP OK"
+      defaultWidth="840px"
+      defaultHeight="560px"
+      defaultTop="80px"
+      defaultLeft="250px"
     >
       <MapApp />
     </Window>
 
-    <!-- 7. Blog & Writeups Window -->
+    <!-- 7. Security Writeups (Blog) Window -->
     <Window
       id="win-blog"
       app="blog"
-      title="Security Writeups & Publications"
-      icon="fa-solid fa-newspaper"
-      defaultWidth="820px"
-      defaultHeight="560px"
-      defaultTop="60px"
-      defaultLeft="160px"
+      title="Security Advisories & Research — Reader"
+      iconSrc="/icons/app-blog.svg"
+      menuItems={['File', 'Edit', 'View', 'Go', 'Help']}
+      statusText="6 publications • Source: medium.com/@mabarajam"
+      defaultWidth="850px"
+      defaultHeight="580px"
+      defaultTop="65px"
+      defaultLeft="180px"
     >
       <BlogApp />
     </Window>
 
-    <!-- 8. Contact & Mail Window -->
+    <!-- 8. Contact Window -->
     <Window
       id="win-contact"
       app="contact"
-      title="Mail — Connect with Mario"
-      icon="fa-solid fa-envelope"
-      defaultWidth="640px"
-      defaultHeight="480px"
-      defaultTop="80px"
-      defaultLeft="220px"
+      title="Write: New Message — mario@kali"
+      iconSrc="/icons/app-mail.svg"
+      menuItems={['Message', 'Edit', 'View', 'Options', 'Help']}
+      statusText="Encryption: TLS / ProtonMail • Vancouver, BC (PST)"
+      defaultWidth="760px"
+      defaultHeight="540px"
+      defaultTop="85px"
+      defaultLeft="260px"
     >
       <ContactApp />
     </Window>
 
-    <!-- 9. Resume Viewer Window -->
+    <!-- 9. Resume Window -->
     <Window
       id="win-resume"
       app="resume"
-      title="Document Viewer — Resume.pdf"
-      icon="fa-solid fa-file-pdf"
-      defaultWidth="860px"
-      defaultHeight="640px"
+      title="Mario_Barajas_Resume.pdf — Document Viewer"
+      iconSrc="/icons/app-pdf.svg"
+      menuItems={['File', 'Edit', 'View', 'Go', 'Help']}
+      statusText="1 page • Size: Letter • Evince Document Viewer"
+      defaultWidth="840px"
+      defaultHeight="600px"
       defaultTop="45px"
-      defaultLeft="130px"
+      defaultLeft="160px"
     >
       <ResumeApp />
     </Window>
   </main>
 
-  <!-- Bottom Floating Dock -->
+  <!-- Dock (Plank style) -->
   <Dock />
 </div>
 
 <script>
-  // Kali Window Manager Logic
+  // Authentic Window Manager State & Controller
   class KaliWindowManager {
-    private topZ = 200;
-    private initialApp: string = 'about';
+    private topZ: number = 10;
 
     constructor() {
-      const desktop = document.getElementById('kali-desktop');
-      this.initialApp = desktop?.getAttribute('data-initial-app') || 'about';
-      this.initClock();
       this.initEvents();
-      this.openApp(this.initialApp, false);
+      this.initClock();
+      this.openInitialApp();
+    }
+
+    private openInitialApp() {
+      const desktop = document.getElementById('kali-desktop');
+      const initialApp = desktop?.getAttribute('data-initial-app') || 'about';
+      this.openApp(initialApp);
     }
 
     private initClock() {
       const clockEl = document.getElementById('topbar-clock');
+      if (!clockEl) return;
       const update = () => {
-        if (!clockEl) return;
         const now = new Date();
         const opts: Intl.DateTimeFormatOptions = {
           weekday: 'short',
@@ -264,7 +285,7 @@ const { initialApp = 'about' } = Astro.props;
         const path = window.location.pathname.replace(/^\/|\/$/g, '');
         if (path === '' || path === 'index') {
           this.openApp('about', false);
-        } else if (['projects', 'experience', 'certs', 'blog', 'contact'].includes(path)) {
+        } else if (['projects', 'experience', 'certs', 'blog', 'contact', 'map', 'terminal', 'resume'].includes(path)) {
           this.openApp(path, false);
         }
       });
@@ -396,8 +417,8 @@ const { initialApp = 'about' } = Astro.props;
         let nextTop = initialTop + dy;
 
         // Boundaries: keep on screen
-        nextTop = Math.max(38, nextTop); // Topbar height
-        nextTop = Math.min(window.innerHeight - 80, nextTop);
+        nextTop = Math.max(30, nextTop); // Topbar height
+        nextTop = Math.min(window.innerHeight - 60, nextTop);
         nextLeft = Math.max(-rectWidth(win) + 100, Math.min(window.innerWidth - 100, nextLeft));
 
         win.style.left = `${nextLeft}px`;

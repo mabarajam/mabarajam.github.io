@@ -1,14 +1,18 @@
 ---
-// TopBar.astro - Kali GNOME-style top bar
+// TopBar.astro - Authentic Kali XFCE / GNOME top panel
 ---
 
 <header class="topbar" id="kali-topbar">
   <div class="topbar-left">
-    <button class="topbar-btn" id="activities-btn" title="Kali Applications">
+    <button class="topbar-btn app-menu-btn" id="activities-btn" title="Kali Applications Menu">
       <img src="/brand/kali-dragon-icon.svg" alt="Kali" class="topbar-logo" />
-      <span>Activities</span>
+      <span style="font-weight: 600; font-size: 0.8rem;">Applications</span>
     </button>
-    <span class="topbar-app-name" id="topbar-active-app">About Mario</span>
+
+    <div class="topbar-window-tab" id="topbar-active-tab">
+      <span class="active-tab-dot"></span>
+      <span id="topbar-active-app">About Mario</span>
+    </div>
   </div>
 
   <div class="topbar-center">
@@ -16,15 +20,22 @@
   </div>
 
   <div class="topbar-right">
-    <a href="/simple" class="topbar-simple-btn" title="View recruiter-friendly single-page version">
-      <i class="fa-solid fa-file-lines"></i>
+    <a href="/simple" class="topbar-simple-btn" title="Open recruiter-friendly single page view">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
       <span>Simple View</span>
     </a>
 
     <div class="topbar-status-icons">
-      <i class="fa-solid fa-wifi" title="Connected: Ethernet 1Gbps"></i>
-      <i class="fa-solid fa-volume-high" title="Audio: 100%"></i>
-      <i class="fa-solid fa-battery-full" title="Battery: 100% (Plugged in)"></i>
+      <!-- Clean monochrome Linux panel icons -->
+      <span title="Ethernet: Connected (1 Gbps)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+      </span>
+      <span title="Audio: 100%">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+      </span>
+      <span title="Power: AC Connected (100%)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"></rect><line x1="23" y1="13" x2="23" y2="11"></line><line x1="7" y1="10" x2="7" y2="14"></line><line x1="11" y1="10" x2="11" y2="14"></line></svg>
+      </span>
     </div>
 
     <span class="topbar-user">mario@kali</span>

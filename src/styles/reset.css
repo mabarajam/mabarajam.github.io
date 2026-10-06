@@ -5,13 +5,13 @@
   padding: 0;
 }
 
-html, body {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
+  min-height: 100%;
   font-family: var(--font-sans);
   background-color: var(--bg-desktop);
   color: var(--text-primary);
@@ -39,32 +39,32 @@ button {
 a {
   color: var(--kali-cyan);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
 }
 
 a:hover {
-  color: #38e1ea;
+  color: #58d8e0;
 }
 
 ul, ol {
   list-style: none;
 }
 
-/* Custom Scrollbar for Windows and dialogs */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
+  background: #14171d;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  background: #2b313d;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(35, 186, 194, 0.5);
+  background: #3e4758;
 }

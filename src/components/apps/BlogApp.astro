@@ -3,79 +3,84 @@ import { mediumPosts } from '../../data/mediumPosts';
 ---
 
 <div class="blog-app">
-  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
-    <div>
-      <h2 style="font-size: 1.1rem; font-weight: 700; color: #fff;">Security Writeups & Publications</h2>
-      <p style="font-size: 0.84rem; color: var(--text-muted); margin-top: 2px;">
-        Articles, hands-on lab documentation, and CTF walkthroughs.
-      </p>
+  <!-- Reader Location & Filter Bar -->
+  <div class="reader-toolbar">
+    <div class="reader-url-bar">
+      <span class="url-protocol">https://</span>
+      <span class="url-path">medium.com/@mabarajam</span>
     </div>
-    <a href="https://medium.com/@mabarajam" target="_blank" rel="noopener" class="btn-project" style="font-size: 0.78rem;">
-      <i class="fa-brands fa-medium"></i>
+    <a href="https://medium.com/@mabarajam" target="_blank" rel="noopener" class="gtk-btn primary">
       <span>Follow on Medium</span>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
     </a>
   </div>
 
-  <div class="blog-list">
-    <!-- Internal Featured Walkthrough -->
-    <article class="blog-card" style="border-color: rgba(35, 186, 194, 0.4); background: rgba(22, 32, 50, 0.85);">
-      <div class="blog-card-header">
-        <span class="blog-source-badge" style="background: rgba(35, 186, 194, 0.25); color: #fff;">
-          <i class="fa-solid fa-star" style="margin-right: 4px; color: var(--color-yellow);"></i> FEATURED LAB
-        </span>
-        <span class="blog-card-date">Aug 21, 2026</span>
+  <!-- Featured Lab Walkthrough -->
+  <div class="gtk-advisory-item featured">
+    <div class="advisory-header-row">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="gtk-badge featured">[FEATURED LAB]</span>
+        <span class="advisory-date">Aug 21, 2026</span>
       </div>
+      <span class="advisory-id">SEC-LAB-01</span>
+    </div>
 
-      <h3 class="blog-card-title">
-        <a href="/blog/splunk-log-analysis-linux" style="color: #fff;">
-          Linux Log Analysis with Splunk: A SOC Analyst Walkthrough
-        </a>
-      </h3>
+    <h3 class="advisory-title">
+      <a href="/blog/splunk-log-analysis-linux">
+        Linux Log Analysis with Splunk: A SOC Analyst Walkthrough
+      </a>
+    </h3>
 
-      <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5;">
-        How I set up centralized log collection on Linux with Splunk to detect brute-force attacks, root escalations, and port scans.
-      </p>
+    <p class="advisory-summary">
+      Hands-on centralized log aggregation with Splunk forwarders on Linux workstations to detect brute-force SSH attacks, suspicious privilege escalations, and automated port scanning.
+    </p>
 
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
-        <div style="display: flex; gap: 6px;">
-          <span class="project-tag">Splunk</span>
-          <span class="project-tag">SOC</span>
-          <span class="project-tag">Linux</span>
-          <span class="project-tag">SIEM</span>
-        </div>
-        <a href="/blog/splunk-log-analysis-linux" class="btn-project" style="font-size: 0.78rem;">
-          <span>Read Full Lab</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </a>
+    <div class="advisory-footer-row">
+      <div class="advisory-tags">
+        <span class="gtk-tag-pill">#splunk</span>
+        <span class="gtk-tag-pill">#siem</span>
+        <span class="gtk-tag-pill">#linux-security</span>
+        <span class="gtk-tag-pill">#soc-walkthrough</span>
       </div>
-    </article>
+      <a href="/blog/splunk-log-analysis-linux" class="gtk-btn primary">
+        <span>Read Walkthrough</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+    </div>
+  </div>
 
-    <!-- Medium Stories -->
-    {mediumPosts.map(post => (
-      <article class="blog-card">
-        <div class="blog-card-header">
-          <span class="blog-source-badge">
-            <i class="fa-brands fa-medium" style="margin-right: 4px;"></i> MEDIUM ARTICLE
-          </span>
-          <span class="blog-card-date">{post.date}</span>
+  <!-- Medium Security Writeups Table -->
+  <div class="gtk-section-heading" style="margin: 20px 0 10px;">
+    <span class="heading-tag">PUBLISHED MEDIUM WRITEUPS & LABS</span>
+  </div>
+
+  <div class="advisories-list">
+    {mediumPosts.map((post, idx) => (
+      <article class="gtk-advisory-item">
+        <div class="advisory-header-row">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="gtk-badge">[MEDIUM]</span>
+            <span class="advisory-date">{post.date}</span>
+          </div>
+          <span class="advisory-id">PUB-0{idx + 1}</span>
         </div>
 
-        <h3 class="blog-card-title">
-          <a href={post.url} target="_blank" rel="noopener" style="color: #fff;">
+        <h4 class="advisory-title">
+          <a href={post.url} target="_blank" rel="noopener">
             {post.title}
           </a>
-        </h3>
+        </h4>
 
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
-          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+        <div class="advisory-footer-row">
+          <div class="advisory-tags">
             {post.tags.map(tag => (
-              <span class="project-tag">#{tag}</span>
+              <span class="gtk-tag-pill">#{tag}</span>
             ))}
           </div>
 
-          <a href={post.url} target="_blank" rel="noopener" class="btn-project secondary" style="font-size: 0.76rem;">
-            <span>Read on Medium</span>
-            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.7rem;"></i>
+          <a href={post.url} target="_blank" rel="noopener" class="gtk-btn">
+            <span>Read Article</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
         </div>
       </article>

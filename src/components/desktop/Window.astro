@@ -3,7 +3,9 @@ export interface Props {
   id: string;
   app: string;
   title: string;
-  icon?: string;
+  iconSrc?: string;
+  menuItems?: string[];
+  statusText?: string;
   defaultWidth?: string;
   defaultHeight?: string;
   defaultTop?: string;
@@ -14,11 +16,13 @@ const {
   id,
   app,
   title,
-  icon = 'fa-solid fa-window-maximize',
-  defaultWidth = '800px',
-  defaultHeight = '550px',
-  defaultTop = '50px',
-  defaultLeft = '180px',
+  iconSrc = '/icons/app-info.svg',
+  menuItems = ['File', 'Edit', 'View', 'Help'],
+  statusText = 'Ready',
+  defaultWidth = '840px',
+  defaultHeight = '570px',
+  defaultTop = '45px',
+  defaultLeft = '160px',
 } = Astro.props;
 ---
 
@@ -30,22 +34,42 @@ const {
   role="dialog"
   aria-label={title}
 >
+  <!-- Authentic Kali / XFCE Titlebar -->
   <div class="window-header">
-    <div class="window-controls">
-      <button class="window-control-btn btn-close" data-action="close" title="Close" aria-label="Close window">✕</button>
-      <button class="window-control-btn btn-minimize" data-action="minimize" title="Minimize" aria-label="Minimize window">−</button>
-      <button class="window-control-btn btn-maximize" data-action="maximize" title="Maximize" aria-label="Maximize window">＋</button>
-    </div>
-
     <div class="window-title-group">
-      <i class={`${icon} window-title-icon`}></i>
+      <img src={iconSrc} alt="" class="window-title-app-icon" width="16" height="16" />
       <span class="window-title-text">{title}</span>
     </div>
 
-    <div style="width: 52px;"></div> <!-- Spacer to center title balance -->
+    <!-- Right-aligned XFCE Window Controls -->
+    <div class="window-controls">
+      <button class="window-control-btn btn-minimize" data-action="minimize" title="Minimize" aria-label="Minimize window">
+        <svg viewBox="0 0 10 10" width="10" height="10"><path d="M1 8 L9 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <button class="window-control-btn btn-maximize" data-action="maximize" title="Maximize" aria-label="Maximize window">
+        <svg viewBox="0 0 10 10" width="10" height="10"><rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+      </button>
+      <button class="window-control-btn btn-close" data-action="close" title="Close" aria-label="Close window">
+        <svg viewBox="0 0 10 10" width="10" height="10"><path d="M2 2 L8 8 M8 2 L2 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
   </div>
 
+  <!-- Authentic GTK Menubar -->
+  <nav class="gtk-menubar" aria-label="Window Menu">
+    {menuItems.map(item => (
+      <span class="gtk-menu-item">{item}</span>
+    ))}
+  </nav>
+
+  <!-- Window Body -->
   <div class="window-body">
     <slot />
   </div>
+
+  <!-- Authentic GTK Statusbar -->
+  <footer class="gtk-statusbar">
+    <span class="gtk-status-text">{statusText}</span>
+    <span class="gtk-status-system">Kali GNU/Linux Rolling • UTF-8</span>
+  </footer>
 </div>

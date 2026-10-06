@@ -3,41 +3,59 @@ import { relevantExperience, pastCareers, educationList, certificationsList } fr
 ---
 
 <div class="experience-app">
-  <div class="exp-tabs">
-    <button class="exp-tab-btn active" data-tab="relevant">Relevant Experience</button>
-    <button class="exp-tab-btn" data-tab="past">Past Career</button>
-    <button class="exp-tab-btn" data-tab="education">Education & Certifications</button>
+  <!-- GTK Notebook Tab Bar -->
+  <div class="gtk-notebook-tabs" role="tablist">
+    <button class="gtk-tab-btn active" data-tab="relevant" role="tab" aria-selected="true">
+      <span>Relevant Cybersecurity Experience</span>
+    </button>
+    <button class="gtk-tab-btn" data-tab="past" role="tab" aria-selected="false">
+      <span>Past Career History</span>
+    </button>
+    <button class="gtk-tab-btn" data-tab="education" role="tab" aria-selected="false">
+      <span>Education & Certifications</span>
+    </button>
   </div>
 
   <!-- Tab 1: Relevant Experience -->
-  <div class="exp-tab-content" id="tab-relevant">
-    <div class="timeline">
+  <div class="gtk-tab-page active" id="tab-relevant" role="tabpanel">
+    <div class="gtk-ledger-list">
       {relevantExperience.map(exp => (
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3 class="timeline-role">{exp.role}</h3>
-            <div class="timeline-meta">{exp.company} ({exp.location}) | {exp.period}</div>
-            <ul class="timeline-bullets">
-              {exp.bullets.map(b => (
-                <li class="timeline-bullet">{b}</li>
-              ))}
-            </ul>
+        <div class="gtk-ledger-entry">
+          <div class="entry-header-row">
+            <span class="entry-badge">[EXPERIENCE]</span>
+            <h3 class="entry-title">{exp.role}</h3>
           </div>
+          <div class="entry-meta-bar">
+            <span><strong>Organization:</strong> {exp.company}</span>
+            <span><strong>Location:</strong> {exp.location}</span>
+            <span><strong>Period:</strong> {exp.period}</span>
+          </div>
+          <ul class="entry-bullet-list">
+            {exp.bullets.map(b => (
+              <li>
+                <span class="bullet-symbol">></span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       ))}
     </div>
   </div>
 
   <!-- Tab 2: Past Career Experience -->
-  <div class="exp-tab-content" id="tab-past" style="display: none;">
-    <div class="timeline">
+  <div class="gtk-tab-page" id="tab-past" role="tabpanel" style="display: none;">
+    <div class="gtk-ledger-list">
       {pastCareers.map(exp => (
-        <div class="timeline-item">
-          <div class="timeline-dot" style="border-color: var(--color-purple);"></div>
-          <div class="timeline-content">
-            <h3 class="timeline-role">{exp.role}</h3>
-            <div class="timeline-meta">{exp.company} ({exp.location}) | {exp.period}</div>
+        <div class="gtk-ledger-entry">
+          <div class="entry-header-row">
+            <span class="entry-badge past">[CAREER]</span>
+            <h3 class="entry-title">{exp.role}</h3>
+          </div>
+          <div class="entry-meta-bar">
+            <span><strong>Company:</strong> {exp.company}</span>
+            <span><strong>Location:</strong> {exp.location}</span>
+            <span><strong>Period:</strong> {exp.period}</span>
           </div>
         </div>
       ))}
@@ -45,39 +63,47 @@ import { relevantExperience, pastCareers, educationList, certificationsList } fr
   </div>
 
   <!-- Tab 3: Education & Certifications -->
-  <div class="exp-tab-content" id="tab-education" style="display: none;">
-    <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--kali-cyan); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-      <i class="fa-solid fa-graduation-cap"></i>
-      <span>Education</span>
-    </h3>
-    <div class="timeline" style="margin-bottom: 24px;">
+  <div class="gtk-tab-page" id="tab-education" role="tabpanel" style="display: none;">
+    <div class="gtk-section-heading">
+      <span class="heading-tag">ACADEMIC CREDENTIALS</span>
+    </div>
+
+    <div class="gtk-ledger-list" style="margin-bottom: 24px;">
       {educationList.map(edu => (
-        <div class="timeline-item">
-          <div class="timeline-dot" style="border-color: var(--color-yellow);"></div>
-          <div class="timeline-content">
-            <h4 class="timeline-role" style="font-size: 0.95rem;">{edu.degree}</h4>
-            <div class="timeline-meta">{edu.school} ({edu.location}) | {edu.year}</div>
-            {edu.coursework && (
-              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
-                <strong style="color: var(--text-secondary);">Coursework covering:</strong> {edu.coursework}
-              </p>
-            )}
+        <div class="gtk-ledger-entry">
+          <div class="entry-header-row">
+            <span class="entry-badge edu">[DEGREE]</span>
+            <h4 class="entry-title">{edu.degree}</h4>
           </div>
+          <div class="entry-meta-bar">
+            <span><strong>Institution:</strong> {edu.school}</span>
+            <span><strong>Location:</strong> {edu.location}</span>
+            <span><strong>Year:</strong> {edu.year}</span>
+          </div>
+          {edu.coursework && (
+            <div class="entry-coursework-note">
+              <strong>Coursework Scope:</strong> {edu.coursework}
+            </div>
+          )}
         </div>
       ))}
     </div>
 
-    <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--color-green); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-      <i class="fa-solid fa-award"></i>
-      <span>Active Certifications</span>
-    </h3>
-    <div class="timeline">
+    <div class="gtk-section-heading">
+      <span class="heading-tag">VERIFIED SECURITY CERTIFICATIONS</span>
+    </div>
+
+    <div class="gtk-ledger-list">
       {certificationsList.map(cert => (
-        <div class="timeline-item">
-          <div class="timeline-dot" style="border-color: var(--color-green);"></div>
-          <div class="timeline-content">
-            <h4 class="timeline-role" style="font-size: 0.95rem;">{cert.name}</h4>
-            <div class="timeline-meta">{cert.issuer} | {cert.year}</div>
+        <div class="gtk-ledger-entry">
+          <div class="entry-header-row">
+            <span class="entry-badge cert">[VERIFIED]</span>
+            <h4 class="entry-title">{cert.name}</h4>
+          </div>
+          <div class="entry-meta-bar">
+            <span><strong>Issuing Body:</strong> {cert.issuer}</span>
+            <span><strong>Issued:</strong> {cert.year}</span>
+            <span><strong>Status:</strong> Active Credential</span>
           </div>
         </div>
       ))}
@@ -87,19 +113,23 @@ import { relevantExperience, pastCareers, educationList, certificationsList } fr
 
 <script>
   function setupExpTabs() {
-    const buttons = document.querySelectorAll('.exp-tab-btn');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const targetTab = btn.getAttribute('data-tab');
+    const tabs = document.querySelectorAll('.gtk-tab-btn');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
 
-        document.querySelectorAll('.exp-tab-content').forEach(content => {
-          (content as HTMLElement).style.display = 'none';
+        const target = tab.getAttribute('data-tab');
+        document.querySelectorAll('.gtk-tab-page').forEach(page => {
+          (page as HTMLElement).style.display = 'none';
         });
 
-        const activeContent = document.getElementById(`tab-${targetTab}`);
-        if (activeContent) activeContent.style.display = 'block';
+        const activePage = document.getElementById(`tab-${target}`);
+        if (activePage) activePage.style.display = 'block';
       });
     });
   }

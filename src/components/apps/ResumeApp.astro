@@ -3,20 +3,21 @@ import { profile } from '../../data/profile';
 ---
 
 <div class="resume-app">
+  <!-- Evince Document Viewer Toolbar -->
   <div class="resume-toolbar">
-    <div style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text-secondary);">
-      <i class="fa-solid fa-file-pdf" style="color: #ef4444; font-size: 1.1rem;"></i>
-      <span>{profile.resumeFileName}</span>
-      <span style="color: var(--text-dim);">(Official CV)</span>
+    <div class="resume-file-info">
+      <img src="/icons/app-pdf.svg" alt="" width="16" height="16" />
+      <span class="file-name">{profile.resumeFileName}</span>
+      <span class="file-meta">(1 page • PDF Document)</span>
     </div>
 
-    <div style="display: flex; gap: 8px;">
-      <a href="/resume.pdf" target="_blank" rel="noopener" class="btn-project secondary" style="font-size: 0.78rem;">
-        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    <div class="resume-toolbar-actions">
+      <a href="/resume.pdf" target="_blank" rel="noopener" class="gtk-btn" title="Open PDF directly in new tab">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         <span>Open in New Tab</span>
       </a>
-      <a href="/resume.pdf" download={profile.resumeFileName} class="btn-project" style="font-size: 0.78rem;">
-        <i class="fa-solid fa-download"></i>
+      <a href="/resume.pdf" download={profile.resumeFileName} class="gtk-btn primary" title="Download CV PDF">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         <span>Download PDF</span>
       </a>
     </div>
@@ -25,7 +26,7 @@ import { profile } from '../../data/profile';
   <iframe src="/resume.pdf#toolbar=1" class="resume-frame" title="Mario Barajas Resume PDF">
     <div style="padding: 30px; text-align: center; color: var(--text-secondary);">
       <p>Your browser does not support inline PDF preview.</p>
-      <a href="/resume.pdf" download={profile.resumeFileName} class="btn-project" style="margin-top: 15px; display: inline-flex;">
+      <a href="/resume.pdf" download={profile.resumeFileName} class="gtk-btn primary" style="margin-top: 15px; display: inline-flex;">
         Download PDF Document
       </a>
     </div>

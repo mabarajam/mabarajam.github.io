@@ -1,21 +1,28 @@
 ---
-// TerminalApp.astro - Interactive Kali Zsh shell
+// TerminalApp.astro - Authentic Kali Zsh terminal
 ---
 
 <div class="terminal-app" id="kali-terminal-component">
   <div class="terminal-output" id="terminal-output-container">
-    <div class="terminal-line" style="color: var(--text-dim);">
-      Kali GNU/Linux Rolling [Release: 2026.3] • Linux 6.8.0-kali-amd64
+    <div class="terminal-line" style="color: #61afef;">
+      Kali GNU/Linux Rolling 2026.3 • Kernel 6.8.0-kali-amd64
     </div>
-    <div class="terminal-line" style="color: var(--kali-cyan);">
-      Type '<strong style="color: #fff;">help</strong>' to display available commands, or explore the desktop windows.
+    <div class="terminal-line" style="color: #98c379;">
+      Type '<strong>help</strong>' to display available commands or '<strong>neofetch</strong>' for system information.
     </div>
     <div class="terminal-line" style="margin-bottom: 8px;"></div>
   </div>
 
   <form class="terminal-input-row" id="terminal-form" autocomplete="off">
-    <span class="terminal-prompt-user">mario@kali</span><span class="terminal-prompt-symbol">:</span><span class="terminal-prompt-path">~</span><span class="terminal-prompt-symbol">$</span>
-    <input type="text" id="terminal-cli-input" class="terminal-input" autofocus spellcheck="false" aria-label="Terminal command input" />
+    <div class="kali-zsh-prompt-block">
+      <div class="zsh-prompt-top">
+        <span class="zsh-c-blue">┌──(</span><span class="zsh-c-user">mario</span><span class="zsh-c-at">㉿</span><span class="zsh-c-host">kali</span><span class="zsh-c-blue">)-[</span><span class="zsh-c-white">~</span><span class="zsh-c-blue">]</span>
+      </div>
+      <div class="zsh-prompt-bottom">
+        <span class="zsh-c-blue">└─</span><span class="zsh-c-symbol">$</span>
+        <input type="text" id="terminal-cli-input" class="terminal-input" autofocus spellcheck="false" aria-label="Terminal command input" />
+      </div>
+    </div>
   </form>
 </div>
 
@@ -38,53 +45,85 @@
     const commands: Record<string, () => void> = {
       help: () => {
         appendLine(`
-<span style="color: #38bdf8; font-weight: bold;">AVAILABLE COMMANDS:</span>
-  <span style="color: #4ade80;">whoami</span>        - Display analyst credentials and summary
-  <span style="color: #4ade80;">neofetch</span>      - Print Kali system & workstation specifications
-  <span style="color: #4ade80;">ls [dir]</span>      - List projects, certifications, or files
-  <span style="color: #4ade80;">skills</span>        - Technical skills & security tools list
-  <span style="color: #4ade80;">certs</span>         - List certifications & credentials
-  <span style="color: #4ade80;">open &lt;app&gt;</span>    - Open GUI window (about, projects, certs, map, resume, blog, contact)
-  <span style="color: #4ade80;">contact</span>       - Display contact channels and email
-  <span style="color: #4ade80;">decrypt email</span> - Execute decrypted email handshake
-  <span style="color: #4ade80;">resume</span>        - Download or preview Mario's resume PDF
-  <span style="color: #4ade80;">clear</span>         - Clear the terminal screen
-  <span style="color: #4ade80;">sudo hire-mario</span>- Execute security analyst onboarding script
+<span style="color: #61afef; font-weight: bold;">AVAILABLE COMMANDS:</span>
+  <span style="color: #98c379;">whoami</span>        - Display analyst credentials and summary
+  <span style="color: #98c379;">neofetch</span>      - Print official Kali dragon & workstation specs
+  <span style="color: #98c379;">ls [dir]</span>      - List directories, projects or certificates
+  <span style="color: #98c379;">skills</span>        - Technical skills & security tools list
+  <span style="color: #98c379;">certs</span>         - List certifications & credentials
+  <span style="color: #98c379;">open &lt;app&gt;</span>    - Open GUI window (about, projects, certs, map, resume, blog, contact)
+  <span style="color: #98c379;">contact</span>       - Display contact channels and email
+  <span style="color: #98c379;">decrypt email</span> - Execute decrypted email handshake
+  <span style="color: #98c379;">resume</span>        - Download or preview Mario's resume PDF
+  <span style="color: #98c379;">clear</span>         - Clear the terminal screen
+  <span style="color: #98c379;">sudo hire-mario</span>- Execute security analyst onboarding script
 `);
       },
 
       whoami: () => {
         appendLine(`
-<strong style="color: #38bdf8;">Mario Barajas</strong> — Cybersecurity Analyst based in Vancouver, BC.
-CompTIA Security+ Certified • Threat Detection • Splunk/Wazuh SIEM • Vulnerability Assessment • Web Pentesting.
+<strong style="color: #61afef;">Mario Barajas</strong> — Cybersecurity Analyst based in Vancouver, BC.
+CompTIA Security+ (SY0-701) • Threat Detection • Splunk/Wazuh SIEM • Vulnerability Assessment • Web Pentesting.
 `);
       },
 
       neofetch: () => {
         appendLine(`
-<span style="color: #2777ff;">    (\\___/)     </span>  <strong style="color: #38bdf8;">mario@kali-workstation</strong>
-<span style="color: #2777ff;">   (=*.*=)     </span>  -----------------------
-<span style="color: #2777ff;">   (")_(")     </span>  <strong>OS:</strong> Kali GNU/Linux (Mario Portfolio)
-<span style="color: #23bac2;">  [KALI DRAGON]</span>  <strong>Host:</strong> Vancouver, BC, Canada
-<span style="color: #23bac2;">               </span>  <strong>Role:</strong> Cybersecurity Analyst
-<span style="color: #23bac2;">               </span>  <strong>Certification:</strong> CompTIA Security+ (SY0-701)
-<span style="color: #23bac2;">               </span>  <strong>Uptime:</strong> 6+ years in IT & Security
-<span style="color: #23bac2;">               </span>  <strong>Shell:</strong> zsh 5.9 (x86_64)
-<span style="color: #23bac2;">               </span>  <strong>Status:</strong> Open to SOC & Analyst Roles
+<div style="display: flex; gap: 20px; font-family: monospace; line-height: 1.25;">
+<div style="color: #2777ff; white-space: pre;">
+..............
+            ..,;:ccc,.
+          ......''';lxO.
+.....''''..........,:ld;
+           .';;;:::;,,.x,
+      ..'''.            0Xxoc:,.  ...
+  ....                ,ONkc;,;cokOdc',.
+ .                   OMo           ':ddo.
+                    dMc               :OO;
+                    0M.                 .:o.
+                    ;Wd
+                     ;XO,
+                       ,d0Odlc;,..
+                           ..',;:cdOOd::,.
+                                    .:d;.':;.
+                                       'd,  .'
+                                         ;l   ..
+                                          .o
+                                            c
+                                            .'
+                                             .
+</div>
+<div>
+<span style="color: #61afef; font-weight: bold;">mario</span>@<span style="color: #23bac2; font-weight: bold;">kali-workstation</span>
+---------------------------
+<span style="color: #61afef; font-weight: bold;">OS:</span> Kali GNU/Linux Rolling x86_64
+<span style="color: #61afef; font-weight: bold;">Host:</span> Vancouver, BC, Canada
+<span style="color: #61afef; font-weight: bold;">Kernel:</span> 6.8.0-kali-amd64
+<span style="color: #61afef; font-weight: bold;">Uptime:</span> 6+ years in IT & Systems
+<span style="color: #61afef; font-weight: bold;">Packages:</span> 2842 (dpkg)
+<span style="color: #61afef; font-weight: bold;">Shell:</span> zsh 5.9
+<span style="color: #61afef; font-weight: bold;">WM:</span> Xfwm4 (Kali-Dark)
+<span style="color: #61afef; font-weight: bold;">Theme:</span> Kali-Dark [GTK2/3]
+<span style="color: #61afef; font-weight: bold;">Icons:</span> Flat-Remix-Blue [GTK2/3]
+<span style="color: #61afef; font-weight: bold;">Terminal:</span> qterminal
+<span style="color: #61afef; font-weight: bold;">Cert:</span> <span style="color: #98c379;">CompTIA Security+ (SY0-701)</span>
+<span style="color: #61afef; font-weight: bold;">Status:</span> <span style="color: #e5c07b;">Open to SOC / Analyst roles</span>
+</div>
+</div>
 `);
       },
 
       ls: () => {
         appendLine(`
-<span style="color: #60a5fa; font-weight: bold;">projects/</span>       <span style="color: #fbbf24; font-weight: bold;">certs/</span>          profile.txt     resume.pdf
-<span style="color: #34d399; font-weight: bold;">blog/</span>           <span style="color: #a78bfa; font-weight: bold;">labs/</span>           skills.json     trace_route.sh
+<span style="color: #61afef; font-weight: bold;">projects/</span>       <span style="color: #e5c07b; font-weight: bold;">credentials/</span>    profile.txt     Resume.pdf
+<span style="color: #98c379; font-weight: bold;">blog/</span>           <span style="color: #c678dd; font-weight: bold;">labs/</span>           skills.json     trace_route.sh
 `);
       },
 
       skills: () => {
         appendLine(`
-<span style="color: #38bdf8; font-weight: bold;">TECHNICAL SKILLS:</span>
-- <strong style="color: #fff;">SIEM & Monitoring:</strong> Splunk, Wazuh, Syslog, Auth logs
+<span style="color: #61afef; font-weight: bold;">TECHNICAL COMPETENCIES:</span>
+- <strong style="color: #fff;">SIEM & Monitoring:</strong> Splunk Enterprise, Wazuh, Syslog, Auth logs
 - <strong style="color: #fff;">Scanning & Vulnerability:</strong> Nmap, Nessus Essentials, OpenVAS, Wireshark
 - <strong style="color: #fff;">Offensive Security:</strong> Burp Suite, SQL Injection, XSS, Fernet Crypto, Python
 - <strong style="color: #fff;">Systems & Networks:</strong> Linux (Debian/Kali/Ubuntu), TCP/IP, CCTV/DVR/NVR
@@ -93,7 +132,7 @@ CompTIA Security+ Certified • Threat Detection • Splunk/Wazuh SIEM • Vulne
 
       certs: () => {
         appendLine(`
-<span style="color: #fbbf24; font-weight: bold;">CERTIFICATIONS:</span>
+<span style="color: #e5c07b; font-weight: bold;">CREDENTIALS & CERTIFICATIONS:</span>
 1. CompTIA Security+ (SY0-701) - 2026
 2. Cybersecurity Specialist (Cornerstone)
 3. Networking Basics (CISCO)
@@ -106,11 +145,11 @@ CompTIA Security+ Certified • Threat Detection • Splunk/Wazuh SIEM • Vulne
 
       contact: () => {
         appendLine(`
-<span style="color: #38bdf8; font-weight: bold;">CONTACT & PROFILES:</span>
-- Email: <a href="mailto:Defensium@protonmail.com" style="color: #4ade80;">Defensium@protonmail.com</a>
-- LinkedIn: <a href="https://www.linkedin.com/in/marioabarajas/" target="_blank" style="color: #38bdf8;">linkedin.com/in/marioabarajas</a>
-- Medium: <a href="https://medium.com/@mabarajam" target="_blank" style="color: #38bdf8;">medium.com/@mabarajam</a>
-- GitHub: <a href="https://github.com/mabarajam" target="_blank" style="color: #38bdf8;">github.com/mabarajam</a>
+<span style="color: #61afef; font-weight: bold;">CONTACT:</span>
+- Email: <a href="mailto:Defensium@protonmail.com" style="color: #98c379;">Defensium@protonmail.com</a>
+- LinkedIn: <a href="https://www.linkedin.com/in/marioabarajas/" target="_blank" style="color: #61afef;">linkedin.com/in/marioabarajas</a>
+- Medium: <a href="https://medium.com/@mabarajam" target="_blank" style="color: #61afef;">medium.com/@mabarajam</a>
+- GitHub: <a href="https://github.com/mabarajam" target="_blank" style="color: #61afef;">github.com/mabarajam</a>
 `);
       },
 
@@ -130,8 +169,11 @@ CompTIA Security+ Certified • Threat Detection • Splunk/Wazuh SIEM • Vulne
       input.value = '';
       if (!raw) return;
 
-      // Echo command
-      appendLine(`<span style="color: var(--kali-blue); font-weight: bold;">mario@kali</span>:~$ ${raw}`);
+      // Echo command with prompt
+      appendLine(`
+<div style="color: #61afef;">┌──(mario㉿kali)-[~]</div>
+<div>└─$ ${raw}</div>
+      `);
 
       const parts = raw.split(' ');
       const cmd = parts[0].toLowerCase();
@@ -139,8 +181,8 @@ CompTIA Security+ Certified • Threat Detection • Splunk/Wazuh SIEM • Vulne
 
       if (raw === 'sudo hire-mario') {
         appendLine(`
-<span style="color: #4ade80; font-weight: bold;">[SUCCESS]</span> Initializing onboarding protocol:
-Candidate <strong style="color: #38bdf8;">Mario Barajas</strong> identified as high-value addition to security operations.
+<span style="color: #98c379; font-weight: bold;">[SUCCESS]</span> Initializing onboarding protocol:
+Candidate <strong style="color: #61afef;">Mario Barajas</strong> identified as high-value addition to security operations.
 Skills: Threat detection, incident response, SIEM log analysis, and proactive defense.
 Contact channel established at: <a href="mailto:Defensium@protonmail.com" style="color: #fff;">Defensium@protonmail.com</a>
 `);
@@ -152,7 +194,7 @@ Contact channel established at: <a href="mailto:Defensium@protonmail.com" style=
         let count = 0;
         const temp = document.createElement('div');
         temp.className = 'terminal-line';
-        temp.style.color = '#f43f5e';
+        temp.style.color = '#e06c75';
         output.appendChild(temp);
         const chars = 'ABCDEF0123456789!@#$%';
         const target = 'Defensium@protonmail.com';
@@ -160,20 +202,16 @@ Contact channel established at: <a href="mailto:Defensium@protonmail.com" style=
           count++;
           if (count > 15) {
             clearInterval(timer);
-            temp.style.color = '#4ade80';
+            temp.style.color = '#98c379';
             temp.innerHTML = `[SUCCESS] Decrypted Email: <strong>${target}</strong>`;
           } else {
             temp.innerText = Array.from({ length: 24 }).map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
           }
-        }, 60);
+        }, 50);
         return;
       }
 
       if (cmd === 'open') {
-        if (!arg) {
-          appendLine(`Usage: open &lt;app&gt; (e.g. open projects, open certs, open map, open resume, open about, open blog, open contact)`);
-          return;
-        }
         const appMap: Record<string, string> = {
           about: 'about',
           projects: 'projects',
@@ -192,7 +230,7 @@ Contact channel established at: <a href="mailto:Defensium@protonmail.com" style=
         };
         const targetApp = appMap[arg];
         if (targetApp) {
-          appendLine(`Opening GUI application [${targetApp}]...`);
+          appendLine(`Launching application [${targetApp}]...`);
           window.dispatchEvent(new CustomEvent('kali:open-app', { detail: { app: targetApp } }));
         } else {
           appendLine(`Unknown window target: '${arg}'. Available apps: about, projects, certs, map, experience, blog, contact, resume.`);
@@ -216,7 +254,7 @@ Contact channel established at: <a href="mailto:Defensium@protonmail.com" style=
       if (commands[cmd]) {
         commands[cmd]();
       } else {
-        appendLine(`zsh: command not found: ${cmd}. Type '<span style="color: #38bdf8;">help</span>' for a list of commands.`, '#f43f5e');
+        appendLine(`zsh: command not found: ${cmd}. Type '<span style="color: #61afef;">help</span>' for a list of commands.`, '#e06c75');
       }
     });
   }

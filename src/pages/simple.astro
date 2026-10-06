@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { profile, skillGroups, tools, trademarkNotice } from '../data/profile';
+import { profile, skillGroups, tools } from '../data/profile';
 import { projects } from '../data/projects';
 import { relevantExperience, pastCareers, educationList, certificationsList } from '../data/experience';
 import { certificates } from '../data/certs';
@@ -11,54 +11,50 @@ import { mediumPosts } from '../data/mediumPosts';
   title="Mario Barajas | Cybersecurity Analyst (Simple View)"
   description="Clean, recruiter-friendly view of Mario Barajas's cybersecurity portfolio, projects, work experience, and certifications."
 >
-  <div class="simple-page">
+  <div class="simple-page-wrapper">
     <!-- Sticky Header Nav -->
     <header class="simple-header">
       <div class="simple-header-inner">
         <a href="#about" class="simple-brand">
-          <img src="/brand/kali-dragon-icon.svg" alt="Kali" class="simple-brand-logo" />
-          <div>
-            <div class="simple-brand-name">Mario Barajas</div>
-            <div class="simple-brand-role">Cybersecurity Analyst</div>
-          </div>
+          <img src="/brand/kali-dragon-icon.svg" alt="Kali Dragon" class="simple-brand-logo" width="22" height="22" />
+          <span class="simple-brand-name">Mario Barajas</span>
+          <span class="simple-brand-role">Cybersecurity Analyst</span>
         </a>
 
-        <nav class="simple-nav">
+        <nav class="simple-nav" aria-label="Simple View Navigation">
           <a href="#about">About</a>
-          <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
           <a href="#experience">Experience</a>
-          <a href="#certs">Certifications</a>
-          <a href="#route">Route</a>
+          <a href="#credentials">Credentials</a>
+          <a href="#writeups">Writeups</a>
           <a href="#contact">Contact</a>
         </nav>
 
         <div class="simple-header-actions">
-          <a href="/" class="btn-desktop-switch" title="Launch interactive Kali Linux desktop environment">
-            <i class="fa-solid fa-desktop"></i>
-            <span>Kali Desktop</span>
+          <a href="/" class="btn-desktop-switch" title="Switch to Kali Linux Interactive Desktop">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <span>Kali Desktop View</span>
           </a>
-          <a href="/resume.pdf" download={profile.resumeFileName} class="btn-resume-download" title="Download resume PDF">
-            <i class="fa-solid fa-download"></i>
-            <span>Resume</span>
+          <a href="/resume.pdf" download={profile.resumeFileName} class="btn-resume-download" title="Download Resume PDF">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Resume (PDF)</span>
           </a>
         </div>
       </div>
     </header>
 
+    <!-- Main Scrollable Content -->
     <main class="simple-container">
-      <!-- 1. Hero / About Section -->
+      <!-- 1. Hero / About Summary -->
       <section id="about" class="simple-section">
         <div class="simple-hero-card">
           <div class="simple-status-badge">
             <span class="status-indicator-dot"></span>
-            <span>Open to SOC Analyst & Security Roles • Vancouver, BC</span>
+            <span>AVAILABLE FOR SOC & CYBERSECURITY ANALYST ROLES • VANCOUVER, BC / REMOTE</span>
           </div>
 
           <h1 class="simple-hero-title">Mario Barajas</h1>
-          <p class="simple-hero-subtitle">
-            Cybersecurity Analyst • CompTIA Security+ (SY0-701) • Threat Detection & SIEM
-          </p>
+          <p class="simple-hero-subtitle">Cybersecurity Analyst | CompTIA Security+ (SY0-701)</p>
 
           <div class="simple-bio-box">
             {profile.bio.map(p => (
@@ -68,38 +64,51 @@ import { mediumPosts } from '../data/mediumPosts';
 
           <div class="simple-hero-links">
             <a href={`mailto:${profile.email}`} class="btn-simple-cta">
-              <i class="fa-solid fa-paper-plane"></i>
-              <span>Get in Touch</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              <span>Contact: {profile.email}</span>
             </a>
             <a href="/resume.pdf" download={profile.resumeFileName} class="btn-simple-cta secondary">
-              <i class="fa-solid fa-file-pdf"></i>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               <span>Download Resume</span>
             </a>
             {profile.socials.map(s => (
               <a href={s.url} target="_blank" rel="noopener" class="btn-simple-social">
-                <i class={s.icon}></i>
                 <span>{s.label}</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               </a>
             ))}
+          </div>
+
+          <!-- Tools Installed -->
+          <div class="simple-tools-card">
+            <div style="font-size: 0.76rem; font-family: var(--font-mono); color: #717d93; margin-bottom: 8px;">
+              CORE SECURITY TOOLS & ENVIRONMENTS:
+            </div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              {tools.map(tool => (
+                <span class="gtk-tag-pill" style="color: #61afef; border-color: #283142;">{tool}</span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- 2. Skills & Tools Section -->
-      <section id="skills" class="simple-section">
+      <!-- 2. Technical Competencies -->
+      <section class="simple-section">
         <h2 class="simple-section-title">
-          <i class="fa-solid fa-microchip"></i>
-          <span>Technical Skills & Competencies</span>
+          <span class="sec-title-icon">[+]</span> Technical Competencies & Frameworks
         </h2>
 
-        <div class="skills-grid">
+        <div class="gtk-table-grid">
           {skillGroups.map(group => (
-            <div class="skill-card">
-              <h3 class="skill-card-title">{group.title}</h3>
-              <ul class="skill-list">
+            <div class="gtk-table-column">
+              <div class="gtk-column-header">
+                <span style="color: #38bdf8;">[+]</span> {group.title}
+              </div>
+              <ul class="gtk-column-items">
                 {group.items.map(item => (
-                  <li class="skill-item">
-                    <span class="skill-bullet">></span>
+                  <li>
+                    <span style="color: #4ade80;">*</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -107,222 +116,233 @@ import { mediumPosts } from '../data/mediumPosts';
             </div>
           ))}
         </div>
-
-        <div class="simple-tools-card">
-          <h3 style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 600;">
-            <i class="fa-solid fa-wrench" style="color: var(--kali-cyan); margin-right: 6px;"></i>
-            Hands-on Security Tools & Frameworks:
-          </h3>
-          <div class="tools-wrap">
-            {tools.map(tool => (
-              <span class="tool-chip">{tool}</span>
-            ))}
-          </div>
-        </div>
       </section>
 
-      <!-- 3. Projects & Labs Section -->
+      <!-- 3. Featured Projects -->
       <section id="projects" class="simple-section">
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
-          <h2 class="simple-section-title" style="margin-bottom: 0;">
-            <i class="fa-solid fa-folder-open"></i>
-            <span>Featured Security Projects & Labs</span>
-          </h2>
-          <span style="font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono);">
-            5 Projects • Live Labs & Writeups
-          </span>
-        </div>
+        <h2 class="simple-section-title">
+          <span class="sec-title-icon">[+]</span> Security Projects & Hands-On Labs
+        </h2>
 
-        <div class="projects-grid">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
           {projects.map(proj => (
-            <article class="project-card">
-              <div class="project-card-header">
-                <div class="project-card-icon">
-                  <i class={proj.icon}></i>
+            <article class="gtk-section-panel">
+              <div class="gtk-section-titlebar" style="justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span class="gtk-title-indicator">■</span>
+                  <span style="font-size: 0.88rem; font-weight: 700;">{proj.title}</span>
                 </div>
-                {proj.badge && <span class="project-badge">{proj.badge}</span>}
+                {proj.badge && <span class="gtk-badge featured">{proj.badge}</span>}
               </div>
 
-              <h3 class="project-card-title">{proj.title}</h3>
-              {proj.summary && <p class="project-card-summary">{proj.summary}</p>}
+              <div class="gtk-section-body">
+                <p style="font-size: 0.86rem; color: #abb2bf; line-height: 1.5; margin-bottom: 10px;">
+                  {proj.summary}
+                </p>
 
-              <ul class="project-card-bullets">
-                {proj.bullets.map(bullet => (
-                  <li class="project-bullet-item">{bullet}</li>
-                ))}
-              </ul>
-
-              <div class="project-tags">
-                {proj.tags.map(tag => (
-                  <span class="project-tag">{tag}</span>
-                ))}
-              </div>
-
-              {proj.links && proj.links.length > 0 && (
-                <div class="project-links">
-                  {proj.links.map(link => (
-                    <a
-                      href={link.url}
-                      target={link.external ? '_blank' : '_self'}
-                      rel={link.external ? 'noopener' : ''}
-                      class={`btn-project ${link.label.includes('Medium') ? 'secondary' : ''}`}
-                    >
-                      {link.label.includes('Exam') && <i class="fa-solid fa-play"></i>}
-                      {link.label.includes('Walkthrough') && <i class="fa-solid fa-book-open"></i>}
-                      {link.label.includes('Medium') && <i class="fa-brands fa-medium"></i>}
-                      <span>{link.label}</span>
-                    </a>
+                <div style="font-size: 0.78rem; font-family: var(--font-mono); color: #23bac2; margin-bottom: 6px;">
+                  Key Implementation Details:
+                </div>
+                <ul class="doc-bullet-list" style="margin-bottom: 12px;">
+                  {proj.bullets.map(b => (
+                    <li>
+                      <span class="doc-bullet-symbol">*</span>
+                      <span>{b}</span>
+                    </li>
                   ))}
+                </ul>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                  <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                    {proj.tags.map(t => (
+                      <span class="gtk-tag-pill">{t}</span>
+                    ))}
+                  </div>
+
+                  {proj.links && proj.links.length > 0 && (
+                    <div style="display: flex; gap: 8px;">
+                      {proj.links.map(link => (
+                        <a
+                          href={link.url}
+                          target={link.external ? '_blank' : '_self'}
+                          rel={link.external ? 'noopener' : ''}
+                          class="gtk-btn primary small"
+                        >
+                          <span>{link.label}</span>
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </article>
           ))}
         </div>
       </section>
 
-      <!-- 4. Work Experience Section -->
+      <!-- 4. Relevant Cybersecurity Experience -->
       <section id="experience" class="simple-section">
         <h2 class="simple-section-title">
-          <i class="fa-solid fa-briefcase"></i>
-          <span>Professional Experience</span>
+          <span class="sec-title-icon">[+]</span> Cybersecurity & Threat Monitoring Experience
         </h2>
 
-        <div class="timeline" style="margin-bottom: 24px;">
+        <div class="gtk-ledger-list">
           {relevantExperience.map(exp => (
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <h3 class="timeline-role">{exp.role}</h3>
-                <div class="timeline-meta">{exp.company} ({exp.location}) | {exp.period}</div>
-                <ul class="timeline-bullets">
-                  {exp.bullets.map(b => (
-                    <li class="timeline-bullet">{b}</li>
-                  ))}
-                </ul>
+            <div class="gtk-ledger-entry">
+              <div class="entry-header-row">
+                <span class="entry-badge">[EXPERIENCE]</span>
+                <h3 class="entry-title">{exp.role}</h3>
               </div>
+              <div class="entry-meta-bar">
+                <span><strong>Organization:</strong> {exp.company}</span>
+                <span><strong>Location:</strong> {exp.location}</span>
+                <span><strong>Period:</strong> {exp.period}</span>
+              </div>
+              <ul class="entry-bullet-list">
+                {exp.bullets.map(b => (
+                  <li>
+                    <span class="bullet-symbol">></span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
+      </section>
 
-        <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--text-muted); margin-bottom: 14px;">
-          Previous Career Experience
-        </h3>
-        <div class="timeline">
+      <!-- 5. Past Career History -->
+      <section class="simple-section">
+        <h2 class="simple-section-title">
+          <span class="sec-title-icon">[+]</span> Prior IT & Operations Experience
+        </h2>
+
+        <div class="gtk-ledger-list">
           {pastCareers.map(exp => (
-            <div class="timeline-item">
-              <div class="timeline-dot" style="border-color: var(--color-purple);"></div>
-              <div class="timeline-content">
-                <h4 class="timeline-role" style="font-size: 0.95rem;">{exp.role}</h4>
-                <div class="timeline-meta">{exp.company} ({exp.location}) | {exp.period}</div>
+            <div class="gtk-ledger-entry">
+              <div class="entry-header-row">
+                <span class="entry-badge past">[CAREER]</span>
+                <h3 class="entry-title">{exp.role}</h3>
+              </div>
+              <div class="entry-meta-bar">
+                <span><strong>Company:</strong> {exp.company}</span>
+                <span><strong>Location:</strong> {exp.location}</span>
+                <span><strong>Period:</strong> {exp.period}</span>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <!-- 5. Education & Certifications Section -->
-      <section id="education" class="simple-section">
+      <!-- 6. Education & Certifications List -->
+      <section class="simple-section">
         <h2 class="simple-section-title">
-          <i class="fa-solid fa-graduation-cap"></i>
-          <span>Education & Credentials</span>
+          <span class="sec-title-icon">[+]</span> Education & Credentials
         </h2>
 
-        <div class="timeline" style="margin-bottom: 24px;">
+        <div class="gtk-ledger-list" style="margin-bottom: 20px;">
           {educationList.map(edu => (
-            <div class="timeline-item">
-              <div class="timeline-dot" style="border-color: var(--color-yellow);"></div>
-              <div class="timeline-content">
-                <h3 class="timeline-role" style="font-size: 0.95rem;">{edu.degree}</h3>
-                <div class="timeline-meta">{edu.school} ({edu.location}) | {edu.year}</div>
-                {edu.coursework && (
-                  <p style="font-size: 0.84rem; color: var(--text-muted); margin-top: 4px;">
-                    <strong style="color: var(--text-secondary);">Coursework covering:</strong> {edu.coursework}
-                  </p>
-                )}
+            <div class="gtk-ledger-entry">
+              <div class="entry-header-row">
+                <span class="entry-badge edu">[DEGREE]</span>
+                <h3 class="entry-title">{edu.degree}</h3>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--color-green); margin-bottom: 12px;">
-          Active Certifications
-        </h3>
-        <div class="timeline">
-          {certificationsList.map(cert => (
-            <div class="timeline-item">
-              <div class="timeline-dot" style="border-color: var(--color-green);"></div>
-              <div class="timeline-content">
-                <h4 class="timeline-role" style="font-size: 0.95rem;">{cert.name}</h4>
-                <div class="timeline-meta">{cert.issuer} | {cert.year}</div>
+              <div class="entry-meta-bar">
+                <span><strong>Institution:</strong> {edu.school}</span>
+                <span><strong>Location:</strong> {edu.location}</span>
+                <span><strong>Year:</strong> {edu.year}</span>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- 6. Certificates Gallery Section -->
-      <section id="certs" class="simple-section">
-        <h2 class="simple-section-title">
-          <i class="fa-solid fa-certificate"></i>
-          <span>Credential Badges & Certificates (7)</span>
-        </h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
-          Click any certificate to view high-resolution credential verification.
-        </p>
-
-        <div class="certs-grid">
-          {certificates.map((cert, index) => (
-            <div class="cert-card-item simple-cert-card" data-index={index} data-src={cert.image} data-caption={cert.caption}>
-              <img src={cert.image} alt={cert.title} class="cert-thumb-img" loading="lazy" />
-              <span class="cert-card-label">{cert.title}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- 7. Interactive Route Map Section -->
-      <section id="route" class="simple-section">
-        <h2 class="simple-section-title">
-          <i class="fa-solid fa-map-location-dot"></i>
-          <span>Global Route & Locations</span>
-        </h2>
-
-        <div style="height: 380px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); position: relative;">
-          <div id="map" style="width: 100%; height: 100%;"></div>
-        </div>
-
-        <div style="margin-top: 10px; font-size: 0.82rem; color: var(--text-muted); display: flex; justify-content: space-between;">
-          <span>Origin: Aguascalientes, MX &rarr; Current Base: Vancouver, BC</span>
-          <span style="color: var(--color-green); font-family: var(--font-mono); font-weight: 600;">ACTIVE CONNECTION</span>
-        </div>
-      </section>
-
-      <!-- 8. Publications & Writeups -->
-      <section id="blog-posts" class="simple-section">
-        <h2 class="simple-section-title">
-          <i class="fa-solid fa-newspaper"></i>
-          <span>Articles & Writeups on Medium</span>
-        </h2>
-
-        <div class="blog-list">
-          {mediumPosts.map(post => (
-            <article class="blog-card">
-              <div class="blog-card-header">
-                <span class="blog-source-badge">
-                  <i class="fa-brands fa-medium"></i> MEDIUM
-                </span>
-                <span class="blog-card-date">{post.date}</span>
-              </div>
-              <h3 class="blog-card-title">
-                <a href={post.url} target="_blank" rel="noopener" style="color: #fff;">{post.title}</a>
-              </h3>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
-                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                  {post.tags.map(t => <span class="project-tag">#{t}</span>)}
+              {edu.coursework && (
+                <div class="entry-coursework-note">
+                  <strong>Coursework Scope:</strong> {edu.coursework}
                 </div>
-                <a href={post.url} target="_blank" rel="noopener" class="btn-project secondary" style="font-size: 0.76rem;">
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div class="gtk-ledger-list">
+          {certificationsList.map(cert => (
+            <div class="gtk-ledger-entry">
+              <div class="entry-header-row">
+                <span class="entry-badge cert">[VERIFIED]</span>
+                <h3 class="entry-title">{cert.name}</h3>
+              </div>
+              <div class="entry-meta-bar">
+                <span><strong>Issuing Body:</strong> {cert.issuer}</span>
+                <span><strong>Issued:</strong> {cert.year}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 7. Verified Certificates Lightbox Gallery -->
+      <section id="credentials" class="simple-section">
+        <h2 class="simple-section-title">
+          <span class="sec-title-icon">[+]</span> Verified Credential Gallery
+        </h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
+          {certificates.map((cert, index) => (
+            <div
+              class="filmstrip-thumb simple-cert-card"
+              data-index={index}
+              data-src={cert.image}
+              data-caption={cert.caption}
+              style="width: 100%; height: 160px; padding: 8px;"
+              tabindex="0"
+              role="button"
+            >
+              <img src={cert.image} alt={cert.title} style="height: 110px; width: 100%; object-fit: contain;" loading="lazy" />
+              <span class="thumb-label" style="font-size: 0.74rem; font-weight: 600; color: #d8dee9; margin-top: 6px;">
+                {cert.title}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 8. Publications & Security Writeups -->
+      <section id="writeups" class="simple-section">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <h2 class="simple-section-title" style="margin-bottom: 0;">
+            <span class="sec-title-icon">[+]</span> Published Security Writeups (Medium)
+          </h2>
+          <a href="https://medium.com/@mabarajam" target="_blank" rel="noopener" class="gtk-btn primary small">
+            <span>Follow on Medium</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+        </div>
+
+        <div class="advisories-list">
+          {mediumPosts.map((post, idx) => (
+            <article class="gtk-advisory-item">
+              <div class="advisory-header-row">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span class="gtk-badge">[MEDIUM]</span>
+                  <span class="advisory-date">{post.date}</span>
+                </div>
+                <span class="advisory-id">PUB-0{idx + 1}</span>
+              </div>
+
+              <h3 class="advisory-title">
+                <a href={post.url} target="_blank" rel="noopener">
+                  {post.title}
+                </a>
+              </h3>
+
+              <div class="advisory-footer-row">
+                <div class="advisory-tags">
+                  {post.tags.map(tag => (
+                    <span class="gtk-tag-pill">#{tag}</span>
+                  ))}
+                </div>
+
+                <a href={post.url} target="_blank" rel="noopener" class="gtk-btn small">
                   <span>Read Article</span>
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 </a>
               </div>
             </article>
@@ -332,37 +352,46 @@ import { mediumPosts } from '../data/mediumPosts';
 
       <!-- 9. Contact Section -->
       <section id="contact" class="simple-section">
-        <div class="contact-hero-card">
-          <h2 style="font-size: 1.3rem; font-weight: 700; color: #fff;">Connect with Mario Barajas</h2>
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
-            Let's discuss cybersecurity analyst opportunities, threat defense, or security assessments.
+        <div class="mail-composer-card">
+          <h2 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 2px;">
+            Connect with Mario Barajas
+          </h2>
+          <p style="font-size: 0.84rem; color: #8892b0; margin-bottom: 12px;">
+            Available for SOC / Cybersecurity Analyst roles in Vancouver, BC or remote teams worldwide.
           </p>
 
-          <div class="contact-email-box">
-            <span id="simple-email-display">{profile.email}</span>
-            <div style="display: flex; gap: 8px;">
-              <button class="btn-copy-email" id="simple-copy-email-btn">
-                <i class="fa-regular fa-copy"></i>
-                <span id="simple-copy-btn-text">Copy</span>
-              </button>
-              <a href={`mailto:${profile.email}`} class="btn-copy-email" style="background: var(--kali-gradient);">
-                <i class="fa-solid fa-paper-plane"></i>
-                <span>Email</span>
-              </a>
+          <div class="mail-field-row">
+            <span class="mail-field-label">Email:</span>
+            <div class="mail-field-value">
+              <span id="simple-email-display" style="color: #38bdf8; font-weight: 600;">{profile.email}</span>
             </div>
           </div>
 
-          <div style="display: flex; justify-content: center; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
-            <a href="/resume.pdf" download={profile.resumeFileName} class="btn-social" style="background: var(--kali-gradient); border-color: transparent;">
-              <i class="fa-solid fa-download"></i>
+          <div class="mail-action-toolbar" style="margin-top: 10px;">
+            <a href={`mailto:${profile.email}`} class="gtk-btn primary">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              <span>Send Email</span>
+            </a>
+            <button class="gtk-btn" id="simple-copy-email-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span id="simple-copy-btn-text">Copy Address</span>
+            </button>
+            <a href="/resume.pdf" download={profile.resumeFileName} class="gtk-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               <span>Download Resume</span>
             </a>
-            {profile.socials.map(s => (
-              <a href={s.url} target="_blank" rel="noopener" class="btn-social">
-                <i class={s.icon}></i>
-                <span>{s.label}</span>
-              </a>
-            ))}
+          </div>
+
+          <div class="mail-channels-row" style="margin-top: 10px;">
+            <div class="channels-label">Professional Profiles:</div>
+            <div class="channels-buttons">
+              {profile.socials.map(s => (
+                <a href={s.url} target="_blank" rel="noopener" class="gtk-btn small">
+                  <span>{s.label}</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -370,16 +399,18 @@ import { mediumPosts } from '../data/mediumPosts';
       <!-- Trademark Disclaimer -->
       <footer class="simple-footer">
         <p>&copy; 2026 Mario Barajas. All rights reserved.</p>
-        <p class="trademark-notice" style="margin-top: 8px;">{trademarkNotice}</p>
+        <p class="trademark-notice" style="margin-top: 8px;">
+          Kali Linux™ and the Kali dragon logo are trademarks of OffSec. This portfolio is not affiliated with or endorsed by OffSec.
+        </p>
       </footer>
     </main>
   </div>
 
-  <!-- Certificate Lightbox Modal Overlay (shared across pages) -->
+  <!-- Lightbox Modal for Credentials Inspection -->
   <div class="cert-lightbox-modal" id="kali-cert-modal" role="dialog" aria-label="Certificate Image Viewer">
     <button class="cert-modal-close" id="cert-modal-close" aria-label="Close viewer">✕</button>
-    <button class="cert-modal-nav prev" id="cert-modal-prev" aria-label="Previous certificate"><i class="fa-solid fa-chevron-left"></i></button>
-    <button class="cert-modal-nav next" id="cert-modal-next" aria-label="Next certificate"><i class="fa-solid fa-chevron-right"></i></button>
+    <button class="cert-modal-nav prev" id="cert-modal-prev" aria-label="Previous certificate">‹</button>
+    <button class="cert-modal-nav next" id="cert-modal-next" aria-label="Next certificate">›</button>
     <div class="cert-modal-content">
       <img id="cert-modal-img" class="cert-modal-img" src="" alt="Certificate View" />
       <div id="cert-modal-caption" class="cert-modal-caption"></div>
@@ -388,95 +419,6 @@ import { mediumPosts } from '../data/mediumPosts';
 </Layout>
 
 <script>
-  import maplibregl from 'maplibre-gl';
-  import * as turf from '@turf/turf';
-
-  // Map Setup
-  function initSimpleMap() {
-    const mapEl = document.getElementById('map');
-    if (!mapEl) return;
-
-    const map = new maplibregl.Map({
-      container: 'map',
-      style: {
-        version: 8,
-        sources: {
-          'dark-matter': {
-            type: 'raster',
-            tiles: [
-              'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-              'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-            ],
-            tileSize: 256,
-          },
-        },
-        layers: [{ id: 'dark-matter-layer', type: 'raster', source: 'dark-matter', minzoom: 0, maxzoom: 22 }],
-      },
-      center: [-110, 36],
-      zoom: 2.8,
-    });
-
-    const locations = [
-      { name: 'Vancouver, BC', coords: [-123.1207, 49.2827] as [number, number], desc: 'Current Base | Cybersecurity Operations' },
-      { name: 'Aguascalientes, MX', coords: [-102.2916, 21.8853] as [number, number], desc: 'Origin | Education & Early Career' },
-    ];
-
-    locations.forEach(loc => {
-      const el = document.createElement('div');
-      el.className = 'marker';
-      new maplibregl.Marker({ element: el })
-        .setLngLat(loc.coords)
-        .setPopup(new maplibregl.Popup({ offset: 20 }).setHTML(`<h3>${loc.name}</h3><p>${loc.desc}</p>`))
-        .addTo(map);
-    });
-
-    map.on('load', () => {
-      const origin: [number, number] = [-102.2916, 21.8853];
-      const destination: [number, number] = [-123.1207, 49.2827];
-      const route = turf.greatCircle(turf.point(origin), turf.point(destination));
-
-      map.addSource('route', { type: 'geojson', data: route });
-      map.addLayer({
-        id: 'route-line',
-        type: 'line',
-        source: 'route',
-        layout: { 'line-join': 'round', 'line-cap': 'round' },
-        paint: { 'line-color': '#23bac2', 'line-width': 2.5, 'line-opacity': 0.7 },
-      });
-
-      map.addSource('comet', { type: 'geojson', data: turf.point(origin) });
-      map.addLayer({
-        id: 'comet-layer',
-        type: 'circle',
-        source: 'comet',
-        paint: {
-          'circle-radius': 5,
-          'circle-color': '#f43f5e',
-          'circle-blur': 0.1,
-          'circle-stroke-width': 3,
-          'circle-stroke-color': 'rgba(244, 63, 94, 0.5)',
-        },
-      });
-
-      const arcLength = turf.length(route, { units: 'kilometers' });
-      const steps = 300;
-      let counter = 0;
-      function animateComet() {
-        counter += 1;
-        if (counter >= steps) counter = 0;
-        const distance = (counter / steps) * arcLength;
-        const currentPoint = turf.along(route, distance, { units: 'kilometers' });
-        const cometSrc: any = map.getSource('comet');
-        if (cometSrc) cometSrc.setData(currentPoint);
-        requestAnimationFrame(animateComet);
-      }
-      animateComet();
-    });
-
-    map.addControl(new maplibregl.NavigationControl(), 'top-right');
-  }
-
-  // Lightbox Setup
   function initSimpleLightbox() {
     const modal = document.getElementById('kali-cert-modal');
     const modalImg = document.getElementById('cert-modal-img') as HTMLImageElement;
@@ -522,7 +464,6 @@ import { mediumPosts } from '../data/mediumPosts';
     });
   }
 
-  // Copy email
   function initCopyEmail() {
     const btn = document.getElementById('simple-copy-email-btn');
     const txt = document.getElementById('simple-copy-btn-text');
@@ -533,37 +474,44 @@ import { mediumPosts } from '../data/mediumPosts';
       try {
         await navigator.clipboard.writeText(disp.innerText.trim());
         txt.innerText = 'Copied!';
-        setTimeout(() => { txt.innerText = 'Copy'; }, 2000);
+        setTimeout(() => { txt.innerText = 'Copy Address'; }, 2000);
       } catch (e) {}
     });
   }
 
-  initSimpleMap();
   initSimpleLightbox();
   initCopyEmail();
 </script>
 
 <style>
-  .simple-page {
+  :global(html), :global(body) {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    min-height: 100% !important;
+  }
+
+  .simple-page-wrapper {
     min-height: 100vh;
-    background: #0b0e14;
+    background: #0d0f14;
     color: var(--text-primary);
-    overflow-y: auto;
+    overflow-y: visible !important;
+    position: relative;
   }
 
   .simple-header {
     position: sticky;
     top: 0;
-    background: rgba(14, 18, 27, 0.95);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border-subtle);
+    background: #14171e;
+    border-bottom: 1px solid #232732;
     z-index: 1000;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   }
 
   .simple-header-inner {
-    max-width: 1100px;
+    max-width: 1040px;
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 8px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -573,237 +521,232 @@ import { mediumPosts } from '../data/mediumPosts';
   .simple-brand {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     text-decoration: none;
     color: #fff;
   }
 
   .simple-brand-logo {
-    width: 28px;
-    height: 28px;
-    filter: drop-shadow(0 0 6px rgba(35, 186, 194, 0.5));
+    width: 22px;
+    height: 22px;
   }
 
   .simple-brand-name {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 700;
   }
 
   .simple-brand-role {
-    font-size: 0.72rem;
-    color: var(--kali-cyan);
+    font-size: 0.7rem;
+    color: #23bac2;
+    font-family: var(--font-mono);
   }
 
   .simple-nav {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
   }
 
   .simple-nav a {
-    color: var(--text-secondary);
-    font-size: 0.82rem;
+    color: #8892b0;
+    font-size: 0.8rem;
     font-weight: 500;
-    transition: color 0.2s;
+    transition: color 0.15s;
   }
 
   .simple-nav a:hover {
-    color: var(--kali-cyan);
+    color: #38bdf8;
   }
 
   .simple-header-actions {
     display: flex;
-    gap: 8px;
+    gap: 6px;
   }
 
   .btn-desktop-switch {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: 20px;
-    background: var(--kali-gradient);
-    color: #fff;
-    font-size: 0.78rem;
-    font-weight: 600;
-    box-shadow: 0 0 12px rgba(35, 186, 194, 0.4);
-    transition: transform 0.15s, opacity 0.15s;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: #23bac2;
+    color: #0b0e14;
+    font-size: 0.74rem;
+    font-weight: 700;
+    transition: opacity 0.15s;
   }
 
   .btn-desktop-switch:hover {
-    transform: translateY(-1px);
-    opacity: 0.95;
-    color: #fff;
+    opacity: 0.9;
+    color: #0b0e14;
   }
 
   .btn-resume-download {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-primary);
-    font-size: 0.78rem;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: #1e2430;
+    border: 1px solid #2d3647;
+    color: #d8dee9;
+    font-size: 0.74rem;
     font-weight: 500;
   }
 
   .btn-resume-download:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: #2a3344;
     color: #fff;
   }
 
   .simple-container {
-    max-width: 1040px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 40px 20px 80px;
+    padding: 30px 16px 80px;
   }
 
   .simple-section {
-    margin-bottom: 56px;
+    margin-bottom: 48px;
   }
 
   .simple-section-title {
-    font-size: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
     font-weight: 700;
-    color: #fff;
+    color: #61afef;
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border-subtle);
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #232834;
   }
 
-  .simple-section-title i {
-    color: var(--kali-cyan);
+  .sec-title-icon {
+    color: #23bac2;
   }
 
   .simple-hero-card {
-    background: rgba(18, 24, 38, 0.85);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: 36px;
-    box-shadow: var(--shadow-window);
+    background: #14171d;
+    border: 1px solid #232834;
+    border-radius: 3px;
+    padding: 24px;
   }
 
   .simple-status-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    background: rgba(56, 211, 159, 0.12);
-    border: 1px solid rgba(56, 211, 159, 0.3);
-    color: var(--color-green);
-    font-size: 0.78rem;
-    font-weight: 600;
-    margin-bottom: 16px;
+    gap: 6px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    background: #15221b;
+    border: 1px solid #253930;
+    color: #4ade80;
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    margin-bottom: 12px;
   }
 
   .status-indicator-dot {
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: var(--color-green);
-    box-shadow: 0 0 8px var(--color-green);
+    background: #4ade80;
   }
 
   .simple-hero-title {
-    font-size: 2.4rem;
+    font-size: 2rem;
     font-weight: 800;
     color: #fff;
-    margin-bottom: 6px;
-    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
   }
 
   .simple-hero-subtitle {
-    font-size: 1.05rem;
-    color: var(--kali-cyan);
-    font-weight: 500;
-    margin-bottom: 20px;
+    font-size: 0.95rem;
+    color: #23bac2;
+    font-family: var(--font-mono);
+    margin-bottom: 16px;
   }
 
   .simple-bio-box {
-    color: var(--text-secondary);
-    line-height: 1.75;
-    font-size: 0.98rem;
-    margin-bottom: 24px;
+    color: #abb2bf;
+    line-height: 1.65;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
 
   .simple-hero-links {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
   }
 
   .btn-simple-cta {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    border-radius: var(--radius-sm);
-    background: var(--kali-gradient);
-    color: #fff;
-    font-weight: 600;
-    font-size: 0.88rem;
-    box-shadow: 0 4px 16px rgba(35, 186, 194, 0.3);
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 3px;
+    background: #23bac2;
+    color: #0b0e14;
+    font-weight: 700;
+    font-size: 0.78rem;
   }
 
   .btn-simple-cta:hover {
-    opacity: 0.95;
-    color: #fff;
+    background: #38bdf8;
+    color: #0b0e14;
   }
 
   .btn-simple-cta.secondary {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-primary);
-    box-shadow: none;
+    background: #1e2430;
+    border: 1px solid #2d3647;
+    color: #d8dee9;
   }
 
   .btn-simple-cta.secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: #2a3344;
     color: #fff;
   }
 
   .btn-simple-social {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 10px 16px;
-    border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
-    font-size: 0.86rem;
+    gap: 5px;
+    padding: 6px 10px;
+    border-radius: 3px;
+    background: #14171e;
+    border: 1px solid #252b38;
+    color: #8892b0;
+    font-size: 0.76rem;
   }
 
   .btn-simple-social:hover {
-    background: rgba(39, 119, 255, 0.2);
-    border-color: var(--kali-blue);
+    background: #202633;
     color: #fff;
   }
 
   .simple-tools-card {
     margin-top: 16px;
-    background: rgba(20, 26, 40, 0.6);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-sm);
-    padding: 16px;
+    background: #101217;
+    border: 1px solid #1f242d;
+    border-radius: 2px;
+    padding: 10px 12px;
   }
 
   .simple-footer {
     text-align: center;
-    padding: 30px 0;
-    border-top: 1px solid var(--border-subtle);
-    font-size: 0.8rem;
-    color: var(--text-muted);
+    padding: 24px 0;
+    border-top: 1px solid #232834;
+    font-size: 0.76rem;
+    color: #5c657a;
+    font-family: var(--font-mono);
   }
 
   @media (max-width: 768px) {
@@ -812,11 +755,11 @@ import { mediumPosts } from '../data/mediumPosts';
     }
 
     .simple-hero-title {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
     }
 
     .simple-hero-card {
-      padding: 22px;
+      padding: 18px;
     }
   }
 </style>

@@ -3,104 +3,168 @@ import { profile, skillGroups, tools, trademarkNotice } from '../../data/profile
 ---
 
 <div class="about-app">
-  <!-- Neofetch System Information Box -->
-  <div class="neofetch-card">
-    <div class="neofetch-logo-box">
-      <img src="/brand/kali-dragon-icon.svg" alt="Kali Linux" class="neofetch-logo" />
-    </div>
+  <!-- Authentic Kali Neofetch Terminal Output -->
+  <div class="kali-neofetch-box">
+    <pre class="kali-dragon-ascii" aria-label="Kali Linux Dragon ASCII Art">
+<span class="ascii-c1">..............</span>
+            <span class="ascii-c1">..,;:ccc,.</span>
+          <span class="ascii-c1">......''';lxO.</span>
+<span class="ascii-c1">.....''''..........,:ld;</span>
+           <span class="ascii-c1">.';;;:::;,,.x,</span>
+      <span class="ascii-c1">..'''.            0Xxoc:,.  ...</span>
+  <span class="ascii-c1">....                ,ONkc;,;cokOdc',.</span>
+ <span class="ascii-c1">.                   OMo           ':</span><span class="ascii-c2">dd</span><span class="ascii-c1">o.</span>
+                    <span class="ascii-c1">dMc               :OO;</span>
+                    <span class="ascii-c1">0M.                 .:o.</span>
+                    <span class="ascii-c1">;Wd</span>
+                     <span class="ascii-c1">;XO,</span>
+                       <span class="ascii-c1">,d0Odlc;,..</span>
+                           <span class="ascii-c1">..',;:cdOOd::,.</span>
+                                    <span class="ascii-c1">.:d;.':;.</span>
+                                       <span class="ascii-c1">'d,  .'</span>
+                                         <span class="ascii-c1">;l   ..</span>
+                                          <span class="ascii-c1">.o</span>
+                                            <span class="ascii-c1">c</span>
+                                            <span class="ascii-c1">.'</span>
+                                             <span class="ascii-c1">.</span>
+    </pre>
 
-    <div class="neofetch-info">
-      <div class="neofetch-user-host">mario@kali-security-workstation</div>
-      <div class="neofetch-separator">-------------------------------</div>
-      <div class="neofetch-row"><span class="neofetch-key">OS:</span><span class="neofetch-val">Kali GNU/Linux (Mario Portfolio Edition)</span></div>
-      <div class="neofetch-row"><span class="neofetch-key">Host:</span><span class="neofetch-val">{profile.location}</span></div>
-      <div class="neofetch-row"><span class="neofetch-key">Role:</span><span class="neofetch-val">{profile.role}</span></div>
-      <div class="neofetch-row"><span class="neofetch-key">Uptime:</span><span class="neofetch-val">6+ years in IT & Security</span></div>
-      <div class="neofetch-row"><span class="neofetch-key">Cert:</span><span class="neofetch-val">CompTIA Security+ (SY0-701)</span></div>
-      <div class="neofetch-row"><span class="neofetch-key">Shell:</span><span class="neofetch-val">zsh 5.9 (x86_64-debian-linux)</span></div>
-      <div class="neofetch-row"><span class="neofetch-key">Status:</span><span class="neofetch-val" style="color: var(--color-green);">Open to SOC & Security Roles</span></div>
+    <div class="neofetch-sysinfo">
+      <div class="neofetch-header-line">
+        <span class="neofetch-user">mario</span><span class="neofetch-at">@</span><span class="neofetch-host">kali-workstation</span>
+      </div>
+      <div class="neofetch-dash-sep">-----------------------------</div>
+      <div class="neofetch-stat-row"><span class="stat-label">OS:</span><span class="stat-val">Kali GNU/Linux Rolling x86_64</span></div>
+      <div class="neofetch-stat-row"><span class="stat-label">Host:</span><span class="stat-val">{profile.location} (Canada)</span></div>
+      <div class="neofetch-stat-row"><span class="stat-label">Role:</span><span class="stat-val">{profile.role}</span></div>
+      <div class="neofetch-stat-row"><span class="stat-label">Experience:</span><span class="stat-val">6+ years in IT, Networks & Security</span></div>
+      <div class="neofetch-stat-row"><span class="stat-label">Credential:</span><span class="stat-val" style="color: #4ade80;">CompTIA Security+ (SY0-701)</span></div>
+      <div class="neofetch-stat-row"><span class="stat-label">Shell:</span><span class="stat-val">zsh 5.9 (/bin/zsh)</span></div>
+      <div class="neofetch-stat-row"><span class="stat-label">Desktop:</span><span class="stat-val">XFCE 4.18 (Theme: Kali-Dark)</span></div>
+      <div class="neofetch-stat-row"><span class="stat-label">Status:</span><span class="stat-val" style="color: #38bdf8;">Active • Available for SOC / Analyst roles</span></div>
 
-      <div class="neofetch-palette">
-        <span class="palette-block" style="background: #2777ff;"></span>
-        <span class="palette-block" style="background: #23bac2;"></span>
-        <span class="palette-block" style="background: #38d39f;"></span>
-        <span class="palette-block" style="background: #fbbf24;"></span>
-        <span class="palette-block" style="background: #f43f5e;"></span>
-        <span class="palette-block" style="background: #a855f7;"></span>
+      <!-- Kali Color Palette -->
+      <div class="neofetch-colors-row" aria-hidden="true">
+        <span class="color-tile" style="background: #1f232a;"></span>
+        <span class="color-tile" style="background: #e06c75;"></span>
+        <span class="color-tile" style="background: #98c379;"></span>
+        <span class="color-tile" style="background: #e5c07b;"></span>
+        <span class="color-tile" style="background: #61afef;"></span>
+        <span class="color-tile" style="background: #c678dd;"></span>
+        <span class="color-tile" style="background: #56b6c2;"></span>
+        <span class="color-tile" style="background: #abb2bf;"></span>
       </div>
     </div>
   </div>
 
-  <!-- Professional Bio Section -->
-  <div class="about-section">
-    <h2 class="about-section-title">
-      <i class="fa-solid fa-terminal" style="color: var(--kali-cyan);"></i>
-      <span>Professional Summary</span>
-    </h2>
-    {profile.bio.map(paragraph => (
-      <p class="about-bio-p">{paragraph}</p>
-    ))}
-  </div>
-
-  <!-- Technical Skills Section -->
-  <div class="about-section">
-    <h2 class="about-section-title">
-      <i class="fa-solid fa-microchip" style="color: var(--kali-cyan);"></i>
-      <span>Core Competencies</span>
-    </h2>
-    <div class="skills-grid">
-      {skillGroups.map(group => (
-        <div class="skill-card">
-          <h3 class="skill-card-title">{group.title}</h3>
-          <ul class="skill-list">
-            {group.items.map(item => (
-              <li class="skill-item">
-                <span class="skill-bullet">></span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+  <!-- Hardinfo Section: Bio & Summary -->
+  <div class="gtk-section-panel">
+    <div class="gtk-section-titlebar">
+      <span class="gtk-title-indicator">■</span>
+      <span>SYSTEM PROFILER — ANALYST BACKGROUND</span>
+    </div>
+    <div class="gtk-section-body">
+      {profile.bio.map(paragraph => (
+        <p class="gtk-body-paragraph">{paragraph}</p>
       ))}
     </div>
+  </div>
 
-    <!-- Approved Tools Row -->
-    <div style="margin-top: 14px;">
-      <h3 style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600;">
-        <i class="fa-solid fa-wrench" style="margin-right: 6px; color: var(--kali-cyan);"></i>
-        Hands-on Security Tools & Technologies:
-      </h3>
-      <div class="tools-wrap">
-        {tools.map(tool => (
-          <span class="tool-chip">{tool}</span>
+  <!-- Hardinfo Section: Technical Competencies -->
+  <div class="gtk-section-panel">
+    <div class="gtk-section-titlebar">
+      <span class="gtk-title-indicator">■</span>
+      <span>SECURITY MODULES & METHODOLOGIES</span>
+    </div>
+    <div class="gtk-section-body">
+      <div class="gtk-table-grid">
+        {skillGroups.map(group => (
+          <div class="gtk-table-column">
+            <div class="gtk-column-header">
+              <span style="color: #38bdf8;">[+]</span> {group.title}
+            </div>
+            <ul class="gtk-column-items">
+              {group.items.map(item => (
+                <li>
+                  <span style="color: #4ade80;">*</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
     </div>
   </div>
 
-  <!-- Quick Actions & Links -->
-  <div class="about-section">
-    <h2 class="about-section-title">
-      <i class="fa-solid fa-share-nodes" style="color: var(--kali-cyan);"></i>
-      <span>Connect & Resources</span>
-    </h2>
-    <div class="about-socials-row">
-      <a href="/resume.pdf" download={profile.resumeFileName} class="btn-social" style="background: var(--kali-gradient); border-color: transparent;">
-        <i class="fa-solid fa-file-arrow-down"></i>
-        <span>Download Resume (PDF)</span>
-      </a>
-
-      {profile.socials.map(social => (
-        <a href={social.url} target="_blank" rel="noopener" class="btn-social">
-          <i class={social.icon}></i>
-          <span>{social.label}</span>
-        </a>
-      ))}
+  <!-- Hardinfo Section: Installed Tools Inventory (Dpkg Table) -->
+  <div class="gtk-section-panel">
+    <div class="gtk-section-titlebar">
+      <span class="gtk-title-indicator">■</span>
+      <span>INSTALLED SECURITY TOOLKIT (DPKG INVENTORY)</span>
+    </div>
+    <div class="gtk-section-body">
+      <div class="gtk-inventory-table">
+        <div class="inv-header">
+          <span class="col-pkg">PACKAGE</span>
+          <span class="col-desc">ROLE & RECONNAISSANCE FUNCTION</span>
+          <span class="col-status">STATUS</span>
+        </div>
+        <div class="inv-row">
+          <span class="col-pkg">splunk-enterprise</span>
+          <span class="col-desc">SIEM log ingestion, SPL threat correlation & anomaly detection</span>
+          <span class="col-status">[INSTALLED]</span>
+        </div>
+        <div class="inv-row">
+          <span class="col-pkg">wazuh-agent</span>
+          <span class="col-desc">Endpoint telemetry, host intrusion detection (HIDS) & integrity checks</span>
+          <span class="col-status">[INSTALLED]</span>
+        </div>
+        <div class="inv-row">
+          <span class="col-pkg">wireshark-qt</span>
+          <span class="col-desc">Deep packet inspection, pcap traffic analysis & TCP handshake triage</span>
+          <span class="col-status">[INSTALLED]</span>
+        </div>
+        <div class="inv-row">
+          <span class="col-pkg">nessus-core</span>
+          <span class="col-desc">Vulnerability management, credentialed auditing & CVE prioritization</span>
+          <span class="col-status">[INSTALLED]</span>
+        </div>
+        <div class="inv-row">
+          <span class="col-pkg">openvas-scanner</span>
+          <span class="col-desc">Open-source vulnerability scanning & compliance verification</span>
+          <span class="col-status">[INSTALLED]</span>
+        </div>
+        <div class="inv-row">
+          <span class="col-pkg">nmap</span>
+          <span class="col-desc">Network exploration, service discovery & NSE vulnerability scripts</span>
+          <span class="col-status">[INSTALLED]</span>
+        </div>
+        <div class="inv-row">
+          <span class="col-pkg">python3-security</span>
+          <span class="col-desc">Automation, log parsing, custom tooling & threat triage scripting</span>
+          <span class="col-status">[INSTALLED]</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- OffSec Kali Trademark Disclaimer -->
+  <!-- GTK Dialog Action Buttons -->
+  <div class="gtk-actions-toolbar">
+    <a href="/resume.pdf" download={profile.resumeFileName} class="gtk-btn primary">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      <span>Download Resume (PDF)</span>
+    </a>
+
+    {profile.socials.map(s => (
+      <a href={s.url} target="_blank" rel="noopener" class="gtk-btn">
+        <span>{s.label}</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      </a>
+    ))}
+  </div>
+
   <footer class="trademark-notice">
-    <p>{trademarkNotice}</p>
+    {trademarkNotice}
   </footer>
 </div>

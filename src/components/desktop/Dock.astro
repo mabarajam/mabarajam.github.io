@@ -1,58 +1,58 @@
 ---
-// Dock.astro - Kali Dash-to-Dock
+// Dock.astro - Kali Plank / Dash Dock with authentic icons
 ---
 
 <nav class="dock-wrapper" aria-label="Application Dock">
   <div class="dock" id="kali-dock">
-    <button class="dock-item" data-app="about" data-tooltip="About Mario" aria-label="Open About Mario">
-      <i class="fa-solid fa-user-shield" style="color: #38bdf8;"></i>
+    <button class="dock-item" data-app="about" data-tooltip="About Mario (System)" aria-label="Open About Mario">
+      <img src="/icons/app-info.svg" alt="About" class="dock-item-icon" />
       <span class="dock-item-dot"></span>
     </button>
 
-    <button class="dock-item" data-app="projects" data-tooltip="Projects (Files)" aria-label="Open Projects">
-      <i class="fa-solid fa-folder-open" style="color: #60a5fa;"></i>
+    <button class="dock-item" data-app="projects" data-tooltip="Files (~/projects)" aria-label="Open Projects">
+      <img src="/icons/app-folder.svg" alt="Projects" class="dock-item-icon" />
       <span class="dock-item-dot"></span>
     </button>
 
     <button class="dock-item" data-app="experience" data-tooltip="Experience & Education" aria-label="Open Experience">
-      <i class="fa-solid fa-briefcase" style="color: #a78bfa;"></i>
+      <img src="/icons/app-experience.svg" alt="Experience" class="dock-item-icon" />
       <span class="dock-item-dot"></span>
     </button>
 
     <button class="dock-item" data-app="certs" data-tooltip="Certifications" aria-label="Open Certifications">
-      <i class="fa-solid fa-certificate" style="color: #fbbf24;"></i>
+      <img src="/icons/app-certs.svg" alt="Certifications" class="dock-item-icon" />
       <span class="dock-item-dot"></span>
     </button>
 
-    <button class="dock-item" data-app="blog" data-tooltip="Blog & Writeups" aria-label="Open Blog">
-      <i class="fa-solid fa-newspaper" style="color: #34d399;"></i>
+    <button class="dock-item" data-app="blog" data-tooltip="Writeups & Blog" aria-label="Open Blog">
+      <img src="/icons/app-blog.svg" alt="Blog" class="dock-item-icon" />
       <span class="dock-item-dot"></span>
     </button>
 
     <button class="dock-item" data-app="terminal" data-tooltip="Kali Terminal (zsh)" aria-label="Open Terminal">
-      <i class="fa-solid fa-terminal" style="color: #f43f5e;"></i>
+      <img src="/icons/app-terminal.svg" alt="Terminal" class="dock-item-icon" />
       <span class="dock-item-dot"></span>
     </button>
 
-    <button class="dock-item" data-app="map" data-tooltip="Interactive Route Map" aria-label="Open Map">
-      <i class="fa-solid fa-map-location-dot" style="color: #2dd4bf;"></i>
+    <button class="dock-item" data-app="map" data-tooltip="Traceroute Network Map" aria-label="Open Map">
+      <img src="/icons/app-map.svg" alt="Map" class="dock-item-icon" />
       <span class="dock-item-dot"></span>
     </button>
 
-    <button class="dock-item" data-app="contact" data-tooltip="Contact & Mail" aria-label="Open Contact">
-      <i class="fa-solid fa-envelope" style="color: #ec4899;"></i>
+    <button class="dock-item" data-app="contact" data-tooltip="Mail & Connect" aria-label="Open Contact">
+      <img src="/icons/app-mail.svg" alt="Mail" class="dock-item-icon" />
       <span class="dock-item-dot"></span>
     </button>
 
-    <button class="dock-item" data-app="resume" data-tooltip="Resume (PDF)" aria-label="Open Resume">
-      <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i>
+    <button class="dock-item" data-app="resume" data-tooltip="Document Viewer (Resume.pdf)" aria-label="Open Resume">
+      <img src="/icons/app-pdf.svg" alt="Resume" class="dock-item-icon" />
       <span class="dock-item-dot"></span>
     </button>
 
     <div class="dock-separator"></div>
 
     <a href="https://mabarajam.github.io/CompTIASecurity-Practice/" target="_blank" rel="noopener" class="dock-item" data-tooltip="Security+ Practice Lab (External)" aria-label="Open Security+ Practice Lab">
-      <i class="fa-solid fa-flask" style="color: #f59e0b;"></i>
+      <img src="/icons/app-lab.svg" alt="Labs" class="dock-item-icon" />
     </a>
   </div>
 </nav>
