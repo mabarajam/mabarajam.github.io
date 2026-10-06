@@ -1966,14 +1966,15 @@
 .boot-screen {
   position: fixed;
   inset: 0;
-  background: #000000;
-  z-index: 9999;
+  background: radial-gradient(circle at center, #10141d 0%, #080a0e 100%);
+  z-index: 9999999;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   user-select: none;
-  transition: opacity 0.3s ease-out;
+  -webkit-user-select: none;
+  transition: opacity 0.35s ease-out;
 }
 
 .boot-screen.fade-out {
@@ -1981,74 +1982,106 @@
   pointer-events: none;
 }
 
-.boot-log-view {
-  position: absolute;
-  inset: 0;
-  background: #000;
-  padding: 20px;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #d8dee9;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 3px;
-  overflow: hidden;
-}
-
-.boot-log-line {
-  display: flex;
-  gap: 10px;
-}
-
-.boot-ok-badge {
-  color: #98c379;
-  font-weight: 700;
-}
-
 .boot-splash-view {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  padding: 20px;
+  max-width: 90vw;
   z-index: 2;
 }
 
+.boot-logo-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
 .boot-logo {
-  width: 110px;
-  height: 110px;
-  margin-bottom: 16px;
+  width: 125px;
+  height: 125px;
+  filter: drop-shadow(0 0 24px rgba(35, 186, 194, 0.75));
+  animation: dragonPulse 2s ease-in-out infinite;
+}
+
+@keyframes dragonPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(35, 186, 194, 0.6)); }
+  50% { transform: scale(1.05); filter: drop-shadow(0 0 32px rgba(35, 186, 194, 0.95)); }
+}
+
+.boot-title-group {
+  margin-bottom: 22px;
 }
 
 .boot-title {
   font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  margin-bottom: 4px;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+.boot-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   letter-spacing: 0.08em;
-  color: #fff;
-  margin-bottom: 20px;
+  color: #23bac2;
+  font-weight: 600;
 }
 
 .boot-progressbar-outer {
-  width: 200px;
-  height: 3px;
-  background: #222631;
+  width: 250px;
+  max-width: 80vw;
+  height: 4px;
+  background: #191e28;
+  border: 1px solid #283142;
   border-radius: 2px;
   overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .boot-progressbar-inner {
   width: 0%;
   height: 100%;
-  background: #23bac2;
-  transition: width 0.15s ease-out;
+  background: linear-gradient(90deg, #1b8990, #23bac2, #61afef);
+  box-shadow: 0 0 8px #23bac2;
+  transition: width 0.25s ease-out;
+}
+
+.boot-status-line {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: #c8d0de;
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.boot-ok-badge {
+  color: #98c379;
+  font-weight: 700;
+  font-family: var(--font-mono);
 }
 
 .boot-skip-hint {
-  margin-top: 18px;
+  margin-top: 24px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: #5c657a;
+  letter-spacing: 0.04em;
+}
+
+.kali-dragon-mobile-badge {
+  display: none;
 }
 
 
@@ -2463,6 +2496,44 @@
 
   .kali-dragon-ascii {
     display: none;
+  }
+
+  .kali-dragon-mobile-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    background: rgba(35, 186, 194, 0.08);
+    border: 1px solid rgba(35, 186, 194, 0.28);
+    border-radius: 4px;
+  }
+
+  .mobile-dragon-img {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 10px rgba(35, 186, 194, 0.65));
+  }
+
+  .mobile-dragon-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .mobile-dragon-brand {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+  }
+
+  .mobile-dragon-meta {
+    font-size: 0.7rem;
+    color: #23bac2;
+    font-family: var(--font-mono);
   }
 
   .thunar-body-split {

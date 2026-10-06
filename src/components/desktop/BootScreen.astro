@@ -3,45 +3,41 @@
 ---
 
 <div class="boot-screen" id="kali-boot-screen">
-  <div class="boot-log-view" id="boot-log-view">
-    <div class="boot-log-line"><span class="boot-ok-badge">[  OK  ]</span><span>Started System Logging Service.</span></div>
-    <div class="boot-log-line"><span class="boot-ok-badge">[  OK  ]</span><span>Mounted /home/mario/projects.</span></div>
-    <div class="boot-log-line"><span class="boot-ok-badge">[  OK  ]</span><span>Loaded Certificates: CompTIA Security+ (SY0-701).</span></div>
-    <div class="boot-log-line"><span class="boot-ok-badge">[  OK  ]</span><span>Initialized Splunk & Wazuh Threat Monitoring.</span></div>
-    <div class="boot-log-line"><span class="boot-ok-badge">[  OK  ]</span><span>Connected node: Vancouver, BC (Current Base).</span></div>
-    <div class="boot-log-line"><span class="boot-ok-badge">[  OK  ]</span><span>Starting Kali Desktop Environment...</span></div>
-    <div class="boot-log-line"><span class="boot-ok-badge">[  OK  ]</span><span>Reached target Graphical Interface.</span></div>
-  </div>
+  <div class="boot-splash-view" id="boot-splash-view">
+    <div class="boot-logo-wrapper">
+      <img src="/brand/kali-dragon-icon.svg" alt="Kali Linux Dragon" class="boot-logo" />
+      <div class="boot-logo-glow"></div>
+    </div>
+    
+    <div class="boot-title-group">
+      <div class="boot-title">KALI LINUX • 2026.3</div>
+      <div class="boot-subtitle">MARIO BARAJAS | CYBERSECURITY WORKSTATION</div>
+    </div>
 
-  <div class="boot-splash-view" id="boot-splash-view" style="display: none;">
-    <img src="/brand/kali-dragon-icon.svg" alt="Kali Linux" class="boot-logo" />
-    <div class="boot-title">KALI LINUX • MARIO BARAJAS</div>
     <div class="boot-progressbar-outer">
       <div class="boot-progressbar-inner" id="boot-progress-bar"></div>
     </div>
-    <div class="boot-skip-hint">Press any key or click anywhere to skip</div>
+
+    <div class="boot-status-line" id="boot-status-text">
+      <span class="boot-ok-badge">[  OK  ]</span> Loading security modules...
+    </div>
+
+    <div class="boot-skip-hint">Tap anywhere to skip</div>
   </div>
 </div>
 
 <script>
   function initBootScreen() {
     const screen = document.getElementById('kali-boot-screen');
-    const logView = document.getElementById('boot-log-view');
-    const splashView = document.getElementById('boot-splash-view');
     const progressBar = document.getElementById('boot-progress-bar');
+    const statusText = document.getElementById('boot-status-text');
     if (!screen) return;
 
-    // Check if previously booted in this session, or direct deep-link or reduced motion
-    const hasBooted = sessionStorage.getItem('mario_kali_booted');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isDeepLink = window.location.pathname !== '/' && window.location.pathname !== '';
-
-    if (hasBooted || prefersReducedMotion || isDeepLink) {
+    if (prefersReducedMotion) {
       screen.style.display = 'none';
       return;
     }
-
-    sessionStorage.setItem('mario_kali_booted', 'true');
 
     let finished = false;
     const dismiss = () => {
@@ -50,32 +46,47 @@
       screen.classList.add('fade-out');
       setTimeout(() => {
         screen.style.display = 'none';
-      }, 500);
+      }, 350);
     };
 
-    // User can click or press any key to skip
+    // Skip on key or click/tap
     window.addEventListener('keydown', dismiss, { once: true });
     screen.addEventListener('click', dismiss, { once: true });
+    screen.addEventListener('touchend', dismiss, { once: true });
 
-    // Step 1: Display logs for 600ms, then switch to splash
+    // Animated boot sequence
+    const steps = [
+      { progress: '30%', text: '<span class="boot-ok-badge">[  OK  ]</span> Initializing system kernel & network stack...' },
+      { progress: '60%', text: '<span class="boot-ok-badge">[  OK  ]</span> Starting Wazuh & Splunk threat monitoring...' },
+      { progress: '85%', text: '<span class="boot-ok-badge">[  OK  ]</span> Loading CompTIA Security+ verified credentials...' },
+      { progress: '100%', text: '<span class="boot-ok-badge">[  OK  ]</span> Starting Kali Desktop Environment...' }
+    ];
+
     setTimeout(() => {
-      if (finished) return;
-      if (logView) logView.style.display = 'none';
-      if (splashView) splashView.style.display = 'flex';
+      if (progressBar) progressBar.style.width = steps[0].progress;
+      if (statusText) statusText.innerHTML = steps[0].text;
+    }, 120);
 
-      // Step 2: Animate progress bar to 100%
-      setTimeout(() => {
-        if (progressBar) progressBar.style.width = '100%';
-      }, 50);
+    setTimeout(() => {
+      if (progressBar) progressBar.style.width = steps[1].progress;
+      if (statusText) statusText.innerHTML = steps[1].text;
+    }, 450);
 
-      // Step 3: Complete and fade out
-      setTimeout(() => {
-        dismiss();
-      }, 900);
-    }, 700);
+    setTimeout(() => {
+      if (progressBar) progressBar.style.width = steps[2].progress;
+      if (statusText) statusText.innerHTML = steps[2].text;
+    }, 800);
+
+    setTimeout(() => {
+      if (progressBar) progressBar.style.width = steps[3].progress;
+      if (statusText) statusText.innerHTML = steps[3].text;
+    }, 1150);
+
+    setTimeout(() => {
+      dismiss();
+    }, 1450);
   }
 
-  // Run on page load
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initBootScreen);
   } else {
