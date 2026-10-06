@@ -417,6 +417,12 @@
   background: transparent;
 }
 
+.window:not(.is-focused) iframe,
+.window:not(.is-focused) embed,
+.window:not(.is-focused) object {
+  pointer-events: none !important;
+}
+
 /* Authentic XFCE Window Titlebar */
 .window-header {
   height: 30px;
@@ -2016,4 +2022,87 @@
   .thunar-items-grid {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   }
+}
+
+/* ==========================================================================
+   THUNAR: NAVIGABLE PLACES / VIEWS
+   ========================================================================== */
+.thunar-sidebar .sidebar-item {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  font: inherit;
+}
+
+.thunar-main-area {
+  display: flex !important;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.thunar-view {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.thunar-view.active {
+  display: flex;
+}
+
+.thunar-view[data-view="projects"] {
+  overflow: hidden;
+}
+
+.thunar-view[data-view="projects"] .mousepad-editor-pane {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.thunar-view:not([data-view="projects"]) .thunar-items-grid {
+  border-bottom: none;
+  background: #181b21;
+}
+
+button.thunar-item-card,
+a.thunar-item-card {
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+
+.thunar-item-icon-box.thumb {
+  width: 64px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f1217;
+  border: 1px solid #262c38;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.thunar-item-icon-box.thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.thunar-empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #5c657a;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  min-height: 260px;
 }

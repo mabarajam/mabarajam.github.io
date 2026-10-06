@@ -245,7 +245,8 @@ const { initialApp = 'about' } = Astro.props;
         const app = win.getAttribute('data-app') || '';
 
         // Focus on click
-        win.addEventListener('pointerdown', () => this.focusWindow(win));
+        win.addEventListener('pointerdown', () => this.focusWindow(win), { capture: true });
+        win.addEventListener('mousedown', () => this.focusWindow(win), { capture: true });
 
         // Close button
         win.querySelector('.btn-close')?.addEventListener('click', (e) => {

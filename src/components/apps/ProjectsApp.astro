@@ -1,24 +1,25 @@
 ---
 import { projects } from '../../data/projects';
+import { certificates } from '../../data/certs';
 ---
 
-<div class="thunar-file-manager">
+<div class="thunar-file-manager" id="thunar-fm">
   <!-- Thunar Navigation & Path Toolbar -->
   <div class="thunar-toolbar">
     <div class="thunar-nav-btns">
-      <button class="thunar-btn" title="Back" aria-label="Back" disabled>‹</button>
-      <button class="thunar-btn" title="Forward" aria-label="Forward" disabled>›</button>
-      <button class="thunar-btn" title="Parent Directory" aria-label="Up">^</button>
-      <button class="thunar-btn" title="Home" aria-label="Home">⌂</button>
+      <button class="thunar-btn" id="thunar-back" title="Back" aria-label="Back" disabled>‹</button>
+      <button class="thunar-btn" id="thunar-forward" title="Forward" aria-label="Forward" disabled>›</button>
+      <button class="thunar-btn" id="thunar-up" title="Parent Directory" aria-label="Up">^</button>
+      <button class="thunar-btn" id="thunar-home" title="Home" aria-label="Home">⌂</button>
     </div>
 
     <div class="thunar-path-entry">
       <img src="/icons/app-folder.svg" alt="" width="14" height="14" style="margin-right: 6px;" />
-      <span>/home/mario/projects</span>
+      <span id="thunar-path">/home/mario/projects</span>
     </div>
 
     <div class="thunar-view-btns">
-      <span class="thunar-item-counter">{projects.length} directories</span>
+      <span class="thunar-item-counter" id="thunar-counter">{projects.length} items</span>
     </div>
   </div>
 
@@ -26,141 +27,307 @@ import { projects } from '../../data/projects';
     <!-- Left Thunar Sidebar (Places) -->
     <aside class="thunar-sidebar">
       <div class="sidebar-heading">Places</div>
-      <div class="sidebar-item" data-place="home">
+      <button class="sidebar-item" data-place="home">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
         <span>Home</span>
-      </div>
-      <div class="sidebar-item active" data-place="projects">
+      </button>
+      <button class="sidebar-item active" data-place="projects">
         <img src="/icons/app-folder.svg" alt="" width="14" height="14" />
         <span>projects</span>
-      </div>
-      <div class="sidebar-item" data-place="credentials">
+      </button>
+      <button class="sidebar-item" data-place="credentials">
         <img src="/icons/app-certs.svg" alt="" width="14" height="14" />
         <span>credentials</span>
-      </div>
-      <div class="sidebar-item" data-place="labs">
+      </button>
+      <button class="sidebar-item" data-place="labs">
         <img src="/icons/app-lab.svg" alt="" width="14" height="14" />
         <span>labs</span>
-      </div>
-      <div class="sidebar-item" data-place="network">
+      </button>
+      <button class="sidebar-item" data-place="network">
         <img src="/icons/app-map.svg" alt="" width="14" height="14" />
         <span>network</span>
-      </div>
-      <div class="sidebar-item" data-place="trash">
+      </button>
+      <button class="sidebar-item" data-place="trash">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
         <span>Trash</span>
-      </div>
+      </button>
     </aside>
 
-    <!-- Main File Grid & Details View -->
     <div class="thunar-main-area">
-      <!-- Directory Grid -->
-      <div class="thunar-items-grid">
-        {projects.map((proj, idx) => (
-          <div class={`thunar-item-card ${idx === 0 ? 'selected' : ''}`} data-slug={proj.slug} tabindex="0" role="button">
-            <div class="thunar-item-icon-box">
-              <img src="/icons/app-folder.svg" alt="" width="40" height="40" />
-            </div>
-            <div class="thunar-item-title">{proj.slug}</div>
-            <div class="thunar-item-meta">{proj.badge || 'PROJECT'}</div>
-          </div>
-        ))}
+      <!-- VIEW: Home -->
+      <div class="thunar-view" data-view="home">
+        <div class="thunar-items-grid">
+          <button class="thunar-item-card" data-goto="projects">
+            <div class="thunar-item-icon-box"><img src="/icons/app-folder.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">projects</div>
+            <div class="thunar-item-meta">{projects.length} items</div>
+          </button>
+          <button class="thunar-item-card" data-goto="credentials">
+            <div class="thunar-item-icon-box"><img src="/icons/app-folder.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">credentials</div>
+            <div class="thunar-item-meta">{certificates.length} items</div>
+          </button>
+          <button class="thunar-item-card" data-goto="labs">
+            <div class="thunar-item-icon-box"><img src="/icons/app-folder.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">labs</div>
+            <div class="thunar-item-meta">2 items</div>
+          </button>
+          <button class="thunar-item-card" data-goto="network">
+            <div class="thunar-item-icon-box"><img src="/icons/app-folder.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">network</div>
+            <div class="thunar-item-meta">1 item</div>
+          </button>
+          <button class="thunar-item-card" data-open-app="blog">
+            <div class="thunar-item-icon-box"><img src="/icons/app-blog.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">writeups</div>
+            <div class="thunar-item-meta">Medium</div>
+          </button>
+          <button class="thunar-item-card" data-open-app="experience">
+            <div class="thunar-item-icon-box"><img src="/icons/app-experience.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">career_journal.log</div>
+            <div class="thunar-item-meta">LOG FILE</div>
+          </button>
+          <button class="thunar-item-card" data-open-app="about">
+            <div class="thunar-item-icon-box"><img src="/icons/app-info.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">profile.txt</div>
+            <div class="thunar-item-meta">TEXT FILE</div>
+          </button>
+          <button class="thunar-item-card" data-open-app="resume">
+            <div class="thunar-item-icon-box"><img src="/icons/app-pdf.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">Resume.pdf</div>
+            <div class="thunar-item-meta">PDF DOCUMENT</div>
+          </button>
+        </div>
       </div>
 
-      <!-- Selected Item Inspector Pane (Mousepad Text Editor View) -->
-      <div class="mousepad-editor-pane">
-        {projects.map((proj, idx) => (
-          <div class={`mousepad-document ${idx === 0 ? 'active' : ''}`} id={`readme-${proj.slug}`}>
-            <!-- Mousepad Tab Header -->
-            <div class="mousepad-tab-header">
-              <div class="mousepad-tab active">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                <span>README.md — {proj.slug}</span>
+      <!-- VIEW: Projects (grid + README preview) -->
+      <div class="thunar-view active" data-view="projects">
+        <div class="thunar-items-grid">
+          {projects.map((proj, idx) => (
+            <button class={`thunar-item-card project-card ${idx === 0 ? 'selected' : ''}`} data-slug={proj.slug}>
+              <div class="thunar-item-icon-box">
+                <img src="/icons/app-folder.svg" alt="" width="40" height="40" />
               </div>
-              {proj.badge && <span class="kali-badge">{proj.badge}</span>}
-            </div>
+              <div class="thunar-item-title">{proj.slug}</div>
+              <div class="thunar-item-meta">{proj.badge || 'PROJECT'}</div>
+            </button>
+          ))}
+        </div>
 
-            <!-- Mousepad Content Area -->
-            <div class="mousepad-text-area">
-              <div class="mousepad-line-num-gutter">
-                <span>01</span>
-                <span>02</span>
-                <span>03</span>
-                <span>04</span>
-                <span>05</span>
-                <span>06</span>
-                <span>07</span>
-                <span>08</span>
-                <span>09</span>
-                <span>10</span>
-                <span>11</span>
-                <span>12</span>
+        <div class="mousepad-editor-pane">
+          {projects.map((proj, idx) => (
+            <div class={`mousepad-document ${idx === 0 ? 'active' : ''}`} id={`readme-${proj.slug}`}>
+              <div class="mousepad-tab-header">
+                <div class="mousepad-tab active">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                  <span>README.md · {proj.slug}</span>
+                </div>
+                {proj.badge && <span class="kali-badge">{proj.badge}</span>}
               </div>
 
-              <div class="mousepad-content-body">
-                <div class="doc-h1"># {proj.title}</div>
-                {proj.summary && <div class="doc-paragraph">{proj.summary}</div>}
-
-                <div class="doc-h2">## Key Objectives & Deliverables</div>
-                <ul class="doc-bullet-list">
-                  {proj.bullets.map(b => (
-                    <li>
-                      <span class="doc-bullet-symbol">*</span>
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div class="doc-h2">## Tags & Environment</div>
-                <div class="doc-tags-wrap">
-                  {proj.tags.map(t => (
-                    <span class="gtk-tag-pill">{t}</span>
-                  ))}
+              <div class="mousepad-text-area">
+                <div class="mousepad-line-num-gutter">
+                  {Array.from({ length: 12 }, (_, i) => <span>{String(i + 1).padStart(2, '0')}</span>)}
                 </div>
 
-                {proj.links && proj.links.length > 0 && (
-                  <div class="mousepad-action-bar">
-                    {proj.links.map(l => (
-                      <a
-                        href={l.url}
-                        target={l.external ? '_blank' : '_self'}
-                        rel={l.external ? 'noopener' : ''}
-                        class="gtk-btn primary"
-                      >
-                        <span>{l.label}</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                      </a>
+                <div class="mousepad-content-body">
+                  <div class="doc-h1"># {proj.title}</div>
+                  {proj.summary && <div class="doc-paragraph">{proj.summary}</div>}
+
+                  <div class="doc-h2">## Key Objectives & Deliverables</div>
+                  <ul class="doc-bullet-list">
+                    {proj.bullets.map(b => (
+                      <li>
+                        <span class="doc-bullet-symbol">*</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div class="doc-h2">## Tags & Environment</div>
+                  <div class="doc-tags-wrap">
+                    {proj.tags.map(t => (
+                      <span class="gtk-tag-pill">{t}</span>
                     ))}
                   </div>
-                )}
+
+                  {proj.links && proj.links.length > 0 && (
+                    <div class="mousepad-action-bar">
+                      {proj.links.map(l => (
+                        <a
+                          href={l.url}
+                          target={l.external ? '_blank' : '_self'}
+                          rel={l.external ? 'noopener' : ''}
+                          class="gtk-btn primary"
+                        >
+                          <span>{l.label}</span>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+
+      <!-- VIEW: Credentials -->
+      <div class="thunar-view" data-view="credentials">
+        <div class="thunar-items-grid">
+          {certificates.map(cert => (
+            <button class="thunar-item-card" data-open-app="certs" title={`Open ${cert.title} in Ristretto`}>
+              <div class="thunar-item-icon-box thumb">
+                <img src={cert.image} alt="" loading="lazy" />
+              </div>
+              <div class="thunar-item-title">{cert.id}.png</div>
+              <div class="thunar-item-meta">{cert.title}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- VIEW: Labs -->
+      <div class="thunar-view" data-view="labs">
+        <div class="thunar-items-grid">
+          <a class="thunar-item-card" href="https://mabarajam.github.io/CompTIASecurity-Practice/" target="_blank" rel="noopener">
+            <div class="thunar-item-icon-box"><img src="/icons/app-lab.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">sec-plus-practice</div>
+            <div class="thunar-item-meta">LIVE LAB</div>
+          </a>
+          <a class="thunar-item-card" href="/blog/splunk-log-analysis-linux">
+            <div class="thunar-item-icon-box"><img src="/icons/app-blog.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">splunk-log-analysis.md</div>
+            <div class="thunar-item-meta">WALKTHROUGH</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- VIEW: Network -->
+      <div class="thunar-view" data-view="network">
+        <div class="thunar-items-grid">
+          <button class="thunar-item-card" data-open-app="map">
+            <div class="thunar-item-icon-box"><img src="/icons/app-map.svg" alt="" width="40" height="40" /></div>
+            <div class="thunar-item-title">traceroute.sh</div>
+            <div class="thunar-item-meta">SHELL SCRIPT</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW: Trash -->
+      <div class="thunar-view" data-view="trash">
+        <div class="thunar-empty-state">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#4b5263" stroke-width="1.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <span>Trash is empty</span>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  function setupThunarInteractions() {
-    const cards = document.querySelectorAll('.thunar-item-card');
-    const readmes = document.querySelectorAll('.mousepad-document');
+  const PATHS: Record<string, string> = {
+    home: '/home/mario',
+    projects: '/home/mario/projects',
+    credentials: '/home/mario/credentials',
+    labs: '/home/mario/labs',
+    network: '/home/mario/network',
+    trash: 'trash:///',
+  };
 
+  function setupThunar() {
+    const fm = document.getElementById('thunar-fm');
+    if (!fm || fm.dataset.ready === 'true') return;
+    fm.dataset.ready = 'true';
+
+    const pathEl = document.getElementById('thunar-path');
+    const counterEl = document.getElementById('thunar-counter');
+    const backBtn = document.getElementById('thunar-back') as HTMLButtonElement;
+    const fwdBtn = document.getElementById('thunar-forward') as HTMLButtonElement;
+    const upBtn = document.getElementById('thunar-up') as HTMLButtonElement;
+    const homeBtn = document.getElementById('thunar-home') as HTMLButtonElement;
+    const statusEl = fm.closest('.window')?.querySelector('.gtk-status-text') as HTMLElement | null;
+
+    let history: string[] = ['projects'];
+    let cursor = 0;
+
+    const render = (place: string) => {
+      fm.querySelectorAll<HTMLElement>('.thunar-view').forEach(v => {
+        v.classList.toggle('active', v.dataset.view === place);
+      });
+      fm.querySelectorAll<HTMLElement>('.sidebar-item').forEach(s => {
+        s.classList.toggle('active', s.dataset.place === place);
+      });
+
+      const view = fm.querySelector<HTMLElement>(`.thunar-view[data-view="${place}"]`);
+      const count = view ? view.querySelectorAll('.thunar-item-card').length : 0;
+      const label = count === 1 ? '1 item' : `${count} items`;
+
+      if (pathEl) pathEl.textContent = PATHS[place] || '/home/mario';
+      if (counterEl) counterEl.textContent = label;
+      if (statusEl) statusEl.textContent = `${label} • Free space: 84.2 GB`;
+
+      backBtn.disabled = cursor <= 0;
+      fwdBtn.disabled = cursor >= history.length - 1;
+      upBtn.disabled = place === 'home';
+    };
+
+    const navigate = (place: string) => {
+      if (history[cursor] === place) return render(place);
+      history = history.slice(0, cursor + 1);
+      history.push(place);
+      cursor = history.length - 1;
+      render(place);
+    };
+
+    // Places sidebar
+    fm.querySelectorAll<HTMLElement>('.sidebar-item').forEach(item => {
+      item.addEventListener('click', () => navigate(item.dataset.place || 'home'));
+    });
+
+    // Toolbar
+    backBtn.addEventListener('click', () => { if (cursor > 0) { cursor--; render(history[cursor]); } });
+    fwdBtn.addEventListener('click', () => { if (cursor < history.length - 1) { cursor++; render(history[cursor]); } });
+    upBtn.addEventListener('click', () => navigate('home'));
+    homeBtn.addEventListener('click', () => navigate('home'));
+
+    // Folders that navigate inside Thunar
+    fm.querySelectorAll<HTMLElement>('[data-goto]').forEach(el => {
+      el.addEventListener('click', () => navigate(el.dataset.goto || 'home'));
+    });
+
+    // Files that launch another desktop application
+    fm.querySelectorAll<HTMLElement>('[data-open-app]').forEach(el => {
+      el.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('kali:open-app', { detail: { app: el.dataset.openApp } }));
+      });
+    });
+
+    // Project selection -> README preview
+    const cards = fm.querySelectorAll<HTMLElement>('.project-card');
+    const readmes = fm.querySelectorAll<HTMLElement>('.mousepad-document');
     cards.forEach(card => {
       card.addEventListener('click', () => {
         cards.forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
-
-        const slug = card.getAttribute('data-slug');
         readmes.forEach(r => r.classList.remove('active'));
-
-        const target = document.getElementById(`readme-${slug}`);
-        if (target) target.classList.add('active');
+        document.getElementById(`readme-${card.dataset.slug}`)?.classList.add('active');
       });
     });
+
+    render('projects');
   }
 
-  setupThunarInteractions();
-  document.addEventListener('astro:after-swap', setupThunarInteractions);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupThunar);
+  } else {
+    setupThunar();
+  }
+  document.addEventListener("astro:after-swap", setupThunar);
+  window.addEventListener("kali:open-app", (e: any) => {
+    if (e.detail?.app === "projects") {
+      setTimeout(setupThunar, 50);
+    }
+  });
 </script>
