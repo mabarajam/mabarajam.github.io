@@ -28,10 +28,20 @@
 
 <script>
   function initTerminal() {
+    const container = document.getElementById('kali-terminal-component');
     const form = document.getElementById('terminal-form');
     const input = document.getElementById('terminal-cli-input') as HTMLInputElement;
     const output = document.getElementById('terminal-output-container');
-    if (!form || !input || !output) return;
+    if (!form || !input || !output || !container) return;
+
+    // Prevent duplicate binding
+    if (form.dataset.ready === 'true') return;
+    form.dataset.ready = 'true';
+
+    // Focus input on click anywhere in terminal
+    container.addEventListener('click', () => {
+      input.focus();
+    });
 
     const appendLine = (html: string, color = '') => {
       const line = document.createElement('div');
@@ -42,6 +52,34 @@
       output.scrollTop = output.scrollHeight;
     };
 
+    const cmdHistory: string[] = [];
+    let historyCursor = -1;
+
+    // Up / Down arrow history
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (cmdHistory.length === 0) return;
+        if (historyCursor === -1) {
+          historyCursor = cmdHistory.length - 1;
+        } else if (historyCursor > 0) {
+          historyCursor--;
+        }
+        input.value = cmdHistory[historyCursor] || '';
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyCursor !== -1) {
+          if (historyCursor < cmdHistory.length - 1) {
+            historyCursor++;
+            input.value = cmdHistory[historyCursor];
+          } else {
+            historyCursor = -1;
+            input.value = '';
+          }
+        }
+      }
+    });
+
     const commands: Record<string, () => void> = {
       help: () => {
         appendLine(`
@@ -51,6 +89,8 @@
   <span style="color: #98c379;">ls [dir]</span>      - List directories, projects or certificates
   <span style="color: #98c379;">skills</span>        - Technical skills & security tools list
   <span style="color: #98c379;">certs</span>         - List certifications & credentials
+  <span style="color: #98c379;">projects</span>      - Open Thunar projects directory
+  <span style="color: #98c379;">map / trace</span>   - Launch network traceroute diagnostic map
   <span style="color: #98c379;">open &lt;app&gt;</span>    - Open GUI window (about, projects, certs, map, resume, blog, contact)
   <span style="color: #98c379;">contact</span>       - Display contact channels and email
   <span style="color: #98c379;">decrypt email</span> - Execute decrypted email handshake
@@ -143,6 +183,36 @@ CompTIA Security+ (SY0-701) • Threat Detection • Splunk/Wazuh SIEM • Vulne
 `);
       },
 
+      projects: () => {
+        appendLine(`Opening projects directory in Thunar File Manager...`);
+        window.dispatchEvent(new CustomEvent('kali:open-app', { detail: { app: 'projects' } }));
+      },
+
+      map: () => {
+        appendLine(`Launching network traceroute diagnostic...`);
+        window.dispatchEvent(new CustomEvent('kali:open-app', { detail: { app: 'map' } }));
+      },
+
+      traceroute: () => {
+        appendLine(`Launching network traceroute diagnostic...`);
+        window.dispatchEvent(new CustomEvent('kali:open-app', { detail: { app: 'map' } }));
+      },
+
+      trace: () => {
+        appendLine(`Launching network traceroute diagnostic...`);
+        window.dispatchEvent(new CustomEvent('kali:open-app', { detail: { app: 'map' } }));
+      },
+
+      experience: () => {
+        appendLine(`Opening career history log...`);
+        window.dispatchEvent(new CustomEvent('kali:open-app', { detail: { app: 'experience' } }));
+      },
+
+      blog: () => {
+        appendLine(`Opening security writeups reader...`);
+        window.dispatchEvent(new CustomEvent('kali:open-app', { detail: { app: 'blog' } }));
+      },
+
       contact: () => {
         appendLine(`
 <span style="color: #61afef; font-weight: bold;">CONTACT:</span>
@@ -168,6 +238,9 @@ CompTIA Security+ (SY0-701) • Threat Detection • Splunk/Wazuh SIEM • Vulne
       const raw = input.value.trim();
       input.value = '';
       if (!raw) return;
+
+      cmdHistory.push(raw);
+      historyCursor = -1;
 
       // Echo command with prompt
       appendLine(`
@@ -211,6 +284,11 @@ Contact channel established at: <a href="mailto:Defensium@protonmail.com" style=
         return;
       }
 
+      if (cmd === './trace_route.sh' || cmd === 'trace_route.sh' || cmd === 'sh trace_route.sh') {
+        commands.map();
+        return;
+      }
+
       if (cmd === 'open') {
         const appMap: Record<string, string> = {
           about: 'about',
@@ -220,6 +298,7 @@ Contact channel established at: <a href="mailto:Defensium@protonmail.com" style=
           certificates: 'certs',
           cert: 'certs',
           map: 'map',
+          traceroute: 'map',
           experience: 'experience',
           exp: 'experience',
           resume: 'resume',
@@ -227,13 +306,16 @@ Contact channel established at: <a href="mailto:Defensium@protonmail.com" style=
           blog: 'blog',
           contact: 'contact',
           email: 'contact',
+          terminal: 'terminal',
+          term: 'terminal',
+          qterminal: 'terminal',
         };
         const targetApp = appMap[arg];
         if (targetApp) {
           appendLine(`Launching application [${targetApp}]...`);
           window.dispatchEvent(new CustomEvent('kali:open-app', { detail: { app: targetApp } }));
         } else {
-          appendLine(`Unknown window target: '${arg}'. Available apps: about, projects, certs, map, experience, blog, contact, resume.`);
+          appendLine(`Unknown window target: '${arg}'. Available apps: about, projects, certs, map, experience, blog, contact, resume, terminal.`);
         }
         return;
       }
@@ -245,6 +327,11 @@ Contact channel established at: <a href="mailto:Defensium@protonmail.com" style=
           commands.certs();
         } else if (arg === 'skills.json' || arg === 'skills') {
           commands.skills();
+        } else if (arg === 'resume.pdf' || arg === 'resume') {
+          appendLine(`[Binary PDF file] Opening in Document Viewer...`);
+          commands.resume();
+        } else if (arg === 'trace_route.sh') {
+          appendLine(`#!/bin/bash\n# ICMP Traceroute to Vancouver SOC base\ntraceroute -q 3 -w 2 49.2827,-123.1207`);
         } else {
           appendLine(`cat: ${arg || 'file'}: No such file or directory. Try 'ls' to view files.`);
         }
@@ -257,8 +344,18 @@ Contact channel established at: <a href="mailto:Defensium@protonmail.com" style=
         appendLine(`zsh: command not found: ${cmd}. Type '<span style="color: #61afef;">help</span>' for a list of commands.`, '#e06c75');
       }
     });
+
+    window.addEventListener('kali:open-app', (e: any) => {
+      if (e.detail?.app === 'terminal') {
+        setTimeout(() => input.focus(), 80);
+      }
+    });
   }
 
-  initTerminal();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTerminal);
+  } else {
+    initTerminal();
+  }
   document.addEventListener('astro:after-swap', initTerminal);
 </script>

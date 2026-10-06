@@ -444,6 +444,7 @@
 
 /* Authentic XFCE Window Titlebar */
 .window-header {
+  flex-shrink: 0;
   height: 30px;
   min-height: 30px;
   background: #20242e;
@@ -521,6 +522,7 @@
 
 /* Authentic GTK Menubar */
 .gtk-menubar {
+  flex-shrink: 0;
   height: 24px;
   min-height: 24px;
   background: #181b22;
@@ -548,11 +550,7 @@
 /* Window Body */
 .window-body {
   flex: 1;
-}
-
-.window[data-app="map"] .window-body,
-.window[data-app="resume"] .window-body {
-  overflow: hidden;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -563,8 +561,16 @@
   font-size: 0.88rem;
 }
 
+.window[data-app="terminal"] .window-body,
+.window[data-app="projects"] .window-body,
+.window[data-app="certs"] .window-body,
+.window[data-app="map"] .window-body {
+  overflow: hidden;
+}
+
 /* Authentic GTK Statusbar */
 .gtk-statusbar {
+  flex-shrink: 0;
   height: 22px;
   min-height: 22px;
   background: #14171e;
@@ -1178,14 +1184,24 @@
   color: #d8dee9;
   font-family: var(--font-mono);
   padding: 12px 14px;
+  overflow: hidden;
+  cursor: text;
 }
 
 .terminal-output {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.terminal-input-row {
+  flex-shrink: 0;
+  margin-top: 8px;
+  padding-top: 4px;
 }
 
 .terminal-line {

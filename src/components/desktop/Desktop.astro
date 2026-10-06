@@ -248,6 +248,12 @@ const { initialApp = 'about' } = Astro.props;
         win.addEventListener('pointerdown', () => this.focusWindow(win), { capture: true });
         win.addEventListener('mousedown', () => this.focusWindow(win), { capture: true });
 
+        // Ensure outer window frame never scrolls internally
+        win.addEventListener('scroll', () => {
+          if (win.scrollTop !== 0) win.scrollTop = 0;
+          if (win.scrollLeft !== 0) win.scrollLeft = 0;
+        });
+
         // Close button
         win.querySelector('.btn-close')?.addEventListener('click', (e) => {
           e.stopPropagation();
