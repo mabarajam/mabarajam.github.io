@@ -71,6 +71,55 @@
   height: 17px;
 }
 
+.topbar-window-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.topbar-taskbar-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  background: #181c24;
+  border: 1px solid #282f3d;
+  border-radius: 3px;
+  font-size: 0.74rem;
+  color: #8892b0;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.12s;
+  max-width: 190px;
+}
+
+.topbar-taskbar-tab:hover {
+  background: #202633;
+  color: #d8dee9;
+  border-color: #3b4455;
+}
+
+.topbar-taskbar-tab.active {
+  background: #1e2634;
+  border-color: #38bdf8;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.topbar-taskbar-tab.active .active-tab-dot {
+  background: #4ade80;
+}
+
+.topbar-taskbar-tab.minimized {
+  opacity: 0.55;
+}
+
+.topbar-taskbar-tab .tab-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .topbar-window-tab {
   display: inline-flex;
   align-items: center;
@@ -356,6 +405,16 @@
 .window.is-focused {
   border-color: #3b4455;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85);
+}
+
+/* Inactive window click-to-focus overlay: intercepts clicks on iframes, canvas, inputs to raise the window */
+.window:not(.is-focused)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 9999;
+  cursor: pointer;
+  background: transparent;
 }
 
 /* Authentic XFCE Window Titlebar */

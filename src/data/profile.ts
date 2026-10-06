@@ -7,8 +7,8 @@ export const profile = {
   resume: '/resume.pdf',
   resumeFileName: 'Mario_Barajas_Resume.pdf',
   bio: [
-    'Cybersecurity Analyst focused on threat detection, risk mitigation, and security compliance — with a financial services background that sharpens the ability to communicate and position security solutions effectively.',
-    'Detail-oriented and solution-driven, with growing expertise in blockchain security, smart contract vulnerabilities, and DeFi risk analysis.',
+    'Cybersecurity Analyst focused on threat detection, risk mitigation, and security compliance, with a financial services background that sharpens the ability to communicate and position security solutions effectively.',
+    'Detail oriented and solution driven, with growing expertise in blockchain security, smart contract vulnerabilities, and DeFi risk analysis.',
   ],
   socials: [
     { label: 'LinkedIn', icon: 'fa-brands fa-linkedin', url: 'https://www.linkedin.com/in/marioabarajas/' },

@@ -298,6 +298,7 @@ const { initialApp = 'about' } = Astro.props;
       win.classList.remove('is-minimized');
       win.classList.add('is-open');
       this.focusWindow(win);
+      this.updateTopBarTabs();
 
       // Update Dock dot
       const dockBtn = document.querySelector(`.dock-item[data-app="${app}"]`);
@@ -331,6 +332,7 @@ const { initialApp = 'about' } = Astro.props;
       // Update Dock dot
       const dockBtn = document.querySelector(`.dock-item[data-app="${app}"]`);
       dockBtn?.classList.remove('is-open');
+      this.updateTopBarTabs();
 
       // If this was focused, focus next available window
       const openWins = Array.from(document.querySelectorAll('.window.is-open:not(.is-minimized)')) as HTMLElement[];
@@ -350,6 +352,7 @@ const { initialApp = 'about' } = Astro.props;
       if (!win) return;
       win.classList.add('is-minimized');
       win.classList.remove('is-focused');
+      this.updateTopBarTabs();
     }
 
     public toggleApp(app: string) {
@@ -373,11 +376,43 @@ const { initialApp = 'about' } = Astro.props;
       this.topZ += 1;
       win.style.zIndex = `${this.topZ}`;
       win.classList.add('is-focused');
+      this.updateTopBarTabs();
 
       const app = win.getAttribute('data-app');
       const activeLabel = document.getElementById('topbar-active-app');
       const titleText = win.querySelector('.window-title-text')?.textContent || app;
       if (activeLabel && titleText) activeLabel.innerText = titleText;
+    }
+
+    public updateTopBarTabs() {
+      const container = document.getElementById("topbar-window-tabs");
+      if (!container) return;
+
+      const openWins = Array.from(document.querySelectorAll(".window.is-open")) as HTMLElement[];
+      container.innerHTML = "";
+
+      openWins.forEach(win => {
+        const app = win.getAttribute("data-app") || "";
+        const titleText = win.querySelector(".window-title-text")?.textContent || app;
+        const isFocused = win.classList.contains("is-focused");
+        const isMinimized = win.classList.contains("is-minimized");
+
+        const btn = document.createElement("button");
+        btn.className = `topbar-taskbar-tab ${isFocused ? "active" : ""} ${isMinimized ? "minimized" : ""}`;
+        btn.setAttribute("data-app", app);
+        btn.setAttribute("title", `Switch to ${titleText}`);
+        btn.innerHTML = `
+          <span class="active-tab-dot"></span>
+          <span class="tab-title">${titleText}</span>
+        `;
+
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          this.toggleApp(app);
+        });
+
+        container.appendChild(btn);
+      });
     }
 
     public toggleMaximize(win: HTMLElement) {
