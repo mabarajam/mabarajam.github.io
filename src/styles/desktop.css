@@ -2080,9 +2080,6 @@
   letter-spacing: 0.04em;
 }
 
-.kali-dragon-mobile-badge {
-  display: none;
-}
 
 
 /* ==========================================================================
@@ -2491,49 +2488,27 @@
   }
 
   .kali-neofetch-box {
-    grid-template-columns: 1fr;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 14px 10px !important;
+    gap: 14px !important;
   }
 
   .kali-dragon-ascii {
-    display: none;
+    display: block !important;
+    margin: 0 auto 4px auto !important;
+    font-size: clamp(0.42rem, 2.35vw, 0.56rem) !important;
+    line-height: 1.12 !important;
+    text-align: center !important;
+    white-space: pre !important;
+    color: #2777ff !important;
+    text-shadow: 0 0 10px rgba(39, 119, 255, 0.45) !important;
+    overflow: visible !important;
   }
 
-  .kali-dragon-mobile-badge {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    margin-bottom: 14px;
-    background: rgba(35, 186, 194, 0.08);
-    border: 1px solid rgba(35, 186, 194, 0.28);
-    border-radius: 4px;
-  }
-
-  .mobile-dragon-img {
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
-    filter: drop-shadow(0 0 10px rgba(35, 186, 194, 0.65));
-  }
-
-  .mobile-dragon-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .mobile-dragon-brand {
-    font-size: 0.88rem;
-    font-weight: 800;
-    color: #ffffff;
-    letter-spacing: 0.08em;
-    font-family: var(--font-mono);
-  }
-
-  .mobile-dragon-meta {
-    font-size: 0.7rem;
-    color: #23bac2;
-    font-family: var(--font-mono);
+  .neofetch-sysinfo {
+    width: 100% !important;
   }
 
   .thunar-body-split {
